@@ -1,0 +1,8 @@
+.user-account-page {
+    display: flex;
+    margin: 5rem;
+}
+
+.form-group {
+    margin-right: 3rem;
+}
