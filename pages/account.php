@@ -7,21 +7,46 @@ $pageTitle = "User Account";
 $pagename = 'account';
 include '../includes/header.php';
 include '../includes/functions.php';
+
 // Fetch user data from the database
 $userId = $_SESSION['user_id']; // Assume user is logged in
 $userData = getUserData($userId); // Implement this function to fetch user data
+
+// Fetch personal account data
+$personData = getPersonData($userId); // Implement this function to fetch personal data if user is a person
+
+// Fetch company account data
+$companyData = getCompanyData($userId); // Implement this function to fetch company data if user is a company
 ?>
 
 <div class="container user-account-page">
     <div class="user-profile">
         <h2>User:</h2>
         <div class="profile-image">
-            <img src="<?php echo $userData['profile_image'] ?? '/assets/images/default-avatar.png'; ?>" alt="User Avatar">
+            <img src="<?php echo $personData['profile_image'] ?? '/assets/images/default-avatar.png'; ?>" alt="User Avatar">
         </div>
-        <h3>Bio:</h3>
-        <p><?php echo htmlspecialchars($userData['qualification']); ?></p>
-        <h3>Achievement:</h3>
-        <p><?php echo htmlspecialchars($userData['year_of_experience']); ?></p>
+        
+        <?php if ($personData): ?>
+            <h3>Bio:</h3>
+            <p><?php echo htmlspecialchars($personData['qualification']); ?></p>
+            <h3>Experience:</h3>
+            <p><?php echo htmlspecialchars($personData['year_of_experience']); ?> years</p>
+            <h3>Location:</h3>
+            <p><?php echo htmlspecialchars($personData['location'] . ', ' . $personData['city'] . ', ' . $personData['country'] . ' - ' . $personData['zip_code']); ?></p>
+            <h3>Portfolio:</h3>
+            <p><a href="<?php echo htmlspecialchars($personData['portfolio_link']); ?>" target="_blank"><?php echo htmlspecialchars($personData['portfolio_link']); ?></a></p>
+            <h3>CV:</h3>
+            <p><a href="<?php echo htmlspecialchars($personData['cv_link']); ?>" target="_blank">Download CV</a></p>
+        <?php endif; ?>
+
+        <?php if ($companyData): ?>
+            <h3>Company Name:</h3>
+            <p><?php echo htmlspecialchars($companyData['company_name']); ?></p>
+            <h3>Website:</h3>
+            <p><a href="<?php echo htmlspecialchars($companyData['website_link']); ?>" target="_blank"><?php echo htmlspecialchars($companyData['website_link']); ?></a></p>
+            <h3>Address:</h3>
+            <p><?php echo htmlspecialchars($companyData['address']); ?></p>
+        <?php endif; ?>
     </div>
     
     <div class="account-info-section">
@@ -32,10 +57,13 @@ $userData = getUserData($userId); // Implement this function to fetch user data
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($userData['username']); ?>" readonly>
                 </div>
+                <?php if($_SESSION['account_type'] == 'personal') : ?>
                 <div class="form-group">
                     <label for="full_name">Full Name:</label>
-                    <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($userData['full_name']); ?>" readonly>
+                    <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($personData['full_name']); ?>" readonly>
                 </div>
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label for="phone">Phone number:</label>
                     <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($userData['phone_number']); ?>">
@@ -73,3 +101,4 @@ $userData = getUserData($userId); // Implement this function to fetch user data
 </div>
 
 <?php include '../includes/footer.php'; ?>
+

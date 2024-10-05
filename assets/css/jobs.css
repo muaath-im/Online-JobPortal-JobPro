@@ -102,7 +102,74 @@ td a:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
+
 }
+
+/* General Form Styles */
+#editJobForm {
+    max-width: 600px; /* Max width of the form */
+    margin: 20px auto; /* Center the form horizontally */
+    padding: 20px; /* Inner padding */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #ffffff; /* White background */
+}
+
+/* Label Styles */
+#editJobForm label {
+    display: block; /* Block display for full-width labels */
+    margin-bottom: 8px; /* Space below labels */
+    font-weight: bold; /* Bold labels */
+}
+
+/* Input and Textarea Styles */
+#editJobForm input[type="text"],
+#editJobForm input[type="number"],
+#editJobForm textarea {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Inner padding */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    box-sizing: border-box; /* Box sizing for consistent width */
+}
+
+/* Textarea Specific Styles */
+#editJobForm textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px; /* Minimum height for textarea */
+}
+
+/* Button Styles */
+#editJobForm button {
+    padding: 10px 15px; /* Padding inside button */
+    background-color: #28a745; /* Green background */
+    color: #ffffff; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background change */
+}
+
+/* Button Hover Effect */
+#editJobForm button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    #editJobForm {
+        padding: 15px; /* Less padding on small screens */
+    }
+
+    #editJobForm button {
+        width: 100%; /* Full width button on small screens */
+    }
+}
+
 
 /* Responsive design */
 @media screen and (max-width: 768px) {

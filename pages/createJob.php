@@ -74,6 +74,8 @@ include '../includes/header.php';
             <textarea id="job-description" name="job_description" rows="5" required></textarea>
         </div>
         <button type="submit" class="submit-button">Post</button>
+        <!-- the button on click redirects to jobs.php -->
+         <button type="button" style="margin-top:1rem" class="submit-button" onclick="window.location.href='jobs.php'">See <?=$_SESSION['username']?>'s Jobs</button>
     </form>
 </div>
 

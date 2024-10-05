@@ -1,30 +1,21 @@
 <?php
-// Update the existing file (let's assume it's jobs.php)
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $pageTitle = "Jobs You Posted";
 $pagename = "jobs";
 require_once '../includes/dbconnect.php';
+require_once '../includes/functions.php';
 
 // Check if the user is logged in and is a company
 if (!isset($_SESSION['user_id']) || $_SESSION['account_type'] !== 'company') {
- header('Location: login.php');
-exit();
+    header('Location: login.php');
+    exit();
 }
+
+// Fetch jobs for the company
 $company_id = $_SESSION['company_id'];
-// Fetch jobs posted by this company
-$query = "SELECT j.id, j.job_title, j.job_description, j.min_salary, j.max_salary, j.job_location, j.created_at
-FROM jobs j
-WHERE j.company_id = ?
-ORDER BY j.created_at DESC";
-$stmt = $mysqli->prepare($query);
-$stmt->bind_param('i', $company_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$jobs = $result->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
-$mysqli->close();
+$jobs = getCompanyJobs($company_id);
 
 include '../includes/header.php';
 ?>
@@ -53,7 +44,7 @@ include '../includes/header.php';
                         <td><?= date('M d, Y', strtotime($job['created_at'])) ?></td>
                         <td>
                             <button onclick="openEditPopup(<?= $job['id'] ?>)">Edit</button>
-                            <a href="/jobpro/api/delete_job.php?id=<?= $job['id'] ?>" onclick="return confirm('Are you sure you want to delete this job?');">Delete</a>
+                            <button onclick="deleteJob(<?= $job['id'] ?>)">Delete</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -92,18 +83,32 @@ include '../includes/header.php';
 
 <script>
 function openEditPopup(jobId) {
-    // Fetch job details and populate the form
-    fetch(`/jobpro/api/get_job_details.php?id=${jobId}`)
-        .then(response => response.json())
+    console.log("Job ID to fetch:", jobId);
+    fetch(`/jobpro/api/get_job_details.php?id=${jobId}&_=${new Date().getTime()}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log("Fetched data:", data);
+            // Adjusting the response check based on current data structure
+            if (!data.id) {
+                throw new Error("Job details not found");
+            }
+            // Populate the form with job details
             document.getElementById('editJobId').value = data.id;
             document.getElementById('editJobTitle').value = data.job_title;
             document.getElementById('editJobDescription').value = data.job_description;
             document.getElementById('editMinSalary').value = data.min_salary;
             document.getElementById('editMaxSalary').value = data.max_salary;
             document.getElementById('editJobLocation').value = data.job_location;
-            
             document.getElementById('editJobPopup').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching job details:', error);
+            alert('Error fetching job details: ' + error.message);
         });
 }
 
@@ -125,13 +130,37 @@ document.getElementById('editJobForm').addEventListener('submit', function(e) {
         if (data.success) {
             alert('Job updated successfully!');
             closeEditPopup();
-            location.reload(); // Reload the page to show updated data
+            location.reload();
         } else {
             alert('Error updating job: ' + data.message);
         }
     });
 });
-</script>
 
+function deleteJob(jobId) {
+    if (confirm('Are you sure you want to delete this job?')) {
+        fetch('/jobpro/api/delete_job.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `job_id=${jobId}` // Send job_id in the request body
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload(); // Reload the page to show updated data
+            } else {
+                alert('Error deleting job: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the job.');
+        });
+    }
+}
+</script>
 
 <?php include '../includes/footer.php'; ?>

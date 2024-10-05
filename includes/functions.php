@@ -16,27 +16,29 @@ function getCompanyJobs($companyId) {
     return $jobs;
 }
 
+function getPersonData($userId) {
+    global $mysqli; // Use the global database connection
+    $stmt = $mysqli->prepare("SELECT * FROM person WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc(); // Returns the row as an associative array
+}
+
+function getCompanyData($userId) {
+    global $mysqli; // Use the global database connection
+    $stmt = $mysqli->prepare("SELECT * FROM company WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc(); // Returns the row as an associative array
+}
+
 function getUserData($userId) {
     global $mysqli;
     
     $stmt = $mysqli->prepare("
-        SELECT 
-            person.user_id, 
-            full_name, 
-            qualification, 
-            year_of_experience, 
-            location, 
-            city, 
-            zip_code, 
-            country, 
-            portfolio_link, 
-            cv_link, 
-            user.username,
-            phone_number,
-            email
-        FROM person 
-        JOIN user ON person.user_id = user.user_id 
-        WHERE person.user_id = ?
+        SELECT * FROM user WHERE user_id = ?
     ");
     $stmt->bind_param('i', $userId);
     $stmt->execute();
