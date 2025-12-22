@@ -22,7 +22,7 @@ $query = "UPDATE jobs
           SET job_title = ?, job_description = ?, min_salary = ?, max_salary = ?, job_location = ? 
           WHERE id = ? AND company_id = ?";
 $stmt = $mysqli->prepare($query);
-$stmt->bind_param('ssiiiii', $job_title, $job_description, $min_salary, $max_salary, $job_location, $job_id, $company_id);
+$stmt->bind_param('ssddsii', $job_title, $job_description, $min_salary, $max_salary, $job_location, $job_id, $company_id);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Job updated successfully']);

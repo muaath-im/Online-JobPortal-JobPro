@@ -3,6 +3,7 @@ session_start();
 $pageTitle = "Login to Your Account";
 $pagename = 'login';
 include '../includes/header.php';
+// var_dump($_SESSION['user_id']);
 ?>
 <div class="container">
     <div class="login-container">

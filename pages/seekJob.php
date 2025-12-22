@@ -2,6 +2,9 @@
 session_start();
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
+// Hide errors from being displayed to the user
+ini_set('display_errors', 0);
+error_reporting(0);
 
 $pageTitle = "Want a Job";
 $pagename = "seekJob";
@@ -32,7 +35,7 @@ $user_id = $_SESSION['user_id'];
                 ?>
                 <div class="job-card">
                     <div class="job-logo">
-                        <img src="<?php echo $job['logo_url']; ?>" alt="<?php echo $job['company_name']; ?> logo">
+                        <img src="<?=$job['image']?>" alt="<?php echo $job['company_name']; ?> logo">
                     </div>
                     <div class="job-info">
                         <h2><?php echo $job['job_name']; ?></h2>
@@ -69,6 +72,8 @@ $user_id = $_SESSION['user_id'];
                 <div class="application-card">
                     <p>Applied for: <?php echo $application['job_title']; ?></p>
                     <p>Applied on: <?php echo date('M d, Y', strtotime($application['applied_at'])); ?></p>
+                    <p>Cover Letter: <?php echo $application['cover_letter']; ?></p>
+                    <button class="edit-button" onclick="openEditForm(<?= $application['id'] ?>)">Edit Application</button>
                     <button class="delete-button" onclick="deleteApplication(<?= $application['id'] ?>)">Delete Application</button>
                 </div>
                 <?php
@@ -80,8 +85,19 @@ $user_id = $_SESSION['user_id'];
     </div>
 </div>
 
+<!-- Edit Application Modal -->
+<div id="editApplicationModal" style="display:none;">
+    <form id="editApplicationForm">
+        <h2>Edit Cover Letter</h2>
+        <input type="hidden" id="edit-application-id" name="application_id">
+        <label for="cover_letter">Cover Letter</label>
+        <input type="text" id="cover_letter" name="cover_letter" required>
+        <button type="submit">Update Application</button>
+        <button type="button" onclick="closeEditForm()">Cancel</button>
+    </form>
+</div>
+
 <script>
-// Apply for a job
 // Apply for a job
 function applyForJob(jobId) {
     const userId = <?= json_encode($user_id); ?>; // Get user ID from PHP
@@ -109,6 +125,48 @@ function applyForJob(jobId) {
         alert('An error occurred. Please try again.');
     });
 }
+
+// Open edit form
+function openEditForm(applicationId) {
+    // Fetch application details (replace with actual API call)
+    fetch(`/jobpro/api/getApplication.php?application_id=${applicationId}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const application = data.application;
+            document.getElementById('edit-application-id').value = application.id;
+            document.getElementById('cover_letter').value = application.cover_letter; 
+            document.getElementById('editApplicationModal').style.display = 'flex';
+        } else {
+            alert('Error fetching application details: ' + data.message);
+        }
+    });
+}
+
+// Close edit form
+function closeEditForm() {
+    document.getElementById('editApplicationModal').style.display = 'none';
+}
+
+// Handle edit application form submission
+document.getElementById('editApplicationForm').onsubmit = function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    
+    fetch('/jobpro/api/editApplication.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Application updated successfully!');
+            location.reload(); // Reload to update the application list
+        } else {
+            alert('Error updating application: ' + data.message);
+        }
+    });
+};
 
 // Delete application
 function deleteApplication(applicationId) {

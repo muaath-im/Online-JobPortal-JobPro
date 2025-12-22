@@ -1,9 +1,17 @@
 <?php
 session_start();
 $pageTitle = "Post a Job";
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
 include '../includes/header.php';
 ?>
 
+<?php if($_SESSION['account_type']=='company') :
+?>
 <div class="container post-job-page">
     <h1>Job Details:</h1>
     <form action="/jobpro/api/job_post.php" method="POST">
@@ -78,5 +86,11 @@ include '../includes/header.php';
          <button type="button" style="margin-top:1rem" class="submit-button" onclick="window.location.href='jobs.php'">See <?=$_SESSION['username']?>'s Jobs</button>
     </form>
 </div>
+<?php else :?>
+    <div class="container login-as-company">
+        <h2>Sorry, you need to be logged in as a Company to post a job.</h2>
+        <button class="submit-button" onclick="window.location.href='login.php'">Login</button>
+    </div>
+<?php endif; ?>
 
 <?php include '../includes/footer.php'; ?>

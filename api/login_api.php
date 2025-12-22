@@ -2,6 +2,8 @@
 session_start();
 require_once '../includes/dbconnect.php'; // Ensure you have the database connection
 
+$error = ''; // Initialize an error variable to hold error messages
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Collect input data
     $username = $_POST['username'];
@@ -24,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $userId;
             $_SESSION['username'] = $username;
             $_SESSION['account_type'] = $accountType;
-            if($accountType == "company"){
+
+            if ($accountType == "company") {
                 // get the company_id from the company table and store it in session
                 $stmt = $mysqli->prepare("SELECT company_id FROM company WHERE user_id = ?");
                 $stmt->bind_param('i', $userId);
@@ -33,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_result($companyId);
                 $stmt->fetch();
                 $_SESSION['company_id'] = $companyId;
-            }elseif($accountType == "personal") {
+            } elseif ($accountType == "personal") {
                 // get the person_id from the person table and store it in session
                 $stmt = $mysqli->prepare("SELECT person_id FROM person WHERE user_id = ?");
                 $stmt->bind_param('i', $userId);
@@ -46,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Redirect to the account page
             header('Location: ../pages/account.php');
-            // echo $_SESSION['user_id'];
             exit();
         } else {
             // Password is incorrect
@@ -57,7 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "No user found with that username.";
     }
 
-    // Close the statement and connection
+    // Close the statement
     $stmt->close();
+    // Close the database connection
     $mysqli->close();
+}
+
+// If there's an error, use JavaScript to alert and reload the login page
+if (!empty($error)) {
+    echo '<script type="text/javascript">
+            alert("' . addslashes($error) . '");
+            window.location.href = "/jobpro/pages/login.php"; // Adjust the path if needed
+          </script>';
+    exit();
 }

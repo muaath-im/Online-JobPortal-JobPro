@@ -10,7 +10,7 @@ include '../includes/header.php';
                 <div class="slider-content">
                     <h2>JobPro</h2>
                     <h3 id="slider-title">First slide label</h3>
-                    <p id="slider-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p id="slider-description">get perfect jobs here.</p>
                     <div class="slider-dots">
                         <span class="active" onclick="changeSlide(0)"></span>
                         <span onclick="changeSlide(1)"></span>
@@ -25,29 +25,35 @@ include '../includes/header.php';
                 <h2>User reviews:</h2>
                 <div class="review-grid">
                     <div class="review">
-                        <div class="review-avatar"></div>
+                        <div class="review-avatar">
+                            <!-- picsum image -->
+                            <img src="/jobpro/assets/images/profile1.jpg" alt="Avatar">
+                        </div>
                         <div class="review-content">
-                            <h3>Name1</h3>
+                            <h3>Alex</h3>
                             <div class="stars">★★★★☆</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat.</p>
+                            <p>This jobpro made it so easy to find jobs that matched my skills. Within a week, I landed several interviews and got hired at my dream company! Highly recommend it to job seekers.</p>
                         </div>
                     </div>
                     <div class="review">
-                        <div class="review-avatar"></div>
+                        <div class="review-avatar">
+                            <img src="/jobpro/assets/images/profile2.jpg" alt="Avatar">  
+                        </div>
                         <div class="review-content">
-                            <h3>Name2</h3>
+                            <h3>Bien</h3>
                             <div class="stars">★★★★★</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat.</p>
+                            <p>The jobpro helped me find great job opportunities, and the application process was smooth. However, notifications could be more timely. Overall, a solid platform for job hunting.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        
         <script>
-            const slides = [
-    { title: "First slide label", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-    { title: "Second slide label", description: "Praesent commodo cursus magna, vel scelerisque nisl consectetur." },
-    { title: "Third slide label", description: "Nullam id dolor id nibh ultricies vehicula ut id elit." }
+const slides = [
+    { title: "First slide label", description: "get perfect jobs here." },
+    { title: "Second slide label", description: "post your job and find perfect candidate." },
+    { title: "Third slide label", description: "we have more than 1000 success storeis." }
 ];
 
 let currentSlide = 0;
@@ -74,7 +80,7 @@ function updateSlider() {
 setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     updateSlider();
-}, 5000);
+}, 2000);
         </script>
 
 <?php include '../includes/footer.php'; ?>

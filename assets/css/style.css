@@ -1,28 +1,80 @@
 .slider {
-    background-color: #f0f0f0;
     padding: 40px 0;
     text-align: center;
     min-height: 300px;
-}
-.slider-content {
-    max-width: 600px;
+  }
+  
+  .slider-content {
+    background-image: url('/jobpro/assets/images/jobs.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 800px;
     margin: 0 auto;
-}
-.slider-dots {
+    padding: 60px 20px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    color: white;
+  }
+  
+
+  .slider-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    z-index: 1;
+  }
+  
+ 
+  .slider-content h2,
+  .slider-content h3,
+  .slider-content p,
+  .slider-content .slider-dots {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .slider-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+  
+  .slider-content h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  
+  .slider-content p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  /* Slider dots styling */
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin-top: 20px;
-}
-.slider-dots span {
-    display: inline-block;
+  }
+  
+  .slider-dots span {
     width: 12px;
     height: 12px;
-    background-color: #ccc;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    margin: 0 5px;
     cursor: pointer;
-}
-.slider-dots span.active {
-    background-color: #333;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .slider-dots span.active {
+    background-color: white;
+  }
+
 .reviews {
     padding: 40px 80px;
 }
@@ -35,13 +87,15 @@
     display: flex;
     align-items: start;
 }
-.review-avatar {
+.review-avatar img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
     background-color: #ddd;
     margin-right: 20px;
+    object-fit: cover;
 }
+
 .review-content {
     flex: 1;
 }
@@ -449,4 +503,8 @@ footer {
 
 .submit-button:hover {
     background-color: #45a049;
+}
+
+.login-as-company {
+    margin: 3rem 20rem;
 }

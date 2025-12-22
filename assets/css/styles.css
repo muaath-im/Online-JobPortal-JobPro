@@ -718,8 +718,9 @@ footer {
 }
 
 .job-logo img {
-    max-width: 100%;
-    height: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .job-info {

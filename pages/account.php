@@ -1,7 +1,8 @@
 <?php 
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
+ini_set('display_errors', 0);
+error_reporting(0);
 
 $pageTitle = "User Account";
 $pagename = 'account';
@@ -11,6 +12,10 @@ include '../includes/functions.php';
 // Fetch user data from the database
 $userId = $_SESSION['user_id']; // Assume user is logged in
 $userData = getUserData($userId); // Implement this function to fetch user data
+
+if(!isset($userId)){
+    header('Location: /jobpro/pages/login.php');
+}
 
 // Fetch personal account data
 $personData = getPersonData($userId); // Implement this function to fetch personal data if user is a person
@@ -23,7 +28,7 @@ $companyData = getCompanyData($userId); // Implement this function to fetch comp
     <div class="user-profile">
         <h2>User:</h2>
         <div class="profile-image">
-            <img src="<?php echo $personData['profile_image'] ?? '/assets/images/default-avatar.png'; ?>" alt="User Avatar">
+            <img src="/jobpro/assets/images/default-avatar.png" alt="User Avatar">
         </div>
         
         <?php if ($personData): ?>
@@ -97,6 +102,13 @@ $companyData = getCompanyData($userId); // Implement this function to fetch comp
                 <button type="submit" name="change_password" class="btn-primary">Change</button>
             </form>
         </div>
+        <!-- button to delete account -->
+         <div class="delete-account">
+            <h2>Delete Account:</h2>
+            <form action="/jobpro/api/delete_account.php" method="POST">
+                <button type="submit" name="delete_account" class="btn-danger">Delete Account</button>
+            </form>
+         </div>
     </div>
 </div>
 

@@ -1,0 +1,57 @@
+.about-us-page {
+    background-color: #f3eded3b;
+    border: #ab9e9e;
+    border-radius: 2rem;
+    padding: 20px;
+    margin: 3rem 7rem;
+}
+
+/* Team Section */
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.team-member {
+    flex: 1 1 calc(33% - 20px);
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h3 {
+    color: #007BFF;
+}
+
+.team-member p {
+    color: #333;
+}
+
+/* History Section */
+.history-section p {
+    font-style: italic;
+}
+
+/* Contact Section */
+.contact-section {
+    text-align: center;
+}
+
+.contact-section a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .team-member {
+        flex: 1 1 100%;
+    }
+}

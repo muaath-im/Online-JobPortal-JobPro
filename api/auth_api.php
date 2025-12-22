@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Commit the transaction
         $mysqli->commit();
         echo "Registration successful!";
-        header('Location: ../pages/account.php');
+        header('Location: ../pages/login.php');
     } catch (Exception $e) {
         // Rollback transaction if an error occurs
         $mysqli->rollback();

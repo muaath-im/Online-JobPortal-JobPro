@@ -6,7 +6,7 @@ require_once '../includes/dbconnect.php'; // Ensure you have the database connec
 function getUserApplications($user_id) {
     global $mysqli;  // Use the global connection
 
-    $query = "SELECT a.id, j.job_title, a.applied_at FROM applications a 
+    $query = "SELECT a.id, j.job_title, a.applied_at, a.cover_letter FROM applications a 
               JOIN jobs j ON a.job_id = j.id WHERE a.user_id = ?";
     $stmt = $mysqli->prepare($query);
 
@@ -34,7 +34,7 @@ function getJobListings() {
 
     // SQL query to fetch job details
     $stmt = $mysqli->prepare("SELECT j.id, j.job_title AS job_name, c.company_name, j.job_description AS description, 
-                              CONCAT(j.min_salary, ' - ', j.max_salary) AS salary_range, j.job_location AS location
+                              CONCAT(j.min_salary, ' - ', j.max_salary) AS salary_range, j.job_location AS location, j.image
                               FROM jobs j 
                               JOIN company c ON j.company_id = c.company_id");
 

@@ -3,8 +3,8 @@
         <div class="container">
             <div class="footer-links">
                 <a href="/jobpro/pages/contact.php">Contact Us</a>
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy and Policy</a>
+                <a href="terms.php">Terms and Conditions</a>
+                <a href="privacy.php">Privacy and Policy</a>
             </div>
             <div class="social-icons">
                 <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
