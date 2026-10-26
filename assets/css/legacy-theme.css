@@ -1,0 +1,24 @@
+/* Palette bridge only. Existing page layouts and application behavior stay intact. */
+.jp-page--legacy .jp-main { color: var(--text); background: var(--bg); }
+.jp-page--legacy .jp-main :is(h1, h2, h3, h4, label) { color: var(--text); }
+.jp-page--legacy .jp-main :is(p, .job-description, .job-location, .job-salary) { color: var(--text-muted); }
+.jp-page--legacy .jp-main a { color: var(--primary); }
+.jp-page--legacy .jp-main :is(.registration-form, .login-container, .user-profile, .account-info, .change-password, .delete-account, .job-card, .application-card, .team-member, .faq-item, .contact-info-sidebar, .popup-content, #editApplicationForm, .about-us-page, .privacy-policy-page, .terms-page) { background: var(--surface); color: var(--text); border-color: var(--border); }
+.jp-page--legacy .jp-main :is(input, select, textarea) { color: var(--text); background-color: var(--surface); border-color: var(--border); accent-color: var(--primary); }
+.jp-page--legacy .jp-main :is(input, textarea)::placeholder { color: var(--text-muted); opacity: 1; }
+.jp-page--legacy .jp-main :is(button, .button, .btn-primary, .submit-button, .login-button, .register-button, .apply-button) { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
+.jp-page--legacy .jp-main :is(button, .button, .btn-primary, .submit-button, .login-button, .register-button, .apply-button):hover { color: var(--on-primary); background: var(--primary-hover); border-color: var(--primary-hover); }
+.jp-page--legacy .jp-main :is(.btn-secondary, .form-tabs button, .google-login) { color: var(--text); background: var(--surface); border-color: var(--border); }
+.jp-page--legacy .jp-main :is(.form-tabs .active, .form-tabs button:hover, .btn-secondary:hover, .google-login:hover) { color: var(--primary); background: var(--primary-tint); border-color: var(--primary); }
+.jp-page--legacy .jp-main :is(.btn-danger, .delete-button) { color: #FFFFFF; background: var(--error); border-color: var(--error); }
+.jp-page--legacy .jp-main :is(.btn-danger, .delete-button):hover { color: #FFFFFF; background: var(--error); border-color: var(--error); text-decoration: underline; }
+.jp-page--legacy .jp-main :is(td, th, .faq-item, .popup-content) { border-color: var(--border); }
+.jp-page--legacy .jp-main td { background: var(--surface); color: var(--text); }
+.jp-page--legacy .jp-main :is(thead, th) { background: var(--primary); color: var(--on-primary); }
+.jp-page--legacy .jp-main :is(.alert, .error-message) { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-inline-start: 4px solid var(--primary); }
+.jp-page--legacy .jp-main :is(.alert-error, .error-message) { border-inline-start-color: var(--error); }
+.jp-page--legacy .jp-main .alert-success { border-inline-start-color: var(--success); }
+.jp-page--legacy .jp-main :is(.close, .eye-icon) { color: var(--text-muted); }
+.jp-page--legacy .jp-main :is(.job-rating, .stars) { color: var(--accent); }
+.jp-page--legacy .jp-main .toggle-switch { background: var(--border); }
+.jp-page--legacy .jp-main .toggle-switch:checked { background: var(--primary); }

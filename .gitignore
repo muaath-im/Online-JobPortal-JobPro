@@ -1,0 +1,4 @@
+includes/dbconnect.php
+.env
+vendor/
+*.log
