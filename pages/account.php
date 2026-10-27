@@ -1,20 +1,27 @@
 <?php 
 session_start();
 
+if (empty($_SESSION['user_id'])) {
+    header('Location: /pages/login.php');
+    exit;
+}
+
 ini_set('display_errors', 0);
 error_reporting(0);
 
 $pageTitle = "User Account";
 $pagename = 'account';
-include '../includes/header.php';
 include '../includes/functions.php';
 
 // Fetch user data from the database
 $userId = $_SESSION['user_id']; // Assume user is logged in
 $userData = getUserData($userId); // Implement this function to fetch user data
 
-if(!isset($userId)){
-    header('Location: /jobpro/pages/login.php');
+if (!$userData) {
+    unset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['account_type'], $_SESSION['person_id'], $_SESSION['company_id']);
+    $_SESSION['login_error'] = 'Your account could not be found. Please log in again.';
+    header('Location: /pages/login.php');
+    exit;
 }
 
 // Fetch personal account data
@@ -22,13 +29,14 @@ $personData = getPersonData($userId); // Implement this function to fetch person
 
 // Fetch company account data
 $companyData = getCompanyData($userId); // Implement this function to fetch company data if user is a company
+include '../includes/header.php';
 ?>
 
 <div class="container user-account-page">
     <div class="user-profile">
         <h2>User:</h2>
         <div class="profile-image">
-            <img src="/jobpro/assets/images/default-avatar.png" alt="User Avatar">
+            <img src="/assets/images/default-avatar.png" alt="User Avatar">
         </div>
         
         <?php if ($personData): ?>
@@ -57,7 +65,7 @@ $companyData = getCompanyData($userId); // Implement this function to fetch comp
     <div class="account-info-section">
         <div class="account-info">
             <h2>Account Information:</h2>
-            <form action="/jobpro/api/update_account.php" method="POST">
+            <form action="/api/update_account.php" method="POST">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($userData['username']); ?>" readonly>
@@ -79,14 +87,14 @@ $companyData = getCompanyData($userId); // Implement this function to fetch comp
                 </div>
                 <button type="submit" name="update_info" class="btn-primary">Update Info</button>
             </form>
-            <form action="logout.php" method="POST">
+            <form action="/api/logout.php?logout=true" method="POST">
                 <button type="submit" class="btn-secondary">Log out</button>
             </form>
         </div>
         
         <div class="change-password">
             <h2>Change Password:</h2>
-            <form action="/jobpro/api/change_password.php" method="POST">
+            <form action="/api/change_password.php" method="POST">
                 <div class="form-group">
                     <label for="current_password">Current Password:</label>
                     <input type="password" id="current_password" name="current_password" required>
@@ -105,7 +113,7 @@ $companyData = getCompanyData($userId); // Implement this function to fetch comp
         <!-- button to delete account -->
          <div class="delete-account">
             <h2>Delete Account:</h2>
-            <form action="/jobpro/api/delete_account.php" method="POST">
+            <form action="/api/delete_account.php" method="POST">
                 <button type="submit" name="delete_account" class="btn-danger">Delete Account</button>
             </form>
          </div>

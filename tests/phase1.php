@@ -10,10 +10,10 @@ set_error_handler(static function ($severity, $message, $file, $line) {
     throw new ErrorException($message, 0, $severity, $file, $line);
 });
 
-function renderShell(string $page, array $session = [], ?string $stylesheet = null): string
+function renderShell(string $page, array $session = [], ?string $stylesheet = null, string $base = '/jobpro'): string
 {
     $_SESSION = $session;
-    $_SERVER['SCRIPT_NAME'] = '/jobpro/pages/' . $page;
+    $_SERVER['SCRIPT_NAME'] = $base . '/pages/' . $page;
     $pageTitle = 'JobPro <test>';
     if ($stylesheet !== null) {
         $pagename = $stylesheet;
@@ -64,6 +64,10 @@ $missingPageName = renderShell('createJob.php');
 $check(!str_contains($missingPageName, '/css/.css'), 'Pages without a stylesheet name render without warnings');
 $check(!str_contains(renderShell('login.php', [], 'login'), '/css/login.css'), 'Missing legacy page stylesheets are not requested');
 $check(!str_contains(renderShell('login.php', [], '../../config'), '/css/../../'), 'Stylesheet names are restricted to local page identifiers');
+$rootHosted = renderShell('landing.php', [], 'landing', '');
+$check(str_contains($rootHosted, 'href="/assets/css/foundation.css?v='), 'Domain-root hosting resolves shared styles');
+$check(str_contains($rootHosted, 'href="/pages/register.php"') && !str_contains($rootHosted, '/jobpro/'), 'Domain-root navigation avoids the old subdirectory prefix');
+$check($guestDocument->query('//select[@aria-label="Appearance"]')->length === 1, 'Appearance control has an accessible name');
 
 $root = dirname(__DIR__);
 $localTargets = [];

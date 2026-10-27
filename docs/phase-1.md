@@ -1,91 +1,80 @@
-# Phase 1 — Design foundation, shell, and landing page
+# Phase 1 — Revised design foundation and landing page
 
-## Scope
+## Current review
 
-Implemented using the existing PHP/HTML/CSS/JavaScript stack. No database schema, authentication endpoint, or application API was changed. No Git commands were run.
+The first design was rejected and replaced on October 27, 2026. This document records Phase 1 and its startup/login repairs. The subsequently authorized Phase 2 is documented in [phase-2.md](phase-2.md). External deployment and Git actions remain deferred.
 
-- Centralized the supplied blue/amber palette in `assets/css/foundation.css`.
-- Implemented the supplied `prefers-color-scheme: dark` palette, native control color scheme, and matching logo artwork.
-- Added reusable button, link, field, input, card, badge, and alert styles.
-- Rebuilt the shared header/footer, preserving guest and signed-in PHP navigation.
-- Added current-page indicators, a skip link, visible focus states, a mobile disclosure menu, Escape-to-close with focus restoration, and reduced-motion support.
-- Rebuilt the landing page with a hero, candidate/employer entry points, explanatory steps, native FAQ disclosures, and closing call to action.
-- Replaced the old carousel, placeholder claims, unverified testimonials, dead social links, and large landing-page photos with an SVG illustration and working page links.
-- Added a palette bridge for existing page content; their layouts are not redesigned in Phase 1.
-- Avoided missing page-stylesheet requests and added modification-time versioning to stylesheet/script URLs.
+Review the current PHP application at **http://jobpro.test/**. Herd must link **D:\Projects\JobPro** directly to jobpro. The canonical landing page is **/pages/landing.php**. Use this one setup for the application.
 
-## Design system
+## What changed
 
-The canonical variables are `--primary`, `--primary-hover`, `--primary-tint`, `--accent`, `--bg`, `--surface`, `--border`, `--text`, `--text-muted`, `--success`, `--warning`, and `--error`. Their light/dark values match the supplied palette. Internal `--jp-*` aliases support the shared components.
+- Replaced the serif editorial layout and abstract hero illustration with a centered, product-focused layout using system sans-serif typography.
+- Rebuilt the compact header, active navigation treatments, account actions, briefcase brand mark, footer, and responsive spacing.
+- Kept the exact supplied blue/amber palette and its dark values.
+- Added an accessible System/Light/Dark appearance selector. An explicit choice persists in local storage; blocked storage falls back gracefully. No Windows preference is changed.
+- Added an onboarding switch for job seekers and employers. It changes explanatory content only, not authentication or the user's account type.
+- Replaced the old sections with three career-entry cards, an onboarding guide, FAQ disclosures, and a compact closing action.
+- Preserved the existing PHP account navigation, escaped output, skip link, keyboard focus states, mobile disclosure behavior, and reduced-motion support.
+- New components remain isolated behind jp- class names. Existing pages retain their layouts and receive the shared shell and palette bridge.
 
-`--on-primary` is white in light mode and dark navy in dark mode so button text remains readable. Amber surfaces use dark text. Employer panels use a subtle mixture of the accent and surface colors.
+Database configuration, credentials, and schema were preserved. The startup cleanup changes URL strings in forms, browser requests, and redirects to the domain root. Query and authentication logic are otherwise unchanged; old stored job-image prefixes are normalized when read.
 
-System UI fonts are used for body content; Georgia is used for editorial landing headings. No web-font download is needed.
+## Design foundation
 
-| Component | Classes / behavior |
-| --- | --- |
-| Container | `jp-container` — maximum 1200px with responsive gutters |
-| Button | `jp-button`; `--small`, `--outline`, and `--light` variants |
-| Secondary action | `jp-text-link` |
-| Form field | `jp-field`, `jp-input`, `jp-field__hint`; invalid state uses `aria-invalid` |
-| Surface | `jp-card` |
-| Badge | `jp-badge`, `jp-badge--accent` |
-| Feedback | `jp-alert` with success/warning/error variants; add appropriate live-region semantics when a real workflow uses them |
-| Navigation | Disclosure below or at 900px; desktop links above 900px |
+Canonical palette variables remain --primary, --primary-hover, --primary-tint, --accent, --bg, --surface, --border, --text, --text-muted, --success, --warning, and --error.
 
-The mobile links remain visible if JavaScript is unavailable. The disclosure button becomes available only after its handlers initialize. This is a navigation disclosure, not a modal; it does not trap focus.
+Light primary buttons use white text; dark primary buttons use dark navy text. Amber elements use dark text. The closing brand panel uses the supplied #2563EB with white text in either appearance.
+
+Reusable classes: jp-button and its small/outline/light variants, jp-text-link, jp-card, jp-field, jp-input, jp-field__hint, jp-badge, jp-alert, and their status variants.
+
+The mobile menu breakpoint is 1024px. It is a disclosure rather than a modal, so it does not trap focus. Without JavaScript, all navigation links and both onboarding explanations remain available; inactive interactive controls stay hidden.
 
 ## Verification
 
-Performed on the local Herd application:
+- php tests/phase1.php: **37 checks passed**, including guest/member navigation, escaped session values/title, landmarks, current-page state, missing stylesheet handling, local targets, and both root/subdirectory shell URLs. Synthetic sessions are used; these are not live authentication tests.
+- PHP syntax checks passed for the modified templates and landing page.
+- The shared JavaScript and inline appearance initializer passed syntax checks.
+- Browser geometry was checked at seven widths spanning 320–1440px in both light and dark appearance, with no horizontal page overflow.
+- Both appearances were visually reviewed. The chosen theme survived a reload.
+- Candidate/employer explanations switched using keyboard activation; exactly one panel remained visible with JavaScript enabled.
+- The mobile menu opened; Escape closed it and restored focus. The appearance selector remained accessible inside the expanded mobile navigation.
+- FAQ disclosures opened/closed with Enter; the skip link focused the single main landmark. The page has one h1 and no broken brand images.
+- No browser error logs were captured on the redesigned landing page.
+- Startup cleanup: all 36 PHP files passed syntax checks. Live Herd requests to the homepage, the previously looping `/jobpro/pages/pages/pages/landing.php` address, the login page, and the login API returned HTTP 200 without PHP/database error output. The homepage and malformed address both resolved to `/pages/landing.php`. MySQL80 was running. The landing page's stylesheets and images loaded in the browser with no horizontal overflow.
 
-- `php tests/phase1.php`: **34 checks passed**. Checks cover guest/member rendering, title and username escaping, current-page state, landmarks, local link/asset targets, missing stylesheet handling, and asset versioning. Signed-in checks use a synthetic session array, not real authentication.
-- PHP syntax checks passed for the changed templates, landing page, and test script.
-- `node --check assets/js/script.js` passed.
-- Browser geometry checks at **320, 390, 768, 900, 902, 1024, and 1440px** found no landing-page horizontal overflow.
-- Mobile navigation opened and revealed all six guest links; Escape closed it and restored button focus.
-- FAQ disclosures opened/closed with Enter; the skip link moved focus to the main landmark.
-- About, Terms, Privacy, and Login pages loaded with the new shell; the login form retained its existing endpoint. Anonymous employer navigation continued to redirect to Login.
-- The landing page has one main landmark, one h1, one current-page link, and no broken logo images.
-- Eighteen light/dark token contrast pairs were calculated and passed 4.5:1, including primary buttons, links, muted text on base surfaces, and amber badges.
-- Candidate-panel descriptions use primary text: muted text on the supplied dark primary tint calculates to approximately 4.49:1 and is unsuitable for normal-sized copy.
-- Dark appearance was visually verified using the system's current preference. Light token contrast was checked; a separate light-preference visual check remains part of manual review.
+These checks do not claim complete WCAG conformance, a security audit of the backend, or measured loading-speed improvements.
 
-These checks do not constitute a full WCAG conformance audit, a backend security audit, or a complete browser/device compatibility claim. No Lighthouse score or loading-speed improvement is claimed.
+## Screenshots
 
-## Review artifacts
+- screenshots/phase1-redesign-desktop-light.png — revised desktop hero and onboarding guide.
+- screenshots/phase1-redesign-desktop-dark.png — revised dark appearance.
+- screenshots/phase1-redesign-desktop-full.png — full revised desktop page.
+- screenshots/phase1-redesign-mobile-light.png — revised mobile light appearance.
+- screenshots/phase1-redesign-mobile-dark.png — revised mobile dark appearance.
+- screenshots/phase1-redesign-mobile-full.png — full revised mobile page.
 
-- `screenshots/phase1-before.png`: original landing capture.
-- `screenshots/phase1-desktop-dark.png`: final desktop hero at 1440px.
-- `screenshots/phase1-desktop-full.png`: final full desktop page.
-- `screenshots/phase1-mobile-dark.png`: mobile hero at 390px.
-- `screenshots/phase1-mobile-full.png`: full mobile page.
+The original baseline screenshot and current redesign screenshots are retained. Superseded rejected-design screenshots and the deployment-preview screenshot were removed.
 
-The original and final captures use different viewports; they are visual history, not a controlled performance comparison.
+## Outstanding work and boundaries
 
-## Outstanding work
+### Focused login repair
 
-Existing registration JavaScript, raw duplicate-email errors, access-control vulnerabilities, account logout form issues, and the reported signed-in company-access problem remain tracked from the audit. Phase 1 does not resolve those workflows. The header logout link still uses the existing endpoint.
+Login failures now return to the form with an escaped inline alert and preserve only the username. Empty or malformed fields are rejected; username whitespace is trimmed while password whitespace is preserved. Successful credential checks regenerate the session ID and replace stale role/profile values. Guest account requests redirect before rendering or querying account data. Google login and persistent-login controls were removed because they were unimplemented. The login form now uses the palette surface in dark appearance.
 
-Public discovery pages, authentication forms, and dashboards retain their existing layouts until their approved frontend milestones. Landing copy describes existing code paths, not completed end-to-end verification of those paths.
+Verification: `php tests/login.php` passed 10 credential/session mapping checks with synthetic hashes; the 37 shared-shell checks and syntax checks for changed PHP files also passed. Live Herd requests verified guest redirects, missing credentials, and nonexistent usernames, including session-backed inline error rendering. A read-only database check confirmed connectivity and recognized stored hash formats. No real account password was entered or changed, and successful sign-in with a real account remains unverified. Registration and password recovery need separate work.
 
-Backend validation, CSRF protection, protected uploads, configuration extraction, database changes, and deployment security must be completed before public deployment. The existing `/jobpro/` base prefix remains intentional for the current local setup.
+Follow-up root cause: the private database configuration defines `$username` and `$password` in the caller's scope. Loading it after collecting the form values overwrote the submitted credentials. The handler now uses `$submittedUsername` and `$submittedPassword`, leaving database credentials separate. The opt-in `php tests/login-http.php --run` integration test reproduced the failure before the fix and passed all 8 checks afterward: guest redirect, personal/company sign-in, session persistence, logout, and company access to the job form. It creates disposable local accounts and deletes their records afterward; existing accounts and passwords are unchanged. The user's own credentials have not been entered by the agent.
 
-## Manual review and GitHub actions
+Existing registration defects, raw duplicate-email errors, missing backend ownership checks, unsafe uploads, and the reported signed-in company access problem remain tracked. The account logout form now targets the existing logout endpoint; authenticated logout and other account workflows still need verification. The new shell does not solve those backend workflows.
 
-1. Open the local landing page. Review desktop/mobile, the menu, FAQ, footer links, and both system appearance preferences.
-2. In VS Code, click the current branch name. Create `codex/frontend-phase-1` if you do not already have a suitable feature branch. Existing uncommitted changes should remain available; do not discard them.
-3. In Source Control, review and stage only this phase's files:
-   - `README.md`
-   - `includes/header.php` and `includes/footer.php`
-   - `pages/landing.php`
-   - `assets/css/foundation.css`, `assets/css/landing.css`, and `assets/css/legacy-theme.css`
-   - `assets/js/script.js` and `assets/images/jobpro-mark.svg`
-   - `tests/phase1.php`
-   - `docs/phase-1.md` and the reviewed screenshots
-4. Keep local database credential edits and unrelated changes out of this commit. Review existing history and populated SQL data before the first public push: pushing a branch also publishes its earlier commits.
-5. After approving the diff, commit with `feat(ui): add responsive foundation and redesigned landing page`.
-6. Verify the intended GitHub remote, then use **Publish Branch / Push**. Open a pull request into `main` for a final review, even as a solo developer. Never force-push to resolve a history mismatch without examining it.
-7. After approving the pull request, merge it manually and update local `main` through VS Code.
+The application now consistently uses /pages/, /api/, and /assets/ under a project-root Herd mapping. The former relative index redirect could append pages/ repeatedly when Herd fell back to index.php for an invalid path; it now redirects to /pages/landing.php and exits.
 
-The next implementation milestone is **Frontend Phase 2: public discovery pages**. It requires explicit approval; it has not started.
+Public job discovery pages, account interfaces, and dashboards are later frontend milestones. No real search, applicant tracking, or notification functionality is implied by this landing redesign.
+
+Deployment remains deferred. The generated preview directory, exporter, deployment guide, preview-only stylesheet/test, and obsolete screenshot were removed. No application or database data was deleted.
+
+## Review gate
+
+Review the revised PHP page on desktop/mobile, test both onboarding choices and all three appearance settings, and approve or request changes. All branch creation, commits, merges, and pushes remain manual. A suggested commit after approval is: feat(ui): redesign landing experience and shared navigation.
+
+Frontend Phase 2 was subsequently authorized explicitly; see [its implementation and review gate](phase-2.md). No later milestone starts without approval.

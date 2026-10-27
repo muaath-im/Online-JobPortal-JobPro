@@ -5,13 +5,13 @@ $registerType = "Company";
 include '../includes/header.php';
 ?>
         <div class="container">
-            <form class="registration-form" action="/jobpro/api/auth_api.php" method="POST" enctype="multipart/form-data">
+            <form class="registration-form" action="/api/auth_api.php" method="POST" enctype="multipart/form-data">
                 <div class="form-tabs">
                     <?php if($registerType == "Person") : ?>
                         <button type="button" class="active">Personal Account</button>
-                        <button type="button" onclick="window.location.href='/jobpro/pages/comRegister.php'">Company Account</button>
+                        <button type="button" onclick="window.location.href='/pages/comRegister.php'">Company Account</button>
                     <?php else : ?>
-                        <button type="button" onclick="window.location.href='/jobpro/pages/register.php'">Personal Account</button>
+                        <button type="button" onclick="window.location.href='/pages/register.php'">Personal Account</button>
                         <button type="button" class="active">Company Account</button>
                     <?php endif; ?>
                 </div>
@@ -50,7 +50,7 @@ include '../includes/header.php';
                         <input type="text" id="website" name="website" placeholder="website Link">
                     </div>
                     <div class="profile-image">
-                        <img src="/api/placeholder/150/150" alt="Profile Image Placeholder">
+                        <img src="/assets/images/default-avatar.png" alt="Profile Image Placeholder">
                         <input type="file" id="profile-image" name="profile-image" accept="image/*">
                         <label for="profile-image">Choose file</label>
                     </div>

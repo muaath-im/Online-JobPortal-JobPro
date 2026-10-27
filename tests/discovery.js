@@ -1,0 +1,35 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const context = {URLSearchParams,Intl};
+vm.runInNewContext(fs.readFileSync('assets/js/discovery-core.js','utf8'),context);
+const core = context.JobProDiscovery;
+const jobs = JSON.parse(fs.readFileSync('assets/data/discovery-demo.json','utf8').replace(/^\uFEFF/,'')).jobs;
+let checks=0;
+const check=(label,test)=>{test();checks++;console.log('PASS: '+label);};
+const state = query=>core.readState(query);
+check('Catalog paginates without losing records',()=>{
+    const ids=new Set();
+    for(let page=1;page<=3;page++) core.select(jobs,state('?page='+page)).items.forEach(job=>ids.add(job.id));
+    assert.equal(ids.size,jobs.length);
+});
+check('Impossible page is clamped to the final page',()=>assert.equal(core.select(jobs,state('?page=999')).page,3));
+check('Keyword searches title, company and skills',()=>assert.ok(core.select(jobs,state('?q=php')).items.some(job=>job.title==='Backend Developer')));
+check('All keyword words must match',()=>assert.equal(core.select(jobs,state('?q=frontend+mysql')).total,0));
+check('Location search ignores case',()=>assert.equal(core.select(jobs,state('?location=COLOMBO')).total,4));
+check('Multiple employment types use OR semantics',()=>assert.equal(core.select(jobs,state('?type=Internship&type=Part-time')).total,4));
+check('Category and location combine with AND semantics',()=>assert.equal(core.select(jobs,state('?category=Design&location=Remote')).total,3));
+check('Recent-date filter excludes older roles',()=>assert.equal(core.select(jobs,state('?posted=7'),Date.parse('2026-10-27T12:00:00')).total,3));
+check('Future roles do not match a recent-date filter',()=>assert.equal(core.select([{...jobs[0],posted:'2099-01-01'}],state('?posted=7')).total,0));
+check('Empty result has no misleading range',()=>{const r=core.select(jobs,state('?q=zzzznomatch'));assert.equal(r.start,0);assert.equal(r.end,0);});
+check('Sort order uses dates rather than string order',()=>assert.equal(core.select(jobs,state('?sort=oldest')).items[0].id,1014));
+check('Title sorting is alphabetical',()=>assert.equal(core.select(jobs,state('?sort=title')).items[0].title,'Backend Developer'));
+check('Deep links preserve types, search and demo mode',()=>{
+    const original=state('?q=C%2B%2B&location=New+York&type=Full-time&type=Contract&demo=1&page=2&posted=30');
+    assert.equal(core.params(core.readState(core.params(original))),core.params(original));
+});
+check('Untrusted paging and sort parameters receive safe defaults',()=>{const r=state('?page=-4&sort=DROP&posted=x');assert.equal(r.page,1);assert.equal(r.sort,'newest');assert.equal(r.posted,'any');});
+check('Salary formatting never invents a currency',()=>assert.equal(core.salary({salaryMin:100,salaryMax:200}), '100–200'));
+check('Unspecified salary is explicit',()=>assert.equal(core.salary({salaryMin:0,salaryMax:0}),'Salary not specified'));
+check('Salary amounts retain fractional precision',()=>assert.equal(core.salary({salaryMin:100.55,salaryMax:200.75}),'100.55–200.75'));
+console.log(checks+' discovery checks passed.');

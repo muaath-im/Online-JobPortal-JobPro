@@ -1,194 +1,55 @@
 <?php
 session_start();
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-// Hide errors from being displayed to the user
-ini_set('display_errors', 0);
-error_reporting(0);
-
-$pageTitle = "Want a Job";
-$pagename = "seekJob";
-include '../includes/header.php';
-require_once '../includes/dbconnect.php';
-require_once '../api/getJobs.php';
-
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
+$pageTitle = 'Find a job — JobPro';
+$pageDescription = 'Explore job opportunities by role, location, category, and employment type.';
+include __DIR__ . '/../includes/header.php';
 ?>
-
-<div class="container want-job-page">
-    <h1>Available Jobs:</h1>
-    <div class="notification-toggle">
-        <label for="notification-switch">Notification</label>
-        <input type="checkbox" id="notification-switch" class="toggle-switch">
-    </div>
-    <div class="job-listings">
-        <?php
-        $jobListings = getJobListings();
-        if (!empty($jobListings)) {
-            foreach ($jobListings as $job) {
-                ?>
-                <div class="job-card">
-                    <div class="job-logo">
-                        <img src="<?=$job['image']?>" alt="<?php echo $job['company_name']; ?> logo">
+<div class="jp-discovery" data-discovery data-view="list" data-account-role="<?= $shellEscape($_SESSION['account_type'] ?? 'guest') ?>">
+    <section class="jp-discovery-hero">
+        <div class="jp-container">
+            <div class="jp-discovery-topline"><p class="jp-eyebrow">YOUR NEXT CHAPTER</p><a class="jp-text-link" href="/pages/applications.php">Your applications <?= $shellIcon('arrow') ?></a></div>
+            <h1>Good work starts with<br><span>the right opportunity.</span></h1>
+            <p class="jp-discovery-intro">Explore roles, find your fit, and take your next step with confidence.</p>
+            <form class="jp-search-bar" action="/pages/seekJob.php" method="get" data-search-form role="search" aria-label="Search jobs">
+                <div class="jp-search-field"><label for="job-keyword">What are you looking for?</label><input id="job-keyword" name="q" type="search" placeholder="Job title, company, or skill" maxlength="150" autocomplete="off"></div>
+                <div class="jp-search-field"><label for="job-location">Where?</label><input id="job-location" name="location" type="search" placeholder="City or location" maxlength="100" autocomplete="off"></div>
+                <button class="jp-button" type="submit">Find opportunities <?= $shellIcon('arrow') ?></button>
+            </form>
+            <div class="jp-popular"><span>Explore:</span><a href="?q=software" data-search-suggestion="software">Software</a><a href="?q=design" data-search-suggestion="design">Design</a><a href="?q=data" data-search-suggestion="data">Data</a><span class="jp-catalog-label" data-source-label>Existing job listings</span></div>
+        </div>
+    </section>
+    <div class="jp-container jp-discovery-body">
+        <div class="jp-demo-note jp-alert jp-alert--warning" data-demo-note hidden><strong>Design preview</strong> — These are fictional jobs for reviewing the interface. Applications are disabled. <a href="/pages/seekJob.php">Browse real listings</a></div>
+        <noscript><div class="jp-alert">JavaScript is required for search and filters in this frontend milestone. You can still <a href="/pages/applications.php">open the existing authenticated jobs and applications page</a>.</div></noscript>
+        <div class="jp-discovery-grid">
+            <aside class="jp-filter-sidebar" aria-label="Job filters">
+                <details class="jp-filter-panel" open>
+                    <summary>Refine your search <span aria-hidden="true">⌄</span></summary>
+                    <div class="jp-filter-content">
+                        <div class="jp-filter-heading"><span>Find your fit</span><button class="jp-reset" type="button" data-clear>Reset all</button></div>
+                        <label class="jp-filter-label" for="job-category">Job category</label>
+                        <select class="jp-input" id="job-category" data-filter="category"><option value="">All categories</option></select>
+                        <fieldset><legend>Employment type</legend><div data-type-options></div></fieldset>
+                        <label class="jp-filter-label" for="posted-within">Date posted</label>
+                        <select class="jp-input" id="posted-within" data-filter="posted"><option value="any">Any time</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select>
+                        <p class="jp-filter-help">Filters reflect the information employers have provided.</p>
                     </div>
-                    <div class="job-info">
-                        <h2><?php echo $job['job_name']; ?></h2>
-                        <h3><?php echo $job['company_name']; ?></h3>
-                        <p class="job-salary">Salary range: <?php echo $job['salary_range']; ?></p>
-                        <p class="job-description"><?php echo $job['description']; ?></p>
-                        <p class="job-location"><?php echo $job['location']; ?></p>
-                    </div>
-                    <div class="job-rating">
-                        <?php
-                        for ($i = 1; $i <= 5; $i++) {
-                            echo $i <= $job['rating'] ? '★' : '☆';
-                        }
-                        ?>
-                    </div>
-                    <button class="apply-button" onclick="applyForJob(<?= $job['id'] ?>)">Apply</button>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>No jobs available</p>";
-        }
-        ?>
-    </div>
-
-    <h2>Your Applications:</h2>
-    <div class="applications-list">
-        <?php
-        // Fetch applications for the logged-in user
-        $applications = getUserApplications($user_id); // Function to fetch user applications
-        if (!empty($applications)) {
-            foreach ($applications as $application) {
-                ?>
-                <div class="application-card">
-                    <p>Applied for: <?php echo $application['job_title']; ?></p>
-                    <p>Applied on: <?php echo date('M d, Y', strtotime($application['applied_at'])); ?></p>
-                    <p>Cover Letter: <?php echo $application['cover_letter']; ?></p>
-                    <button class="edit-button" onclick="openEditForm(<?= $application['id'] ?>)">Edit Application</button>
-                    <button class="delete-button" onclick="deleteApplication(<?= $application['id'] ?>)">Delete Application</button>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>You have not applied for any jobs yet.</p>";
-        }
-        ?>
+                </details>
+                <div class="jp-filter-callout"><span class="jp-badge">YOUR NEXT MOVE</span><h2>Bring your story<br>to the opportunity.</h2><p>Create a personal account to introduce your experience and apply for a role.</p><a class="jp-text-link" href="/pages/register.php">Create your profile <?= $shellIcon('arrow') ?></a></div>
+            </aside>
+            <section class="jp-results" aria-labelledby="results-heading" aria-busy="true" data-results>
+                <div class="jp-results-toolbar"><div><h2 id="results-heading" tabindex="-1">Explore opportunities</h2><p class="jp-result-count" role="status" aria-live="polite" data-count>Loading job listings…</p></div><div class="jp-sort"><label for="job-sort">Sort by</label><select class="jp-input" id="job-sort" data-sort><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="title">Job title A–Z</option></select></div></div>
+                <div class="jp-active-filters" aria-label="Active filters" data-active-filters></div>
+                <div class="jp-loading" data-loading aria-hidden="true"><div class="jp-skeleton"></div><div class="jp-skeleton"></div><div class="jp-skeleton"></div></div>
+                <div class="jp-state jp-alert--error" data-error hidden><span class="jp-state-symbol" aria-hidden="true">!</span><h3>We couldn’t load the opportunities.</h3><p>Check your connection and try again. Your search is kept here.</p><button class="jp-button jp-button--outline" type="button" data-retry>Try again</button></div>
+                <div class="jp-state" data-empty hidden><span class="jp-state-symbol" aria-hidden="true">⌕</span><h3>No matches this time.</h3><p>Try a broader keyword or remove a filter to see more opportunities.</p><button class="jp-button jp-button--outline" type="button" data-clear>Clear search &amp; filters</button></div>
+                <div class="jp-job-list" data-jobs></div>
+                <nav class="jp-pagination" aria-label="Job results pages" data-pagination></nav>
+                <div class="jp-results-footnote"><p>Make your next step count. Read the role details before applying.</p><a href="?demo=1">Preview the design with sample jobs</a></div>
+            </section>
+        </div>
     </div>
 </div>
-
-<!-- Edit Application Modal -->
-<div id="editApplicationModal" style="display:none;">
-    <form id="editApplicationForm">
-        <h2>Edit Cover Letter</h2>
-        <input type="hidden" id="edit-application-id" name="application_id">
-        <label for="cover_letter">Cover Letter</label>
-        <input type="text" id="cover_letter" name="cover_letter" required>
-        <button type="submit">Update Application</button>
-        <button type="button" onclick="closeEditForm()">Cancel</button>
-    </form>
-</div>
-
-<script>
-// Apply for a job
-function applyForJob(jobId) {
-    const userId = <?= json_encode($user_id); ?>; // Get user ID from PHP
-    fetch('/jobpro/api/applyJob.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            job_id: jobId, // Pass as JSON object
-            user_id: userId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Application submitted successfully!');
-            location.reload(); // Reload to update the application list
-        } else {
-            alert('Error applying for job: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    });
-}
-
-// Open edit form
-function openEditForm(applicationId) {
-    // Fetch application details (replace with actual API call)
-    fetch(`/jobpro/api/getApplication.php?application_id=${applicationId}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const application = data.application;
-            document.getElementById('edit-application-id').value = application.id;
-            document.getElementById('cover_letter').value = application.cover_letter; 
-            document.getElementById('editApplicationModal').style.display = 'flex';
-        } else {
-            alert('Error fetching application details: ' + data.message);
-        }
-    });
-}
-
-// Close edit form
-function closeEditForm() {
-    document.getElementById('editApplicationModal').style.display = 'none';
-}
-
-// Handle edit application form submission
-document.getElementById('editApplicationForm').onsubmit = function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    
-    fetch('/jobpro/api/editApplication.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Application updated successfully!');
-            location.reload(); // Reload to update the application list
-        } else {
-            alert('Error updating application: ' + data.message);
-        }
-    });
-};
-
-// Delete application
-function deleteApplication(applicationId) {
-    if (confirm('Are you sure you want to delete this application?')) {
-        fetch(`/jobpro/api/deleteApplication.php`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ application_id: applicationId }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Application deleted successfully!');
-                location.reload(); // Reload to update the application list
-            } else {
-                alert('Error deleting application: ' + data.message);
-            }
-        });
-    }
-}
-</script>
-
-<?php include '../includes/footer.php'; ?>
+<script src="<?= $shellEscape($shellAsset('assets/js/discovery-core.js')) ?>" defer></script>
+<script src="<?= $shellEscape($shellAsset('assets/js/discovery.js')) ?>" defer></script>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

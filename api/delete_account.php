@@ -19,7 +19,7 @@ if (isset($_POST['delete_account'])) {
 
     if ($stmt->affected_rows > 0) {
         // Successfully deleted the user and their related data
-        header("Location: /jobpro/pages/register.php");
+        header("Location: /pages/register.php");
         exit();
     } else {
         echo "Error deleting account.";

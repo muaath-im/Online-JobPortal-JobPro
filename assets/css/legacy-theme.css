@@ -3,7 +3,7 @@
 .jp-page--legacy .jp-main :is(h1, h2, h3, h4, label) { color: var(--text); }
 .jp-page--legacy .jp-main :is(p, .job-description, .job-location, .job-salary) { color: var(--text-muted); }
 .jp-page--legacy .jp-main a { color: var(--primary); }
-.jp-page--legacy .jp-main :is(.registration-form, .login-container, .user-profile, .account-info, .change-password, .delete-account, .job-card, .application-card, .team-member, .faq-item, .contact-info-sidebar, .popup-content, #editApplicationForm, .about-us-page, .privacy-policy-page, .terms-page) { background: var(--surface); color: var(--text); border-color: var(--border); }
+.jp-page--legacy .jp-main :is(.registration-form, .login-container, .login-form, .user-profile, .account-info, .change-password, .delete-account, .job-card, .application-card, .team-member, .faq-item, .contact-info-sidebar, .popup-content, #editApplicationForm, .about-us-page, .privacy-policy-page, .terms-page) { background: var(--surface); color: var(--text); border-color: var(--border); }
 .jp-page--legacy .jp-main :is(input, select, textarea) { color: var(--text); background-color: var(--surface); border-color: var(--border); accent-color: var(--primary); }
 .jp-page--legacy .jp-main :is(input, textarea)::placeholder { color: var(--text-muted); opacity: 1; }
 .jp-page--legacy .jp-main :is(button, .button, .btn-primary, .submit-button, .login-button, .register-button, .apply-button) { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
