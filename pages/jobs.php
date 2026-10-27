@@ -84,7 +84,7 @@ include '../includes/header.php';
 <script>
 function openEditPopup(jobId) {
     console.log("Job ID to fetch:", jobId);
-    fetch(`/jobpro/api/get_job_details.php?id=${jobId}&_=${new Date().getTime()}`)
+    fetch(`/api/get_job_details.php?id=${jobId}&_=${new Date().getTime()}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -121,7 +121,7 @@ document.getElementById('editJobForm').addEventListener('submit', function(e) {
     
     const formData = new FormData(this);
     
-    fetch('/jobpro/api/update_job.php', {
+    fetch('/api/update_job.php', {
         method: 'POST',
         body: formData
     })
@@ -139,7 +139,7 @@ document.getElementById('editJobForm').addEventListener('submit', function(e) {
 
 function deleteJob(jobId) {
     if (confirm('Are you sure you want to delete this job?')) {
-        fetch('/jobpro/api/delete_job.php', {
+        fetch('/api/delete_job.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

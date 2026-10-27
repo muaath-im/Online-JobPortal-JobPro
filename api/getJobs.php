@@ -1,6 +1,8 @@
 <?php
-session_start();
-require_once '../includes/dbconnect.php'; // Ensure you have the database connection
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+require_once __DIR__ . '/../includes/dbconnect.php';
 
 // Function to get user applications
 function getUserApplications($user_id) {
@@ -35,14 +37,23 @@ function getJobListings() {
     // SQL query to fetch job details
     $stmt = $mysqli->prepare("SELECT j.id, j.job_title AS job_name, c.company_name, j.job_description AS description, 
                               CONCAT(j.min_salary, ' - ', j.max_salary) AS salary_range, j.job_location AS location, j.image
+                              , j.job_category, j.job_type, j.min_salary, j.max_salary,
+                              j.skill_required, j.notice_period, j.joining_facility, j.created_at,
+                              c.website_link AS company_website
                               FROM jobs j 
-                              JOIN company c ON j.company_id = c.company_id");
+                              JOIN company c ON j.company_id = c.company_id
+                              ORDER BY j.created_at DESC, j.id DESC");
 
     $stmt->execute();
     $result = $stmt->get_result();
 
     // Fetch all jobs into an array
     while ($row = $result->fetch_assoc()) {
+        // The original SQL dump stores images under the old /jobpro/ mount.
+        // Normalize those public asset URLs without modifying database records.
+        if (isset($row['image']) && str_starts_with($row['image'], '/jobpro/assets/')) {
+            $row['image'] = substr($row['image'], strlen('/jobpro'));
+        }
         $jobListings[] = $row;
     }
 

@@ -1,0 +1,155 @@
+/* Public discovery uses the Phase 1 tokens without the legacy page styles. */
+.jp-page--discovery * { box-sizing: border-box; }
+.jp-discovery [hidden] { display: none !important; }
+.jp-discovery button, .jp-discovery input, .jp-discovery select { font: inherit; }
+.jp-discovery a { text-underline-offset: .2em; }
+.jp-discovery p, .jp-discovery h1, .jp-discovery h2, .jp-discovery h3 { margin-top: 0; }
+.jp-eyebrow { color: var(--primary); font-size: .72rem; letter-spacing: .13em; font-weight: 750; }
+.jp-discovery-hero { padding: 2.6rem 0 1.7rem; border-bottom: 1px solid var(--border); background: radial-gradient(ellipse at 95% 0%, var(--primary-tint), transparent 64%), var(--surface); }
+.jp-discovery-topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+.jp-discovery-topline p { margin: 0; }
+.jp-discovery-topline a { font-size: .85rem; }
+.jp-discovery-hero h1 { font-size: clamp(2rem, 3.8vw, 3.25rem); line-height: 1.14; letter-spacing: -.045em; margin-bottom: 1rem; font-weight: 750; }
+.jp-discovery-hero h1 span { color: var(--primary); }
+.jp-discovery-intro { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.8rem; }
+.jp-search-bar { display: grid; grid-template-columns: 1.3fr 1fr auto; align-items: center; gap: 1rem; padding: .65rem; background: var(--surface); border: 1px solid var(--border); border-radius: .8rem; box-shadow: 0 8px 30px #0F172A06; }
+.jp-search-field { padding: .1rem .8rem; min-width: 0; }
+.jp-search-field + .jp-search-field { border-left: 1px solid var(--border); }
+.jp-search-field label { display: block; color: var(--text); font-size: .75rem; font-weight: 700; }
+.jp-search-field input { display: block; width: 100%; padding: .4rem 0; background: transparent; color: var(--text); border: 0; border-radius: 0; font-size: .9rem; min-height: 32px; }
+.jp-search-field input::placeholder { color: var(--text-muted); opacity: 1; }
+.jp-search-bar .jp-button { min-height: 56px; }
+.jp-popular { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: 1rem; font-size: .75rem; color: var(--text-muted); }
+.jp-popular a { color: var(--text-muted); padding: .25rem .6rem; background: var(--bg); border: 1px solid var(--border); border-radius: 2rem; text-decoration: none; }
+.jp-popular a:hover { border-color: var(--primary); color: var(--primary); }
+.jp-catalog-label { margin-left: auto; display: inline-flex; align-items: center; gap: .4rem; }
+.jp-catalog-label::before { content: ''; height: 6px; width: 6px; border-radius: 50%; background: var(--primary); }
+.jp-discovery-body { padding-top: 2rem; }
+.jp-demo-note { margin-bottom: 1.5rem; font-size: .85rem; }
+.jp-demo-note a, .jp-discovery noscript a { color: var(--primary); }
+.jp-discovery-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 2rem; align-items: start; }
+.jp-filter-panel { border: 1px solid var(--border); border-radius: .8rem; background: var(--surface); overflow: hidden; }
+.jp-filter-panel summary { display: flex; justify-content: space-between; padding: 1.2rem; cursor: pointer; list-style: none; font-weight: 700; font-size: .9rem; }
+.jp-filter-panel summary::-webkit-details-marker { display: none; }
+.jp-filter-panel[open] summary { border-bottom: 1px solid var(--border); }
+.jp-filter-panel[open] summary span { transform: rotate(180deg); }
+.jp-filter-content { padding: 1.2rem; }
+.jp-filter-heading { display: flex; align-items: center; justify-content: space-between; font-size: .75rem; color: var(--text-muted); margin-bottom: 1.4rem; }
+.jp-reset { color: var(--primary); background: none; border: 0; padding: .4rem 0; cursor: pointer; font-size: .75rem !important; font-weight: 650 !important; }
+.jp-filter-label, .jp-filter-content legend { display: block; padding: 0; margin-bottom: .55rem; font-size: .8rem; color: var(--text); font-weight: 700; }
+.jp-filter-content .jp-input { width: 100%; font-size: .8rem; min-height: 43px; }
+.jp-filter-content fieldset { margin: 1.4rem 0; padding: 0; border: 0; min-width: 0; }
+.jp-check { display: flex; gap: .65rem; align-items: center; min-height: 38px; color: var(--text-muted); font-size: .83rem; cursor: pointer; }
+.jp-check input { accent-color: var(--primary); width: 16px; height: 16px; margin: 0; }
+.jp-filter-help { margin: 1.25rem 0 0; font-size: .72rem; color: var(--text-muted); line-height: 1.7; }
+.jp-filter-callout { padding: 1.4rem; margin-top: 1.2rem; border: 1px solid var(--border); border-radius: .8rem; background: var(--primary-tint); }
+.jp-filter-callout .jp-badge { font-size: .65rem; padding: 0; letter-spacing: .07em; }
+.jp-filter-callout h2 { font-size: 1.2rem; letter-spacing: -.025em; line-height: 1.35; margin: .7rem 0; }
+.jp-filter-callout p { font-size: .8rem; line-height: 1.8; color: var(--text-muted); }
+.jp-filter-callout a { font-size: .8rem; }
+.jp-results { min-width: 0; }
+.jp-results-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+.jp-results-toolbar h2 { font-size: 1.2rem; margin-bottom: .25rem; letter-spacing: -.02em; }
+.jp-result-count { margin: 0; color: var(--text-muted); font-size: .8rem; }
+.jp-sort { display: flex; align-items: center; gap: .6rem; font-size: .75rem; color: var(--text-muted); }
+.jp-sort .jp-input { min-height: 42px; font-size: .8rem; max-width: 160px; }
+.jp-active-filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.jp-filter-chip { background: var(--primary-tint); color: var(--primary); padding: .4rem .7rem; margin-bottom: 1rem; border: 1px solid var(--border); border-radius: 2rem; font-size: .75rem !important; cursor: pointer; }
+.jp-filter-chip { max-width: 100%; overflow-wrap: anywhere; white-space: normal; text-align: left; }
+.jp-job-list { display: grid; gap: 1rem; }
+.jp-opportunity { padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: .85rem; transition: border-color .15s, box-shadow .15s; min-width: 0; }
+.jp-opportunity:hover, .jp-opportunity:focus-within { border-color: var(--primary); box-shadow: 0 4px 16px #0F172A06; }
+.jp-opportunity-heading { display: flex; gap: 1rem; align-items: flex-start; }
+.jp-employer-mark { width: 48px; height: 48px; flex-shrink: 0; border: 1px solid var(--border); border-radius: .8rem; background: var(--primary-tint); color: var(--primary); display: grid; place-items: center; font-size: 1.1rem; font-weight: 800; letter-spacing: -.05em; }
+.jp-opportunity-title { min-width: 0; flex: 1; }
+.jp-opportunity-title h3 { margin: 0 0 .2rem; font-size: 1.1rem; letter-spacing: -.015em; overflow-wrap: anywhere; line-height: 1.45; }
+.jp-opportunity-title h3 a { color: var(--text); text-decoration: none; }
+.jp-opportunity-title h3 a:hover { color: var(--primary); text-decoration: underline; }
+.jp-company { font-size: .8rem; color: var(--text-muted); margin-bottom: 0; }
+.jp-posted { font-size: .7rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+.jp-job-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.jp-job-meta span { display: inline-flex; align-items: center; padding: .28rem .6rem; font-size: .72rem; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); border-radius: .35rem; overflow-wrap: anywhere; }
+.jp-opportunity-description { margin: 1rem 0; color: var(--text-muted); font-size: .85rem; line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.jp-opportunity-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.jp-salary { font-size: .85rem; font-weight: 650; }
+.jp-salary small { display: block; margin-top: .15rem; color: var(--text-muted); font-size: .68rem; font-weight: 400; }
+.jp-opportunity-footer a { font-size: .8rem; }
+.jp-pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; margin-top: 1.5rem; }
+.jp-page-link { display: inline-flex; justify-content: center; align-items: center; min-width: 40px; min-height: 40px; padding: .5rem .75rem; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); border-radius: .45rem; text-decoration: none; font-size: .8rem; }
+.jp-page-link[aria-current] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.jp-page-link:hover { border-color: var(--primary); }
+.jp-results-footnote { margin-top: 2rem; text-align: center; font-size: .75rem; color: var(--text-muted); }
+.jp-results-footnote a { color: var(--primary); }
+.jp-state { padding: 3rem 1.5rem; border: 1px solid var(--border); border-radius: .85rem; text-align: center; background: var(--surface); }
+.jp-state h3 { margin-bottom: .7rem; font-size: 1.25rem; }
+.jp-state h1 { font-size: 1.7rem; }
+.jp-state p { color: var(--text-muted); font-size: .9rem; }
+.jp-state-symbol { display: inline-grid; place-items: center; width: 46px; height: 46px; margin-bottom: 1rem; color: var(--primary); background: var(--primary-tint); border-radius: 50%; font-weight: 700; font-size: 1.4rem; }
+.jp-loading { display: grid; gap: 1rem; }
+.jp-skeleton { height: 215px; border: 1px solid var(--border); border-radius: .85rem; background: linear-gradient(110deg, var(--surface) 35%, var(--primary-tint) 50%, var(--surface) 65%); background-size: 200% 100%; animation: jp-loading 1.5s ease-in-out infinite; }
+@keyframes jp-loading { to { background-position: -200% 0; } }
+.jp-detail-page { padding-top: 2rem; }
+.jp-detail-breadcrumb { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-bottom: 2rem; font-size: .8rem; color: var(--text-muted); }
+.jp-detail-breadcrumb a { color: var(--primary); }
+.jp-detail-header { display: flex; align-items: flex-start; gap: 1.3rem; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; }
+.jp-detail-header .jp-employer-mark { width: 64px; height: 64px; font-size: 1.5rem; }
+.jp-detail-header h1 { font-size: clamp(1.7rem, 3vw, 2.4rem); letter-spacing: -.035em; line-height: 1.2; margin-bottom: .6rem; overflow-wrap: anywhere; }
+.jp-detail-header .jp-eyebrow { margin-bottom: .6rem; }
+.jp-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 1.5rem; margin-top: 1.5rem; align-items: start; }
+.jp-detail-content { display: grid; gap: 1.25rem; min-width: 0; }
+.jp-content-panel, .jp-apply-panel { padding: 1.75rem; border: 1px solid var(--border); border-radius: .85rem; background: var(--surface); }
+.jp-content-panel h2, .jp-apply-panel h2 { font-size: 1.2rem; letter-spacing: -.02em; margin-bottom: 1rem; }
+.jp-content-panel h3 { font-size: 1rem; }
+.jp-description { white-space: pre-line; overflow-wrap: anywhere; color: var(--text-muted); font-size: .92rem; line-height: 1.9; }
+.jp-content-panel > p:not(.jp-eyebrow), .jp-apply-panel > p { color: var(--text-muted); font-size: .85rem; line-height: 1.8; }
+.jp-job-facts { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 0; }
+.jp-job-facts div { min-width: 0; }
+.jp-job-facts dt { color: var(--text-muted); font-size: .75rem; margin-bottom: .2rem; }
+.jp-job-facts dd { margin: 0; color: var(--text); font-size: .9rem; overflow-wrap: anywhere; }
+.jp-content-panel .jp-job-facts { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.jp-detail-sidebar { position: sticky; top: 1rem; }
+.jp-apply-panel .jp-badge { margin-bottom: 1rem; }
+.jp-apply-panel .jp-button { width: 100%; text-align: center; }
+.jp-apply-panel hr { border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+.jp-small { font-size: .73rem !important; color: var(--text-muted); }
+.jp-share-button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: .8rem 0; margin-top: 1rem; color: var(--primary); border: 0; border-top: 1px solid var(--border); background: none; cursor: pointer; font-size: .85rem !important; }
+.jp-safety-note { font-size: .75rem; color: var(--text-muted); padding: 1.25rem .5rem; line-height: 1.8; }
+.jp-detail-status { font-size: .85rem; color: var(--text-muted); margin-bottom: 1rem; }
+@media (max-width: 900px) {
+    .jp-discovery-grid { grid-template-columns: 210px minmax(0, 1fr); gap: 1.25rem; }
+    .jp-detail-grid { grid-template-columns: minmax(0, 1fr) 280px; gap: 1rem; }
+    .jp-content-panel, .jp-apply-panel { padding: 1.25rem; }
+    .jp-results-toolbar { align-items: flex-start; }
+    .jp-sort { flex-direction: column; align-items: flex-end; gap: .3rem; }
+}
+@media (max-width: 700px) {
+    .jp-discovery-hero { padding-top: 1.8rem; }
+    .jp-discovery-topline a { font-size: .75rem; }
+    .jp-search-bar { grid-template-columns: 1fr; gap: .5rem; }
+    .jp-search-field + .jp-search-field { border-left: 0; border-top: 1px solid var(--border); padding-top: .7rem; }
+    .jp-search-bar .jp-button { width: 100%; min-height: 46px; }
+    .jp-catalog-label { flex-basis: 100%; margin-left: 0; margin-top: .4rem; }
+    .jp-discovery-grid, .jp-detail-grid { grid-template-columns: 1fr; }
+    .jp-discovery-body { padding-top: 1.3rem; }
+    .jp-filter-callout { display: none; }
+    .jp-filter-content { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1rem; }
+    .jp-filter-heading, .jp-filter-help, .jp-filter-content fieldset { grid-column: 1 / -1; margin: 0; }
+    .jp-filter-content fieldset { margin: .5rem 0; }
+    .jp-filter-content [data-type-options] { display: flex; flex-wrap: wrap; gap: .2rem 1rem; }
+    .jp-filter-label { margin: 0; align-self: center; }
+    .jp-detail-sidebar { position: static; grid-row: 1; }
+    .jp-detail-header { padding: 1.3rem; gap: 1rem; }
+    .jp-detail-header .jp-employer-mark { width: 48px; height: 48px; font-size: 1.1rem; }
+    .jp-apply-panel .jp-job-facts { grid-template-columns: 1fr 1fr; }
+    .jp-safety-note { display: none; }
+}
+@media (max-width: 430px) {
+    .jp-results-toolbar { flex-direction: column; }
+    .jp-sort { flex-direction: row; align-items: center; }
+    .jp-opportunity { padding: 1.15rem; }
+    .jp-opportunity-heading { gap: .75rem; flex-wrap: wrap; }
+    .jp-posted { margin-left: 0; flex-basis: 100%; }
+    .jp-opportunity-footer { align-items: flex-start; }
+    .jp-detail-header { flex-wrap: wrap; }
+    .jp-content-panel .jp-job-facts { grid-template-columns: 1fr; }
+}
