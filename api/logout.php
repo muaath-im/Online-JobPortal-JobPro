@@ -9,6 +9,6 @@ if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
     $_SESSION = array();
 
     // Redirect to the login page
-    header("Location: /jobpro/pages/login.php");
+    header("Location: /pages/login.php");
     exit();
 }

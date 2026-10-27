@@ -14,7 +14,7 @@ include '../includes/header.php';
 ?>
 <div class="container post-job-page">
     <h1>Job Details:</h1>
-    <form action="/jobpro/api/job_post.php" method="POST">
+    <form action="/api/job_post.php" method="POST">
         <div class="form-row">
             <div class="form-group">
                 <label for="job-title">Job Title:</label>

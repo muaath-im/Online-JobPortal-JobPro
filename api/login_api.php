@@ -1,75 +1,51 @@
 <?php
 session_start();
-require_once '../includes/dbconnect.php'; // Ensure you have the database connection
 
-$error = ''; // Initialize an error variable to hold error messages
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: /pages/login.php', true, 302);
+    exit;
+}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Collect input data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+// dbconnect.php defines $username and $password for MySQL. Keep submitted
+// credentials separate so including that configuration cannot overwrite them.
+$submittedUsername = is_string($_POST['username'] ?? null) ? trim($_POST['username']) : '';
+$submittedPassword = is_string($_POST['password'] ?? null) ? $_POST['password'] : '';
+$_SESSION['login_username'] = $submittedUsername;
 
-    // Prepare SQL statement to fetch user data
-    $stmt = $mysqli->prepare("SELECT user_id, password, account_type FROM user WHERE username = ?");
-    $stmt->bind_param('s', $username);
+if ($submittedUsername === '' || $submittedPassword === '') {
+    $_SESSION['login_error'] = 'Enter your username and JobPro account password.';
+    header('Location: /pages/login.php', true, 303);
+    exit;
+}
+
+require_once __DIR__ . '/../includes/login.php';
+
+try {
+    require_once __DIR__ . '/../includes/dbconnect.php';
+    $stmt = $mysqli->prepare('SELECT u.user_id, u.username, u.password, u.account_type,
+        p.person_id, c.company_id FROM user u
+        LEFT JOIN person p ON p.user_id = u.user_id
+        LEFT JOIN company c ON c.user_id = u.user_id
+        WHERE u.username = ? LIMIT 1');
+    $stmt->bind_param('s', $submittedUsername);
     $stmt->execute();
-    $stmt->store_result();
+    $user = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+    $identity = $user ? jobproLoginIdentity($user, $submittedPassword) : null;
 
-    // Check if a user with the provided username exists
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($userId, $hashedPassword, $accountType);
-        $stmt->fetch();
-
-        // Verify the password
-        if (password_verify($password, $hashedPassword)) {
-            // Password is correct, set session variables
-            $_SESSION['user_id'] = $userId;
-            $_SESSION['username'] = $username;
-            $_SESSION['account_type'] = $accountType;
-
-            if ($accountType == "company") {
-                // get the company_id from the company table and store it in session
-                $stmt = $mysqli->prepare("SELECT company_id FROM company WHERE user_id = ?");
-                $stmt->bind_param('i', $userId);
-                $stmt->execute();
-                $stmt->store_result();
-                $stmt->bind_result($companyId);
-                $stmt->fetch();
-                $_SESSION['company_id'] = $companyId;
-            } elseif ($accountType == "personal") {
-                // get the person_id from the person table and store it in session
-                $stmt = $mysqli->prepare("SELECT person_id FROM person WHERE user_id = ?");
-                $stmt->bind_param('i', $userId);
-                $stmt->execute();
-                $stmt->store_result();
-                $stmt->bind_result($personId);
-                $stmt->fetch();
-                $_SESSION['person_id'] = $personId;
-            }
-
-            // Redirect to the account page
-            header('Location: ../pages/account.php');
-            exit();
-        } else {
-            // Password is incorrect
-            $error = "Invalid password. Please try again.";
-        }
-    } else {
-        // No user found with the provided username
-        $error = "No user found with that username.";
+    if ($identity !== null) {
+        session_regenerate_id(true);
+        $_SESSION = $identity;
+        session_write_close();
+        header('Location: /pages/account.php', true, 303);
+        exit;
     }
 
-    // Close the statement
-    $stmt->close();
-    // Close the database connection
-    $mysqli->close();
+    $_SESSION['login_error'] = 'The username or password is incorrect. Use your registered username, not your email or MySQL password.';
+} catch (mysqli_sql_exception $exception) {
+    error_log('JobPro login database operation failed (code ' . $exception->getCode() . ').');
+    $_SESSION['login_error'] = 'Login is temporarily unavailable. Please try again later.';
 }
 
-// If there's an error, use JavaScript to alert and reload the login page
-if (!empty($error)) {
-    echo '<script type="text/javascript">
-            alert("' . addslashes($error) . '");
-            window.location.href = "/jobpro/pages/login.php"; // Adjust the path if needed
-          </script>';
-    exit();
-}
+header('Location: /pages/login.php', true, 303);
+exit;
