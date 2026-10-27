@@ -1,122 +1,121 @@
-/* Phase 1: landing page. Legacy page styles are not loaded on this page. */
-.jp-page--landing h1, .jp-page--landing h2, .jp-page--landing h3, .jp-page--landing p { margin-top: 0; }
-.jp-page--landing h1, .jp-page--landing h2 { font-family: var(--jp-display); font-weight: 400; letter-spacing: -.045em; }
-.jp-page--landing h1 em, .jp-page--landing h2 em { font-family: inherit; color: var(--jp-primary); font-weight: 400; }
-.jp-hero { padding: 4.5rem 0 4rem; }
-.jp-hero__grid { display: grid; grid-template-columns: 1.13fr 1fr; gap: 3.5rem; align-items: center; }
-.jp-hero__copy { padding-block: 1.3rem; }
-.jp-hero .jp-eyebrow { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.75rem; }
-.jp-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
-.jp-hero h1 { margin-bottom: 1.75rem; font-size: clamp(3.5rem, 5.7vw, 5.25rem); line-height: 1.04; }
-.jp-hero__description { max-width: 490px; margin-bottom: 1.8rem; color: var(--jp-muted); font-size: 1rem; line-height: 1.85; }
-.jp-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
-.jp-hero__note { display: flex; align-items: center; gap: .65rem; margin-top: 2.1rem; color: var(--jp-muted); font-size: .72rem; line-height: 1.7; }
-.jp-hero__note > span { font-size: 1.25rem; color: var(--jp-primary); }
-.jp-hero__art { position: relative; align-self: stretch; min-width: 0; background: var(--jp-highlight); border-radius: .75rem; overflow: hidden; }
-.jp-art__topline { position: absolute; top: 2.4rem; left: 2rem; right: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .58rem; font-weight: 700; letter-spacing: .13em; }
-.jp-art__topline > span:last-child { font-size: 1.5rem; }
-.jp-career-art { display: block; width: 100%; height: auto; margin-top: 2.7rem; }
-.jp-art__tag { position: absolute; left: 1.4rem; top: 45%; display: flex; align-items: center; gap: .7rem; padding: .8rem 1rem; border: 1px solid var(--border); border-radius: .5rem; background: var(--jp-paper); color: var(--jp-muted); font-size: .73rem; line-height: 1.6; box-shadow: 0 8px 28px rgba(15,23,42,.08); }
-.jp-art__tag strong { color: var(--jp-primary); font-weight: 650; }
-.jp-art__tag-icon { display: grid; place-items: center; height: 34px; width: 34px; color: var(--jp-primary); background: var(--on-primary); border-radius: 50%; font-size: 1.3rem; }
-.jp-art__caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; padding: .9rem 1.5rem 1.2rem; font-size: .5rem; letter-spacing: .1em; font-weight: 700; }
-.jp-promise-strip { border-block: 1px solid var(--jp-line); }
-.jp-promise-strip__inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1.6rem; }
-.jp-promise-strip p { margin: 0; color: var(--jp-muted); font-size: .72rem; line-height: 1.7; }
-.jp-promise-strip strong { font-weight: 650; color: var(--jp-ink); }
-.jp-promise-strip__inner > span { font-size: .86rem; font-weight: 550; color: var(--jp-muted); }
-.jp-promise-strip__inner > span[aria-hidden] { font-size: 1.5rem; color: var(--primary); }
-.jp-section { padding-block: 5.5rem; }
-.jp-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 2.5rem; }
-.jp-page--landing h2 { margin-bottom: 0; font-size: clamp(2.4rem, 3.3vw, 3.25rem); line-height: 1.15; }
-.jp-section-heading .jp-eyebrow { margin-bottom: 1rem; }
-.jp-section-heading > p { color: var(--jp-muted); font-size: .95rem; line-height: 1.8; margin-bottom: .2rem; }
-.jp-pathway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.jp-pathway { display: flex; flex-direction: column; align-items: flex-start; padding: 2.4rem; border-radius: .65rem; }
-.jp-pathway--candidate { background: var(--jp-highlight); }
-.jp-pathway--employer { background: var(--jp-accent-tint); }
-.jp-pathway--employer .jp-pill { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-.jp-pathway__top { display: flex; justify-content: space-between; align-items: center; align-self: stretch; margin-bottom: 2rem; }
-.jp-pathway__symbol { font-size: 2.5rem; color: var(--jp-primary); line-height: 1; }
-.jp-pathway h3 { margin-bottom: 1rem; color: var(--jp-ink); font-family: var(--jp-display); font-size: clamp(1.7rem, 2.4vw, 2.15rem); font-weight: 400; letter-spacing: -.025em; line-height: 1.25; }
-.jp-pathway > p { max-width: 360px; margin-bottom: 1.4rem; color: var(--jp-muted); font-size: .9rem; line-height: 1.8; }
-.jp-pathway--candidate > p { color: var(--text); }
-.jp-check-list { display: grid; gap: .7rem; margin: 0 0 2rem; padding: 0; list-style: none; color: var(--jp-ink); font-size: .85rem; line-height: 1.6; }
-.jp-check-list li { display: flex; align-items: baseline; gap: .6rem; }
-.jp-check-list li::before { content: "✓"; color: var(--jp-primary); font-weight: 700; }
-.jp-pathway .jp-button { margin-top: auto; }
-.jp-how { background: var(--surface); scroll-margin-top: 2rem; }
-.jp-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin: 3rem 0 0; padding: 0; list-style: none; }
-.jp-steps li { border-top: 1px solid var(--border); padding-top: 1.5rem; }
-.jp-step-number { display: block; margin-bottom: 1.6rem; color: var(--primary); font-family: var(--jp-display); font-size: 2rem; }
-.jp-steps h3 { margin-bottom: .75rem; font-size: 1.1rem; font-weight: 650; letter-spacing: -.02em; }
-.jp-steps p { max-width: 300px; margin-bottom: 0; color: var(--jp-muted); font-size: .88rem; line-height: 1.85; }
-.jp-faq__grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 4rem; }
-.jp-faq__grid > div > p:not(.jp-eyebrow) { margin: 1.5rem 0 .2rem; color: var(--jp-muted); font-size: .9rem; }
-.jp-faq__items { border-top: 1px solid var(--jp-line); }
-.jp-faq details { border-bottom: 1px solid var(--jp-line); }
-.jp-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; min-height: 76px; padding: 1.1rem .3rem; font-size: .95rem; font-weight: 600; line-height: 1.6; list-style: none; cursor: pointer; }
-.jp-faq summary::-webkit-details-marker { display: none; }
-.jp-faq summary > span { font-size: 1.4rem; line-height: 1; font-weight: 400; color: var(--jp-primary); }
-.jp-faq details[open] summary > span { transform: rotate(45deg); }
-.jp-faq details p { margin: 0; padding: 0 2rem 1.5rem .3rem; font-size: .9rem; color: var(--jp-muted); line-height: 1.85; }
-.jp-closing { position: relative; overflow: hidden; background: var(--jp-primary); color: var(--on-primary); }
-.jp-closing__inner { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; position: relative; padding-block: 4rem; }
-.jp-closing .jp-eyebrow { color: var(--on-primary); }
-.jp-closing h2 { color: var(--on-primary); }
-.jp-closing h2 em { color: var(--on-primary); }
-.jp-closing .jp-button { flex-shrink: 0; position: relative; z-index: 1; }
-.jp-closing :focus-visible { outline-color: var(--on-primary); }
-.jp-closing__star { position: absolute; right: -2rem; bottom: -10rem; color: var(--on-primary); font-size: 25rem; line-height: 1; opacity: .08; pointer-events: none; }
+/* Phase 1 revision: a product-focused landing page, isolated from legacy layouts. */
+.jp-page--landing h1, .jp-page--landing h2, .jp-page--landing h3, .jp-page--landing h4, .jp-page--landing p { margin-top: 0; }
+.jp-page--landing h1, .jp-page--landing h2, .jp-page--landing h3, .jp-page--landing h4 { color: var(--text); font-family: var(--jp-font); }
+.jp-hero { padding: 4.5rem 0 3rem; text-align: center; background: radial-gradient(ellipse at 50% 0, var(--primary-tint), transparent 68%); }
+.jp-hero__badge { display: inline-flex; align-items: center; gap: .55rem; margin-bottom: 1.5rem; padding: .45rem .8rem; border: 1px solid var(--border); border-radius: 999px; color: var(--primary); background: var(--surface); font-size: .75rem; font-weight: 600; }
+.jp-hero__badge span { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+.jp-hero h1 { max-width: 1040px; margin: 0 auto 1.5rem; font-size: clamp(2.7rem, 5.3vw, 4.65rem); line-height: 1.1; font-weight: 780; letter-spacing: -.055em; }
+.jp-hero h1 span { color: var(--primary); }
+.jp-hero__description { max-width: 650px; margin: 0 auto 1.75rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; }
+.jp-hero__actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem; }
+.jp-hero__highlights { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1.5rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.jp-hero__highlights li { display: flex; align-items: center; gap: .4rem; color: var(--text-muted); font-size: .75rem; }
+.jp-hero__highlights .jp-icon { width: 15px; height: 15px; color: var(--primary); }
 
-@media (max-width: 1100px) {
-    .jp-hero { padding-block: 3.5rem; }
-    .jp-hero__grid { gap: 2rem; }
-    .jp-hero h1 { font-size: clamp(3.2rem, 5.9vw, 4.25rem); }
-    .jp-hero__description { font-size: .95rem; }
-    .jp-desktop-break { display: none; }
-    .jp-art__topline { top: 1.6rem; left: 1.5rem; right: 1.5rem; font-size: .5rem; }
-    .jp-art__tag { left: .8rem; font-size: .65rem; }
-    .jp-pathway { padding: 2rem; }
+.jp-start { border: 1px solid var(--border); border-radius: 1rem; background: var(--surface); overflow: hidden; box-shadow: 0 12px 38px rgba(15,23,42,.04); }
+.jp-start__toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--border); }
+.jp-start__label { display: flex; align-items: center; gap: .8rem; }
+.jp-start__mark { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; border-radius: .7rem; color: var(--primary); background: var(--primary-tint); }
+.jp-start h2 { margin: 0 0 .15rem; font-size: .95rem; font-weight: 700; letter-spacing: -.02em; }
+.jp-start__label p { margin: 0; color: var(--text-muted); font-size: .78rem; }
+.jp-intent-switch { display: none; flex-shrink: 0; gap: .25rem; padding: .3rem; border: 1px solid var(--border); border-radius: .65rem; background: var(--bg); }
+[data-intent-ready] .jp-intent-switch { display: flex; }
+.jp-intent-switch button { display: flex; align-items: center; justify-content: center; gap: .45rem; min-height: 40px; padding: .55rem .9rem; border: 1px solid transparent; border-radius: .45rem; color: var(--text-muted); background: transparent; font: 600 .8rem var(--jp-font); cursor: pointer; }
+.jp-intent-switch button .jp-icon { width: 17px; height: 17px; }
+.jp-intent-switch button[aria-pressed="true"] { color: var(--on-primary); background: var(--primary); }
+.jp-intent-switch button:hover:not([aria-pressed="true"]) { color: var(--primary); background: var(--primary-tint); }
+.jp-intent-panel { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; padding: 2.5rem 3rem; }
+.jp-intent-panel[hidden] { display: none; }
+.jp-intent-panel + .jp-intent-panel:not([hidden]) { border-top: 1px solid var(--border); }
+[data-intent-ready] .jp-intent-panel + .jp-intent-panel { border-top: none; }
+.jp-intent-copy h3 { margin-bottom: 1rem; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 750; line-height: 1.25; letter-spacing: -.04em; }
+.jp-intent-copy > p { max-width: 420px; margin-bottom: 1rem; color: var(--text-muted); font-size: .9rem; line-height: 1.8; }
+.jp-workflow { display: grid; gap: .75rem; padding: 0; margin: 0; list-style: none; }
+.jp-workflow li { display: flex; align-items: center; gap: .9rem; min-width: 0; padding: 1rem; border: 1px solid var(--border); border-radius: .65rem; background: var(--bg); }
+.jp-workflow__icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border: 1px solid var(--border); border-radius: .65rem; color: var(--primary); background: var(--surface); }
+.jp-workflow__icon .jp-icon { width: 20px; height: 20px; }
+.jp-workflow h4 { margin: 0 0 .2rem; font-size: .86rem; font-weight: 650; }
+.jp-workflow p { margin: 0; color: var(--text-muted); font-size: .75rem; line-height: 1.6; }
+.jp-workflow__number { margin-left: auto; padding-left: .5rem; color: var(--text-muted); font-size: .7rem; }
+
+.jp-section { padding-block: 4.5rem; }
+.jp-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+.jp-section-heading h2, .jp-faq h2 { margin-bottom: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 750; line-height: 1.2; letter-spacing: -.045em; }
+.jp-section-heading > p { margin: 0 0 .15rem; color: var(--text-muted); font-size: .85rem; line-height: 1.8; }
+.jp-section-heading--center { flex-direction: column; align-items: center; text-align: center; gap: .75rem; }
+.jp-section-heading--center .jp-eyebrow { margin: 0; }
+.jp-path-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.jp-path-card { display: flex; flex-direction: column; align-items: flex-start; padding: 1.75rem; border: 1px solid var(--border); border-radius: .85rem; color: var(--text); background: var(--surface); text-decoration: none; transition: border-color 150ms ease; }
+.jp-path-card:hover { border-color: var(--primary); }
+.jp-path-card__icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 1.3rem; border-radius: .75rem; color: var(--primary); background: var(--primary-tint); }
+.jp-path-card__icon--accent { color: var(--on-accent); background: var(--accent); }
+.jp-path-card h3 { margin-bottom: .7rem; font-size: 1.05rem; font-weight: 700; letter-spacing: -.025em; }
+.jp-path-card p { margin-bottom: 1.5rem; color: var(--text-muted); font-size: .85rem; line-height: 1.8; }
+.jp-path-card__link { display: flex; align-items: center; gap: .65rem; margin-top: auto; color: var(--primary); font-size: .82rem; font-weight: 650; }
+.jp-path-card__link .jp-icon { width: 17px; height: 17px; }
+.jp-process { border-block: 1px solid var(--border); background: var(--surface); scroll-margin-top: 1.5rem; }
+.jp-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin: 2.75rem 0 0; padding: 0; list-style: none; text-align: center; }
+.jp-step-number { display: grid; place-items: center; width: 46px; height: 46px; margin: 0 auto 1.25rem; border: 1px solid var(--border); border-radius: 50%; color: var(--primary); background: var(--primary-tint); font-size: .85rem; font-weight: 750; }
+.jp-steps h3 { margin-bottom: .65rem; font-size: .95rem; font-weight: 700; }
+.jp-steps p { max-width: 285px; margin: 0 auto; color: var(--text-muted); font-size: .85rem; line-height: 1.85; }
+.jp-faq__grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; }
+.jp-faq__grid > div > p:not(.jp-eyebrow) { margin: 1.25rem 0 .75rem; color: var(--text-muted); font-size: .9rem; line-height: 1.8; }
+.jp-faq__items { display: grid; align-content: start; gap: .65rem; }
+.jp-faq details { border: 1px solid var(--border); border-radius: .65rem; background: var(--surface); }
+.jp-faq details[open] { border-color: var(--primary); }
+.jp-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 62px; padding: 1rem 1.2rem; color: var(--text); font-size: .9rem; font-weight: 600; line-height: 1.6; list-style: none; cursor: pointer; }
+.jp-faq summary::-webkit-details-marker { display: none; }
+.jp-faq summary > span { font-size: 1.35rem; font-weight: 400; line-height: 1; color: var(--text-muted); }
+.jp-faq details[open] summary > span { transform: rotate(45deg); color: var(--primary); }
+.jp-faq details p { margin: 0; padding: 0 2.75rem 1.25rem 1.2rem; color: var(--text-muted); font-size: .85rem; line-height: 1.85; }
+.jp-closing { display: flex; align-items: center; justify-content: space-between; gap: 2rem; position: relative; padding: 2.75rem 3rem; border-radius: 1rem; color: #FFFFFF; background: #2563EB; }
+.jp-closing__label { display: block; margin-bottom: .65rem; color: #FFFFFF; font-size: .65rem; font-weight: 650; letter-spacing: .1em; }
+.jp-closing h2 { margin-bottom: .7rem; color: #FFFFFF; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 750; line-height: 1.2; letter-spacing: -.04em; }
+.jp-closing p { margin: 0; color: #FFFFFF; font-size: .9rem; line-height: 1.8; }
+.jp-closing .jp-button { flex-shrink: 0; }
+.jp-closing a:focus-visible { outline-color: #FFFFFF; }
+
+@media (max-width: 1024px) {
+    .jp-hero { padding-top: 3.5rem; }
+    .jp-intent-panel { gap: 2rem; padding: 2rem; }
+    .jp-start__toolbar { padding-inline: 1.25rem; }
+    .jp-section-heading { align-items: flex-start; flex-direction: column; gap: .9rem; }
+    .jp-section-heading--center { align-items: center; }
     .jp-faq__grid { gap: 2.5rem; }
+    .jp-path-card { padding: 1.4rem; }
 }
 @media (max-width: 760px) {
-    .jp-hero { padding-block: 2.75rem 3rem; }
-    .jp-hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .jp-hero__copy { padding: 0; }
-    .jp-hero h1 { font-size: clamp(3.5rem, 9vw, 5rem); }
-    .jp-hero__description { max-width: 470px; }
-    .jp-hero__note { margin-top: 1.5rem; }
-    .jp-hero__art { width: 100%; max-width: 470px; justify-self: center; }
-    .jp-art__topline { top: 2rem; }
-    .jp-art__tag { left: 1.3rem; font-size: .75rem; }
-    .jp-promise-strip__inner { flex-wrap: wrap; justify-content: flex-start; gap: .75rem 1.25rem; }
-    .jp-promise-strip p { flex-basis: 100%; }
-    .jp-promise-strip p br { display: none; }
-    .jp-promise-strip strong { margin-left: .3rem; }
-    .jp-promise-strip__inner > span { font-size: .75rem; }
-    .jp-promise-strip__inner > span[aria-hidden] { font-size: 1rem; }
-    .jp-section { padding-block: 3.5rem; }
-    .jp-section-heading { align-items: flex-start; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
-    .jp-pathway-grid { grid-template-columns: 1fr; }
-    .jp-pathway h3 { font-size: 2rem; }
-    .jp-pathway > p { max-width: 440px; }
-    .jp-steps { grid-template-columns: 1fr; gap: 2rem; margin-top: 1.5rem; }
-    .jp-step-number { margin-bottom: .75rem; }
-    .jp-steps p { max-width: 500px; }
-    .jp-faq__grid { grid-template-columns: 1fr; }
-    .jp-closing__inner { flex-direction: column; align-items: flex-start; padding-block: 3rem; }
-    .jp-closing__star { right: -5rem; bottom: -9rem; }
+    .jp-hero { padding-block: 2.75rem 2.25rem; }
+    .jp-hero h1 { font-size: clamp(2.6rem, 7vw, 3.75rem); }
+    .jp-hero__description { font-size: .95rem; max-width: 520px; }
+    .jp-hero__highlights { gap: .55rem 1rem; }
+    .jp-start__toolbar { align-items: flex-start; flex-direction: column; gap: 1.1rem; }
+    .jp-intent-switch { align-self: stretch; }
+    .jp-intent-switch button { flex: 1; }
+    .jp-intent-panel { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+    .jp-intent-copy h3 br { display: none; }
+    .jp-intent-copy > p { max-width: none; }
+    .jp-section { padding-block: 3rem; }
+    .jp-path-grid { grid-template-columns: 1fr; }
+    .jp-steps { grid-template-columns: 1fr; gap: 1.75rem; margin-top: 2rem; }
+    .jp-steps li { display: grid; grid-template-columns: 46px 1fr; column-gap: 1rem; text-align: left; }
+    .jp-step-number { grid-row: span 2; margin: 0; }
+    .jp-steps h3 { margin-bottom: .25rem; }
+    .jp-steps p { max-width: none; margin: 0; }
+    .jp-faq__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .jp-closing { align-items: flex-start; flex-direction: column; padding: 2rem; }
 }
-@media (max-width: 400px) {
-    .jp-hero h1 { font-size: 3.1rem; }
-    .jp-hero .jp-eyebrow { font-size: .57rem; }
-    .jp-hero__actions { align-items: stretch; flex-direction: column; gap: .5rem; }
-    .jp-hero__actions .jp-text-link { align-self: flex-start; }
-    .jp-pathway { padding: 1.5rem; }
-    .jp-pathway h3 { font-size: 1.8rem; }
-    .jp-pathway .jp-button { width: 100%; font-size: .85rem; }
-    .jp-art__caption { font-size: .45rem; padding-inline: 1rem; }
-    .jp-art__tag { font-size: .65rem; left: .75rem; }
-    .jp-art__topline { top: 1.4rem; }
+@media (max-width: 420px) {
+    .jp-hero h1 { font-size: 2.6rem; }
+    .jp-hero__actions { flex-direction: column; align-items: stretch; }
+    .jp-hero__badge { font-size: .7rem; }
+    .jp-hero__highlights { flex-direction: column; align-items: center; }
+    .jp-start__toolbar { padding: 1rem; }
+    .jp-start h2 { font-size: .85rem; }
+    .jp-intent-panel { padding: 1.1rem; }
+    .jp-workflow li { gap: .65rem; padding: .8rem; }
+    .jp-workflow__number { display: none; }
+    .jp-workflow__icon { width: 35px; height: 35px; }
+    .jp-closing { padding: 1.5rem; }
+    .jp-closing .jp-button { width: 100%; }
 }

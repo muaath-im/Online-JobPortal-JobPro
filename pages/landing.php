@@ -1,115 +1,91 @@
 <?php
 session_start();
-$pageTitle = 'JobPro — Your next chapter starts here';
-$pageDescription = 'Take the next step in your career. Explore opportunities, create your profile, or connect your company with new talent on JobPro.';
+$pageTitle = 'JobPro — Find your next opportunity';
+$pageDescription = 'A clear next step for your career or your team. Explore opportunities, introduce yourself, and connect through JobPro.';
 $pagename = 'landing';
 include '../includes/header.php';
 ?>
 
 <section class="jp-hero" aria-labelledby="hero-heading">
-    <div class="jp-container jp-hero__grid">
-        <div class="jp-hero__copy">
-            <p class="jp-eyebrow"><span class="jp-status-dot" aria-hidden="true"></span> BIG AMBITION. FRESH BEGINNINGS.</p>
-            <h1 id="hero-heading">Your next chapter<br>starts with<br><em>better work.</em></h1>
-            <p class="jp-hero__description">A first role. A new direction. A team that feels right.<br class="jp-desktop-break"> Wherever you want to go, take your next step with JobPro.</p>
-            <div class="jp-hero__actions">
-                <a class="jp-button" href="/jobpro/pages/seekJob.php">Explore opportunities <span aria-hidden="true">↗</span></a>
-                <a class="jp-text-link" href="#how-it-works">How it works <span aria-hidden="true">↓</span></a>
-            </div>
-            <div class="jp-hero__note"><span aria-hidden="true">✦</span> For the work you do. And the person you want to become.</div>
+    <div class="jp-container">
+        <p class="jp-hero__badge"><span aria-hidden="true"></span> Your next move starts here</p>
+        <h1 id="hero-heading">Your ambition.<br><span>A world of opportunity.</span></h1>
+        <p class="jp-hero__description">Find a role that fits your skills. Connect with people who move your team forward. Whatever comes next, start with JobPro.</p>
+        <div class="jp-hero__actions">
+            <a class="jp-button" href="<?= $shellEscape($shellUrl('pages/seekJob.php')) ?>">Explore opportunities <?= $shellIcon('arrow') ?></a>
+            <a class="jp-button jp-button--outline" href="#how-it-works">See how it works</a>
         </div>
-        <div class="jp-hero__art" aria-hidden="true">
-            <div class="jp-art__topline"><span>A WORLD OF POSSIBILITY</span><span>↗</span></div>
-            <svg class="jp-career-art" viewBox="0 0 560 540" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="art-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="var(--primary)" stroke-opacity=".07"/></pattern>
-                    <clipPath id="art-arch"><path d="M111 510V226a169 169 0 0 1 338 0v284Z"/></clipPath>
-                </defs>
-                <path fill="url(#art-grid)" d="M0 0h560v540H0z"/>
-                <circle cx="433" cy="129" r="73" fill="var(--accent)"/>
-                <path d="M111 510V226a169 169 0 0 1 338 0v284Z" fill="var(--primary)"/>
-                <g clip-path="url(#art-arch)">
-                    <path d="M153 510V230a127 127 0 0 1 254 0v280M195 510V230a85 85 0 0 1 170 0v280M237 510V230a43 43 0 0 1 86 0v280" stroke="var(--primary-tint)" stroke-opacity=".3"/>
-                    <path d="M72 489h105v-75h91v-75h91v-75h120" stroke="var(--surface)" stroke-width="46" stroke-linejoin="miter"/>
-                    <path d="M76 514h102v-75h91v-75h91v-75h119" stroke="var(--border)" stroke-width="4"/>
-                </g>
-                <path d="m279 75 8 21 21 8-21 8-8 21-8-21-21-8 21-8 8-21Z" fill="var(--on-primary)"/>
-                <path d="M411 211v-41m0 0h-41m41 0-57 57" stroke="var(--on-primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M70 292h47M93 269v47" stroke="var(--primary)" stroke-width="2"/>
-                <circle cx="472" cy="397" r="7" fill="var(--primary)"/>
-                <circle cx="77" cy="417" r="7" stroke="var(--primary)" stroke-width="2"/>
-                <path d="M54 510h453" stroke="var(--primary)" stroke-width="2"/>
-            </svg>
-            <div class="jp-art__tag"><span class="jp-art__tag-icon">↗</span><span>Small steps.<br><strong>New possibilities.</strong></span></div>
-            <div class="jp-art__caption"><span>YOUR FUTURE IS STILL UNWRITTEN.</span><span>LET’S GET STARTED.</span></div>
+        <ul class="jp-hero__highlights" aria-label="Explore JobPro">
+            <li><?= $shellIcon('check') ?> Personal &amp; company accounts</li>
+            <li><?= $shellIcon('check') ?> Job opportunities</li>
+            <li><?= $shellIcon('check') ?> Applications in one place</li>
+        </ul>
+    </div>
+</section>
+
+<section class="jp-start jp-container" aria-labelledby="start-heading" data-intent-chooser>
+    <div class="jp-start__toolbar">
+        <div class="jp-start__label"><span class="jp-start__mark" aria-hidden="true"><?= $shellIcon('briefcase') ?></span><div><h2 id="start-heading">A starting point for every ambition</h2><p>Choose the path that fits you.</p></div></div>
+        <div class="jp-intent-switch" role="group" aria-label="Choose your starting point">
+            <button type="button" data-intent="candidate" aria-pressed="true" aria-controls="candidate-path"><?= $shellIcon('person') ?> Job seekers</button>
+            <button type="button" data-intent="employer" aria-pressed="false" aria-controls="employer-path"><?= $shellIcon('building') ?> Employers</button>
+        </div>
+    </div>
+    <div class="jp-intent-panel" id="candidate-path" data-intent-panel="candidate">
+        <div class="jp-intent-copy"><span class="jp-eyebrow">YOUR CAREER, YOUR DIRECTION</span><h3>Make room for<br>your next possibility.</h3><p>Bring your experience, curiosity, and ambition. Start a profile and explore the roles that could shape your next chapter.</p><a class="jp-text-link" href="<?= $shellEscape($shellUrl('pages/register.php')) ?>">Create your personal account <?= $shellIcon('arrow') ?></a></div>
+        <ol class="jp-workflow" aria-label="Getting started as a job seeker">
+            <li><span class="jp-workflow__icon"><?= $shellIcon('person') ?></span><div><h4>Introduce yourself</h4><p>Your qualifications, experience, and portfolio.</p></div><span class="jp-workflow__number" aria-hidden="true">01</span></li>
+            <li><span class="jp-workflow__icon"><?= $shellIcon('briefcase') ?></span><div><h4>Explore your options</h4><p>Read roles, locations, and salary information.</p></div><span class="jp-workflow__number" aria-hidden="true">02</span></li>
+            <li><span class="jp-workflow__icon"><?= $shellIcon('document') ?></span><div><h4>Take the next step</h4><p>Apply and revisit your applications.</p></div><span class="jp-workflow__number" aria-hidden="true">03</span></li>
+        </ol>
+    </div>
+    <div class="jp-intent-panel" id="employer-path" data-intent-panel="employer">
+        <div class="jp-intent-copy"><span class="jp-eyebrow">GOOD TEAMS START WITH CONNECTION</span><h3>Your next opportunity<br>is someone’s next move.</h3><p>Introduce your company, share the role you’re hiring for, and give your next team member a place to find you.</p><a class="jp-text-link" href="<?= $shellEscape($shellUrl('pages/comRegister.php')) ?>">Create your company account <?= $shellIcon('arrow') ?></a></div>
+        <ol class="jp-workflow" aria-label="Getting started as an employer">
+            <li><span class="jp-workflow__icon"><?= $shellIcon('building') ?></span><div><h4>Introduce your company</h4><p>Add your company name, website, and address.</p></div><span class="jp-workflow__number" aria-hidden="true">01</span></li>
+            <li><span class="jp-workflow__icon"><?= $shellIcon('briefcase') ?></span><div><h4>Share an opportunity</h4><p>Describe the role, skills, and salary range.</p></div><span class="jp-workflow__number" aria-hidden="true">02</span></li>
+            <li><span class="jp-workflow__icon"><?= $shellIcon('layers') ?></span><div><h4>Keep your listings up to date</h4><p>Review and edit the jobs you’ve posted.</p></div><span class="jp-workflow__number" aria-hidden="true">03</span></li>
+        </ol>
+    </div>
+</section>
+
+<section class="jp-section jp-paths" aria-labelledby="paths-heading">
+    <div class="jp-container">
+        <div class="jp-section-heading"><div><p class="jp-eyebrow">BUILT AROUND YOUR NEXT STEP</p><h2 id="paths-heading">Different goals. A clear way forward.</h2></div><p>Where you are today is just the beginning.</p></div>
+        <div class="jp-path-grid">
+            <a class="jp-path-card" href="<?= $shellEscape($shellUrl('pages/register.php')) ?>"><span class="jp-path-card__icon"><?= $shellIcon('person') ?></span><h3>Starting your career</h3><p>Your experience is only part of your story. Introduce your skills, education, and potential.</p><span class="jp-path-card__link">Build your profile <?= $shellIcon('arrow') ?></span></a>
+            <a class="jp-path-card" href="<?= $shellEscape($shellUrl('pages/seekJob.php')) ?>"><span class="jp-path-card__icon"><?= $shellIcon('briefcase') ?></span><h3>Ready for a change</h3><p>See what’s out there. Explore opportunities that could take your career in a new direction.</p><span class="jp-path-card__link">Explore opportunities <?= $shellIcon('arrow') ?></span></a>
+            <a class="jp-path-card" href="<?= $shellEscape($shellUrl('pages/createJob.php')) ?>"><span class="jp-path-card__icon jp-path-card__icon--accent"><?= $shellIcon('building') ?></span><h3>Growing your team</h3><p>Make your next role visible. Give job seekers a clear picture of the opportunity you offer.</p><span class="jp-path-card__link">Post a job <?= $shellIcon('arrow') ?></span></a>
         </div>
     </div>
 </section>
 
-<div class="jp-promise-strip">
-    <div class="jp-container jp-promise-strip__inner">
-        <p>Different paths.<br><strong>The same possibility.</strong></p>
-        <span>First-time job seekers</span><span aria-hidden="true">✳</span><span>Experienced professionals</span><span aria-hidden="true">✳</span><span>Growing teams</span>
-    </div>
-</div>
-
-<section class="jp-section jp-pathways" aria-labelledby="pathways-heading">
+<section id="how-it-works" class="jp-section jp-process" aria-labelledby="how-heading">
     <div class="jp-container">
-        <div class="jp-section-heading">
-            <div><p class="jp-eyebrow">FIND YOUR WAY FORWARD</p><h2 id="pathways-heading">Two ambitions.<br><em>One place to begin.</em></h2></div>
-            <p>Good work starts with a connection.<br>Let’s help you make yours.</p>
-        </div>
-        <div class="jp-pathway-grid">
-            <article class="jp-pathway jp-pathway--candidate">
-                <div class="jp-pathway__top"><span class="jp-pill">FOR JOB SEEKERS</span><span class="jp-pathway__symbol" aria-hidden="true">↗</span></div>
-                <h3>Bring your ambition.<br>Find your next opportunity.</h3>
-                <p>Explore available roles, introduce yourself, and take the next step in your career.</p>
-                <ul class="jp-check-list"><li>Create your personal profile</li><li>Explore roles from employers</li><li>Apply and revisit your applications</li></ul>
-                <a class="jp-button jp-button--outline" href="/jobpro/pages/register.php">Start your journey <span aria-hidden="true">↗</span></a>
-            </article>
-            <article class="jp-pathway jp-pathway--employer">
-                <div class="jp-pathway__top"><span class="jp-pill">FOR EMPLOYERS</span><span class="jp-pathway__symbol" aria-hidden="true">✳</span></div>
-                <h3>Your next chapter<br>starts with your next hire.</h3>
-                <p>Give your opportunities a home. Share a role and introduce job seekers to your company.</p>
-                <ul class="jp-check-list"><li>Create your company account</li><li>Publish your job opportunities</li><li>Manage and update your listings</li></ul>
-                <a class="jp-button" href="/jobpro/pages/comRegister.php">Get started as an employer <span aria-hidden="true">↗</span></a>
-            </article>
-        </div>
-    </div>
-</section>
-
-<section id="how-it-works" class="jp-section jp-how" aria-labelledby="how-heading">
-    <div class="jp-container">
-        <div class="jp-section-heading">
-            <div><p class="jp-eyebrow">A LITTLE DIRECTION GOES A LONG WAY</p><h2 id="how-heading">Your next move,<br><em>made a little simpler.</em></h2></div>
-            <a class="jp-text-link" href="/jobpro/pages/register.php">Take the first step <span aria-hidden="true">↗</span></a>
-        </div>
+        <div class="jp-section-heading jp-section-heading--center"><p class="jp-eyebrow">SIMPLE STEPS. REAL DIRECTION.</p><h2 id="how-heading">From introduction to opportunity.</h2><p>A straightforward way to get your next chapter moving.</p></div>
         <ol class="jp-steps">
-            <li><span class="jp-step-number" aria-hidden="true">01</span><h3>Introduce yourself.</h3><p>Create a personal account and add your experience, qualifications, and portfolio link.</p></li>
-            <li><span class="jp-step-number" aria-hidden="true">02</span><h3>See what’s out there.</h3><p>Log in to explore available roles, read the descriptions, and find an opportunity worth a closer look.</p></li>
-            <li><span class="jp-step-number" aria-hidden="true">03</span><h3>Make your move.</h3><p>Apply to a role and revisit your applications. Add a cover letter to tell more of your story.</p></li>
+            <li><span class="jp-step-number">01</span><h3>Create an account</h3><p>Choose a personal or company account to get started.</p></li>
+            <li><span class="jp-step-number">02</span><h3>Make your introduction</h3><p>Tell your story through a personal or company profile.</p></li>
+            <li><span class="jp-step-number">03</span><h3>Make a connection</h3><p>Apply to an opportunity, or publish the role you’re hiring for.</p></li>
         </ol>
     </div>
 </section>
 
 <section class="jp-section jp-faq" aria-labelledby="faq-heading">
     <div class="jp-container jp-faq__grid">
-        <div><p class="jp-eyebrow">BEFORE YOU BEGIN</p><h2 id="faq-heading">A few things<br><em>you might wonder.</em></h2><p>Have another question?</p><a class="jp-text-link" href="/jobpro/pages/contact.php">Let’s talk <span aria-hidden="true">↗</span></a></div>
+        <div><p class="jp-eyebrow">A LITTLE CLARITY</p><h2 id="faq-heading">Questions?<br>Start here.</h2><p>Everything you need to take your first step.</p><a class="jp-text-link" href="<?= $shellEscape($shellUrl('pages/contact.php')) ?>">Contact us <?= $shellIcon('arrow') ?></a></div>
         <div class="jp-faq__items">
-            <details><summary>How do I explore jobs?<span aria-hidden="true">+</span></summary><p>Create a personal account and log in, then visit Find a job to explore the available listings.</p></details>
-            <details><summary>Which account should I create?<span aria-hidden="true">+</span></summary><p>Choose a personal account if you’re looking for work. Choose a company account if you want to publish and manage job opportunities.</p></details>
-            <details><summary>Can I update an application?<span aria-hidden="true">+</span></summary><p>Yes. After applying, visit Your Applications on the Find a job page. You can edit your cover letter or delete an application.</p></details>
-            <details><summary>How do I post a job?<span aria-hidden="true">+</span></summary><p>Register a company account and log in. Select For employers to add a role, then manage your listings from Your Posted Jobs.</p></details>
+            <details><summary>How do I explore jobs?<span aria-hidden="true">+</span></summary><p>Create a personal account and log in. Select Find a job to explore the available listings and read the role descriptions.</p></details>
+            <details><summary>Which account should I create?<span aria-hidden="true">+</span></summary><p>A personal account is for finding and applying to jobs. A company account is for publishing and managing your job opportunities.</p></details>
+            <details><summary>Can I update an application?<span aria-hidden="true">+</span></summary><p>On the Find a job page, Your Applications lets you edit your cover letter or delete an application you’ve submitted.</p></details>
+            <details><summary>How do I post a job?<span aria-hidden="true">+</span></summary><p>Create a company account and log in. Select For employers to add a role, then manage your listings from Your Posted Jobs.</p></details>
         </div>
     </div>
 </section>
 
-<section class="jp-closing" aria-labelledby="closing-heading">
-    <div class="jp-container jp-closing__inner">
-        <div><p class="jp-eyebrow">THE NEXT CHAPTER IS YOURS</p><h2 id="closing-heading">Let’s see where<br><em>your ambition takes you.</em></h2></div>
-        <a class="jp-button jp-button--light" href="/jobpro/pages/register.php">Make your next move <span aria-hidden="true">↗</span></a>
-        <span class="jp-closing__star" aria-hidden="true">✳</span>
-    </div>
+<section class="jp-container jp-closing" aria-labelledby="closing-heading">
+    <div class="jp-closing__copy"><span class="jp-closing__label">YOUR NEXT CHAPTER</span><h2 id="closing-heading">Ready when you are.</h2><p>A new role or your next hire. Let’s make the introduction.</p></div>
+    <a class="jp-button jp-button--light" href="<?= $shellEscape($shellUrl('pages/register.php')) ?>">Get started with JobPro <?= $shellIcon('arrow') ?></a>
 </section>
 
 <?php include '../includes/footer.php'; ?>

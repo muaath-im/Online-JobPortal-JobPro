@@ -23,7 +23,7 @@ include '../includes/header.php';
     
     <div class="contact-form-section">
         <h2>LEAVE A MESSAGE</h2>
-        <form class="contact-form" action="/jobpro/api/process_contact.php" method="POST">
+        <form class="contact-form" action="/api/process_contact.php" method="POST">
             <div class="form-row">
                 <div class="form-group">
                     <label for="username">Username:</label>
