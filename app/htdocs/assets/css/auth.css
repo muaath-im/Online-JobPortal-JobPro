@@ -1,0 +1,97 @@
+/* Auth and account interfaces share the established palette and system typography. */
+.jp-page--auth * { box-sizing: border-box; }
+.jp-page--auth [hidden] { display: none !important; }
+.jp-page--auth input, .jp-page--auth button, .jp-page--auth select { font: inherit; }
+.jp-page--auth h1, .jp-page--auth h2, .jp-page--auth h3, .jp-page--auth p { margin-top: 0; }
+.jp-page--auth a { text-underline-offset: .2em; }
+.jp-page--auth .jp-eyebrow { color: var(--primary); font-size: .72rem; font-weight: 750; letter-spacing: .12em; }
+.jp-auth-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; padding-top: 3rem; }
+.jp-auth-story { padding: 3rem 2.5rem; border: 1px solid var(--border); border-radius: 1.2rem; background: radial-gradient(ellipse at 100% 0%, var(--primary-tint), transparent 80%), var(--surface); position: sticky; top: 2rem; }
+.jp-auth-story h2 { font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 750; line-height: 1.15; letter-spacing: -.045em; margin: 1.5rem 0; }
+.jp-auth-story > p { color: var(--text-muted); font-size: .95rem; line-height: 1.85; max-width: 380px; }
+.jp-auth-story-steps { display: grid; gap: 1.6rem; padding-block: 1.5rem 2rem; }
+.jp-auth-story-steps > div { display: flex; gap: 1rem; align-items: flex-start; }
+.jp-auth-story-steps > div > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: .55rem; background: var(--primary-tint); color: var(--primary); font-size: .7rem; font-weight: 750; flex-shrink: 0; }
+.jp-auth-story-steps p { margin: 0; font-size: .82rem; color: var(--text-muted); line-height: 1.8; }
+.jp-auth-story-steps strong { color: var(--text); font-weight: 650; }
+.jp-auth-story > a { display: inline-flex; gap: 1rem; color: var(--primary); font-size: .85rem; font-weight: 650; }
+.jp-auth-card { padding: 2rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--surface); min-width: 0; }
+.jp-auth-card h1 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.2; letter-spacing: -.035em; margin: .5rem 0 .8rem; }
+.jp-auth-lead { color: var(--text-muted); font-size: .85rem; line-height: 1.85; margin-bottom: 1.5rem; }
+.jp-auth-card .jp-alert, .jp-account-content > .jp-alert { margin-bottom: 1.5rem; font-size: .85rem; }
+.jp-auth-card > a:first-child { margin-bottom: 1.5rem; font-size: .8rem; }
+.jp-auth-field { margin-bottom: 1.25rem; min-width: 0; }
+.jp-auth-field > label, .jp-file-label { display: block; color: var(--text); font-size: .8rem; font-weight: 650; margin-bottom: .5rem; }
+.jp-auth-field .jp-input { display: block; width: 100%; min-height: 46px; padding: .7rem .8rem; font-size: .9rem; box-shadow: none; }
+.jp-auth-field .jp-input[aria-invalid="true"] { border-color: var(--error); }
+.jp-auth-field .jp-input::placeholder { color: var(--text-muted); opacity: 1; }
+.jp-password-control { position: relative; }
+.jp-password-control:has(.jp-password-toggle:not([hidden])) input { padding-right: 4.1rem; }
+.jp-password-toggle { position: absolute; inset-inline-end: .35rem; top: .3rem; min-height: 36px; padding: .4rem .65rem; border: 0; border-radius: .35rem; color: var(--primary); background: transparent; font-size: .75rem !important; font-weight: 650 !important; cursor: pointer; }
+.jp-password-toggle:hover { background: var(--primary-tint); }
+.jp-auth-hint { font-size: .73rem; color: var(--text-muted); line-height: 1.7; margin: -.7rem 0 1.25rem; }
+.jp-field-error { margin: .5rem 0 0; font-size: .78rem; line-height: 1.6; color: color-mix(in srgb, var(--error) 70%, var(--text)); }
+.jp-error-summary h2 { font-size: .95rem; margin-bottom: .5rem; }
+.jp-error-summary ul { margin: 0; padding-left: 1.2rem; }
+.jp-error-summary a { color: var(--text); }
+.jp-auth-form-links { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .75rem; margin: .25rem 0 1.5rem; color: var(--text-muted); }
+.jp-auth-form-links a, .jp-auth-switch a, .jp-auth-consent a { color: var(--primary); }
+.jp-auth-submit { width: 100%; justify-content: center; }
+.jp-auth-submit[disabled] { cursor: progress; opacity: .75; }
+.jp-auth-switch { text-align: center; margin: 1.5rem 0 0; color: var(--text-muted); font-size: .8rem; }
+.jp-account-types { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; padding: .3rem; border: 1px solid var(--border); border-radius: .6rem; background: var(--bg); margin-bottom: 1.5rem; }
+.jp-account-types a { text-align: center; padding: .65rem .3rem; border-radius: .4rem; color: var(--text-muted); font-size: .8rem; text-decoration: none; font-weight: 650; }
+.jp-account-types a[aria-current] { color: var(--primary); background: var(--primary-tint); }
+.jp-auth-consent { margin-block: 1rem 1.5rem; display: grid; gap: 1rem; }
+.jp-auth-consent label, .jp-auth-check { display: flex; align-items: flex-start; gap: .65rem; font-size: .75rem; color: var(--text-muted); line-height: 1.8; }
+.jp-auth-consent input, .jp-auth-check input { flex-shrink: 0; width: 16px; height: 16px; margin: .2rem 0 0; accent-color: var(--primary); }
+.jp-auth-single { max-width: 580px; padding-top: 3rem; }
+.jp-auth-single .jp-auth-card { padding: 2.5rem; }
+.jp-account-layout { display: grid; grid-template-columns: 250px minmax(0,1fr); gap: 2rem; padding-top: 2.5rem; align-items: start; }
+.jp-account-sidebar { position: sticky; top: 1rem; border: 1px solid var(--border); border-radius: .85rem; background: var(--surface); overflow: hidden; }
+.jp-account-identity { padding: 1.5rem; }
+.jp-profile-avatar { display: block; width: 76px; height: 76px; border-radius: 1rem; object-fit: cover; border: 1px solid var(--border); }
+.jp-profile-initial { display: grid; place-items: center; color: var(--primary); background: var(--primary-tint); font-size: 2rem; font-weight: 750; }
+.jp-account-identity h2 { margin: 1rem 0 .6rem; font-size: 1.05rem; line-height: 1.5; overflow-wrap: anywhere; }
+.jp-account-identity .jp-badge { font-size: .65rem; }
+.jp-account-identity p { font-size: .75rem; color: var(--text-muted); margin: .65rem 0 0; overflow-wrap: anywhere; }
+.jp-account-nav { padding: .5rem; border-block: 1px solid var(--border); }
+.jp-account-nav a { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 46px; padding: .8rem; border-radius: .5rem; font-size: .8rem; color: var(--text-muted); text-decoration: none; }
+.jp-account-nav a[aria-current], .jp-account-nav a:hover { color: var(--primary); background: var(--primary-tint); }
+.jp-account-sidebar-footer { padding: 1rem 1.3rem; font-size: .8rem; }
+.jp-account-sidebar-footer a { color: var(--primary); }
+.jp-account-sidebar-footer form { margin: .7rem 0 0; }
+.jp-account-sidebar-footer button { border: 0; padding: .6rem 0; color: var(--text-muted); background: transparent; font-size: .8rem; cursor: pointer; }
+.jp-account-content { min-width: 0; }
+.jp-account-heading h1 { font-size: clamp(1.7rem,3vw,2.3rem); line-height: 1.25; letter-spacing: -.035em; overflow-wrap: anywhere; margin-bottom: .8rem; }
+.jp-account-heading > p:last-child { font-size: .9rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.7rem; }
+.jp-account-overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.jp-account-panel { padding: 1.75rem; margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: .85rem; background: var(--surface); min-width: 0; }
+.jp-account-panel h2 { font-size: 1.15rem; letter-spacing: -.02em; line-height: 1.4; margin: 0 0 .8rem; }
+.jp-account-panel .jp-badge { margin-bottom: 1rem; }
+.jp-account-panel > p { font-size: .85rem; line-height: 1.8; color: var(--text-muted); }
+.jp-account-panel .jp-text-link { font-size: .8rem; }
+.jp-account-next { background: var(--primary-tint); }
+.jp-account-next .jp-button { font-size: .8rem; }
+.jp-account-panel progress { display: block; width: 100%; height: 8px; margin: 1.5rem 0; accent-color: var(--primary); border: 0; border-radius: 1rem; overflow: hidden; background: var(--border); }
+.jp-account-panel progress::-webkit-progress-bar { background: var(--border); }
+.jp-account-panel progress::-webkit-progress-value { background: var(--primary); border-radius: 1rem; }
+.jp-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.jp-panel-heading h2 { margin: 0; }
+.jp-account-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 0; }
+.jp-account-facts dt { font-size: .75rem; color: var(--text-muted); margin-bottom: .3rem; }
+.jp-account-facts dd { margin: 0; font-size: .9rem; color: var(--text); overflow-wrap: anywhere; }
+.jp-account-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .15rem 1.25rem; }
+.jp-file-input { width: 100%; padding: .65rem; font-size: .8rem; }
+.jp-file-input + .jp-auth-hint { margin-top: .75rem; }
+.jp-avatar-preview { display: block; border-radius: .75rem; object-fit: cover; border: 1px solid var(--border); margin-bottom: 1rem; }
+.jp-account-save { display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem; }
+.jp-account-danger { border-inline-start: 3px solid var(--error); }
+.jp-account-danger summary { cursor: pointer; color: var(--error); font-size: .85rem; font-weight: 650; padding-block: .5rem; }
+.jp-account-danger form { padding-top: 1.5rem; }
+.jp-danger-button { background: var(--error); border-color: var(--error); color: #fff; }
+.jp-danger-button:hover { background: var(--error); color: #fff; text-decoration: underline; }
+.jp-account-content > .jp-error-summary { margin-bottom: 1.25rem; }
+@media(max-width:1000px){.jp-auth-layout{gap:1.5rem;grid-template-columns:.85fr 1fr}.jp-auth-story{padding:2rem 1.5rem}.jp-auth-card{padding:1.5rem}.jp-account-layout{grid-template-columns:220px minmax(0,1fr);gap:1.25rem}.jp-account-panel{padding:1.3rem}.jp-account-overview-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.jp-auth-layout{grid-template-columns:1fr;padding-top:1.5rem;max-width:600px}.jp-auth-story{position:static;padding:1.5rem}.jp-auth-story h2{font-size:1.7rem;margin:1rem 0 .6rem}.jp-auth-story>p{margin-bottom:0;max-width:none;font-size:.85rem}.jp-auth-story-steps,.jp-auth-story>a{display:none}.jp-account-layout{grid-template-columns:1fr;padding-top:1.5rem}.jp-account-sidebar{position:static}.jp-account-identity{display:none}.jp-account-nav{display:flex;flex-wrap:wrap;gap:.25rem;border:0}.jp-account-nav a{flex:1;padding:.65rem;font-size:.75rem;white-space:nowrap}.jp-account-nav a span{display:none}.jp-account-sidebar-footer{display:none}.jp-auth-single{padding-top:1.5rem}.jp-auth-single .jp-auth-card{padding:1.5rem}}
+@media(max-width:470px){.jp-auth-card{padding:1.25rem}.jp-account-form-grid,.jp-account-facts{grid-template-columns:1fr}.jp-account-panel{padding:1.2rem}.jp-account-heading h1{font-size:1.75rem}.jp-account-save{justify-content:space-between;gap:1rem}.jp-account-nav a{font-size:.69rem}.jp-auth-form-links{font-size:.72rem}.jp-auth-single .jp-auth-card{padding:1.25rem}}
