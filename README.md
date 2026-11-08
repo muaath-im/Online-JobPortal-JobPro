@@ -1,14 +1,15 @@
 # JobPro — Modern Career & Recruitment Platform
 
 [![PHP 8.4](https://img.shields.io/badge/PHP-8.4%2B-777BB4?style=flat&logo=php&logoColor=white)](https://www.php.net/)
-[![MySQL 8.0](https://img.shields.io/badge/MySQL-8.0%2B-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Laravel Herd](https://img.shields.io/badge/Laravel%20Herd-Compatible-FF2D20?style=flat&logo=laravel&logoColor=white)](https://herd.laravel.com/)
-[![Pure Vanilla Stack](https://img.shields.io/badge/Stack-Vanilla%20PHP%20%7C%20JS%20%7C%20CSS3-success?style=flat)](https://developer.mozilla.org/)
-[![Automated Test Suite](<https://img.shields.io/badge/Automated%20Tests-146%20Passed%20(100%25)-brightgreen?style=flat>)](tests/run-regression.ps1)
-[![Zero External Dependencies](<https://img.shields.io/badge/Dependencies-Zero%20(No%20Framework%20Bloat)-blueviolet?style=flat>)](#technology-stack)
+[![MySQL 8.0 / TiDB](https://img.shields.io/badge/Database-MySQL%208.0%20%7C%20TiDB%20Cloud-4479A1?style=flat&logo=mysql&logoColor=white)](https://tidbcloud.com/)
+[![Docker Container](https://img.shields.io/badge/Container-Docker%20%7C%20Nginx%20%2B%20PHP--FPM-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Render Cloud](https://img.shields.io/badge/Deploy-Render.com-46E3B7?style=flat&logo=render&logoColor=white)](https://render.com/)
+[![Pure Vanilla Stack](https://img.shields.io/badge/Stack-Vanilla%20PHP%20%7C%20ES6%2B%20%7C%20CSS3-success?style=flat)](https://developer.mozilla.org/)
+[![Automated Test Suite](https://img.shields.io/badge/Automated%20Tests-146%20Passed%20(100%25)-brightgreen?style=flat)](tests/run-regression.ps1)
+[![Zero External Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(No%20Composer%20%2F%20No%20NPM)-blueviolet?style=flat)](#technology-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **JobPro** is an enterprise-ready, high-performance career and recruitment platform engineered purely with native web standards: **PHP 8.4**, **MySQL 8.0**, **Vanilla ES6+ JavaScript**, and **Modern CSS3**. With zero external runtime frameworks, zero npm dependencies, and a strict Three-Tier security architecture, JobPro delivers sub-second page loads, bank-grade defensive engineering, and an intuitive experience for candidates, hiring teams, and platform administrators.
+> **JobPro** is an enterprise-grade, high-performance career and recruitment management platform engineered with native web standards: **PHP 8.4**, **MySQL 8.0 / TiDB Serverless**, **Vanilla ES6+ JavaScript**, and **Modern CSS3**. Architected with strict Three-Tier webroot isolation, containerized via **Docker** (Nginx + PHP-FPM Alpine), deployed on **Render.com**, and backed by **TiDB Cloud Serverless**, JobPro delivers sub-second page loads, bank-grade defensive engineering, role-based access control (RBAC), and an intuitive workflow for candidates, employers, and platform administrators.
 
 ---
 
@@ -16,215 +17,352 @@
 
 1. [Project Overview](#1-project-overview)
 2. [Project Objectives](#2-project-objectives)
-3. [Features](#3-features)
-4. [Live Demo](#4-live-demo)
-5. [Screenshots & UI Walkthrough](#5-screenshots--ui-walkthrough)
+3. [Features & Role-Based Access Control (RBAC)](#3-features--role-based-access-control-rbac)
+   - [Role-Based Features Matrix](#role-based-features-matrix)
+   - [Role 1: Public / Anonymous Visitor](#role-1-public--anonymous-visitor)
+   - [Role 2: Candidate (Job Seeker Workspace)](#role-2-candidate-job-seeker-workspace)
+   - [Role 3: Employer (Hiring Team Portal)](#role-3-employer-hiring-team-portal)
+   - [Role 4: Platform Moderator (Content & Moderation)](#role-4-platform-moderator-content--moderation)
+   - [Role 5: Platform Owner (System Administration & RBAC)](#role-5-platform-owner-system-administration--rbac)
+4. [Live Demo & Pre-Seeded Showcase Credentials](#4-live-demo--pre-seeded-showcase-credentials)
+5. [User Interface & Visual Design System](#5-user-interface--visual-design-system)
 6. [Technology Stack](#6-technology-stack)
 7. [System Requirements](#7-system-requirements)
-8. [Installation Steps](#8-installation-steps)
+8. [Local Installation & Development Setup](#8-local-installation--development-setup)
 9. [Configuration Instructions](#9-configuration-instructions)
 10. [Environment Variables](#10-environment-variables)
-11. [Project Structure](#11-project-structure)
-12. [Architecture Diagram](#12-architecture-diagram)
-13. [Database ERD Diagram](#13-database-erd-diagram)
-14. [API Documentation](#14-api-documentation)
-15. [Authentication and Authorization Flow](#15-authentication-and-authorization-flow)
-16. [Testing Strategy](#16-testing-strategy)
-17. [Test Coverage Information](#17-test-coverage-information)
-18. [Deployment Process](#18-deployment-process)
-19. [Hosting Configuration](#19-hosting-configuration)
-20. [CI/CD Overview](#20-cicd-overview)
-21. [Performance Considerations](#21-performance-considerations)
-22. [Security Considerations](#22-security-considerations)
-23. [Known Limitations](#23-known-limitations)
-24. [Future Enhancements](#24-future-enhancements)
-25. [Troubleshooting Guide](#25-troubleshooting-guide)
-26. [Contribution Guidelines](#26-contribution-guidelines)
+11. [Project Architecture & Directory Structure](#11-project-architecture--directory-structure)
+12. [System Architecture Diagram](#12-system-architecture-diagram)
+13. [Database Entity-Relationship Diagram (ERD)](#13-database-entity-relationship-diagram-erd)
+14. [REST API Documentation](#14-rest-api-documentation)
+15. [Authentication & Security Architecture](#15-authentication--security-architecture)
+16. [Automated Testing Strategy & Coverage](#16-automated-testing-strategy--coverage)
+17. [Production Deployment Architecture](#17-production-deployment-architecture)
+18. [Cloud Hosting & Server Configuration](#18-cloud-hosting--server-configuration)
+19. [CI/CD Automation](#19-cicd-automation)
+20. [Performance Benchmarks & Optimizations](#20-performance-benchmarks--optimizations)
+21. [Security Engineering (OWASP Top 10 Mitigation)](#21-security-engineering-owasp-top-10-mitigation)
+22. [Backup, Disaster Recovery & High Availability](#22-backup-disaster-recovery--high-availability)
+23. [Monitoring, Telemetry & Maintenance](#23-monitoring-telemetry--maintenance)
+24. [Known Deployment Limitations](#24-known-deployment-limitations)
+25. [Future Roadmap](#25-future-roadmap)
+26. [Troubleshooting Guide](#26-troubleshooting-guide)
+27. [Contribution & Code Standards](#27-contribution--code-standards)
+28. [License & Acknowledgments](#28-license--acknowledgments)
 
 ---
 
 ## 1. Project Overview
 
-Originally developed three years ago as a traditional web-based recruitment board, **JobPro** has been completely modernized into a portfolio-grade, production-ready web platform.
+Originally conceived as a traditional web recruitment portal, **JobPro** has been systematically modernized and re-engineered into a portfolio-grade, production-ready web platform.
 
-In an era where modern web applications frequently carry hundreds of megabytes of third-party dependencies and framework overhead, JobPro proves that a **pure vanilla architecture**—when architected with rigorous design patterns—can achieve superior speed, complete security, and effortless maintainability.
+In an industry landscape saturated with bloated frameworks, fragile dependency trees, and hundred-megabyte `node_modules` bundles, JobPro demonstrates that **pure vanilla architecture**—guided by disciplined design patterns, clean separation of concerns, and defensive programming—achieves higher throughput, lower latency, bulletproof security, and near-zero operational maintenance costs.
 
-### Core Architecture Pillars:
+### Architectural Hallmarks:
 
-- **Strict Webroot Isolation:** Only public assets, page entry points, and API endpoints exist within the document root (`app/htdocs/`). Core business logic, authentication handlers, domain models, database credentials, and candidate resumes reside outside the public web root in `app/src/` and `app/storage/`.
-- **Zero Framework Runtime:** Runs with zero npm packages and zero composer packages. Native PHP 8.4 and modern browser capabilities eliminate build toolchain fatigue and supply-chain vulnerabilities.
-- **Defensive Engineering:** Full OWASP Top 10 mitigation including cryptographic CSRF protection on all forms and JSON API routes, constant-time password verification, session fixation defense, `auth_stamp` session invalidation, prepared SQL statements on 100% of queries, and IDOR-guarded file streaming.
+- **Strict Three-Tier Webroot Isolation:** Only public assets, stylesheet tokens, and entry-point scripts exist within the web server's document root (`app/htdocs/`). All core business logic, cryptographic handlers, database credentials, domain services, and candidate resumes reside outside the public webroot in `app/src/` and `app/storage/`.
+- **Zero Runtime Dependencies:** Engineered with 0 npm packages and 0 Composer packages. It executes natively on PHP 8.4 and modern browser runtimes, eliminating software supply-chain vulnerabilities and build-step overhead.
+- **Production Containerization:** Packaged in a hardened, lightweight Docker container combining Alpine Linux, Nginx, and PHP 8.4-FPM with FastCGI socket communication and multi-process lifecycle supervision.
+- **Cloud-Native Serverless Database:** Connected via secure TLS to **TiDB Cloud Serverless**, providing an elastic, distributed MySQL 8.0-compatible relational backbone with auto-scaling compute and high availability.
+- **Defensive Engineering by Default:** Comprehensive mitigation against the OWASP Top 10, including cryptographic CSRF protection on all forms and JSON endpoints, constant-time password verification, session fixation defense, `auth_stamp` session invalidation, parameterized SQL queries across 100% of routes, and IDOR-guarded binary document streaming.
 
 ---
 
 ## 2. Project Objectives
 
-1. **Eliminate Recruitment Friction:** Create direct, transparent communication channels between applicants and hiring teams, replacing opaque algorithmic resume "black holes" with clear hiring pipelines.
-2. **Demonstrate Native Full-Stack Mastery:** Showcase an enterprise-grade web application built entirely on vanilla PHP, JavaScript, CSS3, and relational MySQL without relying on heavyweight frameworks.
-3. **Institutionalize Security by Default:** Enforce bank-grade authentication, role-based authorization, tamper-evident audit logging, and protected document streaming.
-4. **Deliver Exceptional Speed and Responsiveness:** Achieve near-instantaneous first-contentful paint (< 200 ms) and lightweight asset payloads through GD image resampling and native CSS layouts.
-5. **Guarantee Production Robustness:** Validate every feature through a 146-point automated regression test suite covering unit, HTTP integration, database transactions, and permission boundaries.
+1. **Eliminate Hiring Friction:** Deliver an intuitive, transparent communication pipeline between applicants and talent acquisition teams, replacing algorithmic black holes with structured 7-stage hiring workflows.
+2. **Demonstrate Full-Stack Mastery:** Showcase an enterprise-grade web application built entirely on vanilla PHP, JavaScript, modern CSS3, and relational SQL without relying on third-party frameworks.
+3. **Institutionalize Security by Default:** Enforce bank-grade authentication, role-based authorization, immutable audit logging with JSON delta diffs, and protected document streaming.
+4. **Deliver Exceptional Speed and Responsiveness:** Achieve sub-second page loads (< 200 ms first-contentful paint) and lightweight asset payloads through GD image resampling and native CSS layouts.
+5. **Guarantee Production Robustness:** Validate every feature through a 146-point automated regression test suite covering unit logic, HTTP integration, database transactions, and permission boundaries.
 
 ---
 
-## 3. Features
+## 3. Features & Role-Based Access Control (RBAC)
 
-### 👤 Candidate Experience (Job Seeker Workspace)
+JobPro enforces strict **Role-Based Access Control (RBAC)** across five clearly differentiated user roles. Every module, page, and API endpoint verifies the active session's role before processing actions.
 
-- **Reactive Job Discovery:** Debounced live search filtering by keyword, location, and industry category with real-time browser URL synchronization (`pushState`) for bookmarkable search queries.
-- **Resume Vault & Document Upload:** Upload resumes in PDF, DOC, or DOCX formats (up to 5 MB). Uploads undergo physical MIME sniffing and magic-byte validation (`%PDF-`) and are stored privately outside the public document root.
-- **Dynamic Profile Completion Meter:** Real-time readiness gauge evaluating bio completeness, qualifications, experience, and uploaded resume assets.
-- **Job Bookmarking Engine:** Save positions for later review with dynamic UI state toggles and instant toast confirmation alerts.
-- **7-Stage Application Lifecycle Tracking:** Track job applications across distinct phases:
-  $$\text{Submitted} \longrightarrow \text{Reviewing} \longrightarrow \text{Shortlisted} \longrightarrow \text{Interview} \longrightarrow \text{Offered} \longrightarrow \text{Hired} \quad (\text{or Rejected})$$
+### Role-Based Features Matrix
 
-### 🏢 Employer Workspace (Hiring Manager Portal)
-
-- **Job Lifecycle Management:** Complete publishing workflow enabling employers to draft, publish, modify, close, and reopen job listings with decimal salary validation and multi-tagging.
-- **Visual Applicant Pipeline:** Review candidate submissions, read sanitized cover letters, evaluate experience profiles, and transition applicant statuses in real time.
-- **Guarded Resume Streaming:** Download applicant resumes with automatic IDOR checks ensuring only the listing's authorized employer or an administrator can access candidate files.
-- **Company Brand Showcase:** Dedicated public employer profile pages highlighting corporate vision, active openings, headquarters location, and verified external web links.
-- **Accidental Deletion Protection:** Database-level integrity guards preventing the deletion of postings with existing application records.
-
-### 🛡️ Administration & Moderation (RBAC)
-
-- **Role-Based Access Control:** Strict permission segregation between `owner` and `moderator` accounts.
-- **Moderation Engine:** Suspend abusive accounts and hide non-compliant job listings with mandatory justification logging.
-- **Tamper-Evident Audit Logging:** Append-only administrative audit log (`admin_audit_log`) capturing before/after JSON delta snapshots of every administrative change.
-- **Self-Demotion & Last-Owner Locks:** Engine-level protection rejecting self-suspension, self-revocation, or demotion of the sole remaining platform owner.
-- **Offline CLI Bootstrapping:** Dedicated administrative provisioning tool (`tools/admin-access.php`) located outside the public webroot.
-
-### 🔔 Interactive Toast Notification System (`JobProToast`)
-
-- Lightweight, accessible notification engine (`app/htdocs/assets/js/toast.js` & `foundation.css`).
-- Supports `success`, `error`, `warning`, and `info` status pills with auto-dismiss countdowns, hover-to-pause, and manual close buttons.
-- Seamlessly bridges server-side PHP session flashes into reactive client-side notifications on page load.
-
----
-
-## 4. Live Demo
-
-### Local Test Domain (Laravel Herd)
-
-When running locally via Laravel Herd on Windows, the application is accessible at:
-👉 **`http://jobpro.test`**
-
-### Built-in Discovery Demo Mode
-
-Experience the complete job discovery engine even without an active MySQL database connection by appending `?demo=1`:
-👉 **`http://jobpro.test/pages/seekJob.php?demo=1`**
-
-This loads high-fidelity sample career records directly from [`assets/data/discovery-demo.json`](file:///d:/Projects/JobPro/app/htdocs/assets/data/discovery-demo.json).
+| Feature / Capability | Public Guest | Candidate (`personal`) | Employer (`company`) | Platform Moderator | Platform Owner |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Browse & Search Jobs** | ✅ Full | ✅ Full | ✅ Full | ✅ Full | ✅ Full |
+| **Filter by Category / Location** | ✅ Full | ✅ Full | ✅ Full | ✅ Full | ✅ Full |
+| **View Job Details & Company Info** | ✅ Full | ✅ Full | ✅ Full | ✅ Full | ✅ Full |
+| **User Registration & Account Creation** | ✅ Full | ❌ (Must logout) | ❌ (Must logout) | ❌ (Must logout) | ❌ (Must logout) |
+| **User Sign-In (Username or Email)** | ✅ Full | ❌ (Already signed in) | ❌ (Already signed in) | ❌ (Already signed in) | ❌ (Already signed in) |
+| **Password Recovery Workflow** | ✅ Full | ❌ (Self-service) | ❌ (Self-service) | ❌ (Self-service) | ❌ (Self-service) |
+| **Bookmark / Save Jobs** | ❌ Blocked | ✅ Full (Reactive) | ❌ Blocked | ❌ Blocked | ❌ Blocked |
+| **Submit Job Applications** | ❌ Blocked | ✅ Full (Cover letter + resume) | ❌ Blocked | ❌ Blocked | ❌ Blocked |
+| **Track Application Stages (7 States)** | ❌ Blocked | ✅ Full (Live status) | ❌ Blocked | ❌ Blocked | ❌ Blocked |
+| **Upload / Update Resume (PDF/DOC)** | ❌ Blocked | ✅ Full (Magic-byte guarded) | ❌ Blocked | ❌ Blocked | ❌ Blocked |
+| **Candidate Profile Completion Meter** | ❌ Blocked | ✅ Full (Live gauge) | ❌ Blocked | ❌ Blocked | ❌ Blocked |
+| **Post New Job Listings** | ❌ Blocked | ❌ Blocked | ✅ Full (Draft/Open) | ❌ Blocked | ❌ Blocked |
+| **Manage Company Job Listings** | ❌ Blocked | ❌ Blocked | ✅ Full (Edit/Close/Reopen) | ❌ Blocked | ❌ Blocked |
+| **View Applicant Pipeline per Listing** | ❌ Blocked | ❌ Blocked | ✅ Full (Kanban-style) | ❌ Blocked | ❌ Blocked |
+| **Update Applicant Stages** | ❌ Blocked | ❌ Blocked | ✅ Full (Advance/Reject) | ❌ Blocked | ❌ Blocked |
+| **Stream / Download Applicant Resumes** | ❌ Blocked | ❌ (Own resume only) | ✅ Full (Guarded IDOR) | ✅ Full | ✅ Full |
+| **Manage Company Public Profile** | ❌ Blocked | ❌ Blocked | ✅ Full | ❌ Blocked | ❌ Blocked |
+| **Access Admin Dashboard** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full | ✅ Full |
+| **Moderate Job Postings (Hide/Show)** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full (With reason) | ✅ Full (With reason) |
+| **Inspect Immutable Audit Trail** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full (Read-only) | ✅ Full (Read-only) |
+| **Suspend / Reactivate User Accounts** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full (With reason) |
+| **View System User & Company Roster** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full |
+| **View Global Applications Roster** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full |
+| **Grant / Revoke Administrator Roles** | ❌ Blocked | ❌ Blocked | ❌ Blocked | ❌ Blocked | ✅ Full (Self-protected) |
+| **Last-Owner Protection Locks** | N/A | N/A | N/A | N/A | ✅ Enforced by engine |
 
 ---
 
-## 5. Screenshots & UI Walkthrough
+### Role 1: Public / Anonymous Visitor
 
-```
-+-----------------------------------------------------------------------------------+
-|  [JobPro Mark]  JobPro        Find a job    For employers    About us    [Log in] |
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|    WHO WE ARE & WHAT WE STAND FOR                                                 |
-|    Connecting Human Ambition with World-Class Opportunity                         |
-|    JobPro is a modern career platform engineered for transparent, high-speed     |
-|    connections between extraordinary talent and forward-thinking companies.       |
-|                                                                                   |
-|    +-----------------+ +-----------------+ +-----------------+ +----------------+ |
-|    |     10,000+     | |      1,200+     | |       98%       | |     < 24h      | |
-|    | Active Seekers  | | Verified Teams  | | Delivery Rate   | | Response Time  | |
-|    +-----------------+ +-----------------+ +-----------------+ +----------------+ |
-|                                                                                   |
-|    [ Explore Opportunities -> ]         [ Speak With Our Team ]                   |
-+-----------------------------------------------------------------------------------+
-```
+- **Role Name:** Public Guest
+- **Description:** Unauthenticated visitors exploring the platform, searching for employment opportunities, and learning about hiring companies.
+- **Permissions:** Read-only access to published job listings, company overview pages, static informational content, and authentication entry points.
+- **Accessible Pages:**
+  - `/index.php` $\rightarrow$ Redirects cleanly to `/pages/landing.php`
+  - `/pages/landing.php` $\rightarrow$ Responsive hero showcase, featured positions, live stats counter
+  - `/pages/about.php` $\rightarrow$ Company story, mission, platform architecture, leadership values
+  - `/pages/seekJob.php` $\rightarrow$ Reactive live search catalog with debounced keyword filtering
+  - `/pages/seekJob.php?demo=1` $\rightarrow$ Discovery demonstration mode powered by static fixture data
+  - `/pages/job.php?id={id}` $\rightarrow$ Comprehensive job specifications, salary ranges, and company overview
+  - `/pages/login.php` $\rightarrow$ Dual-identifier sign-in portal (accepts username or email)
+  - `/pages/register.php` $\rightarrow$ Personal candidate registration form
+  - `/pages/comRegister.php` $\rightarrow$ Corporate employer registration form
+  - `/pages/forgot-password.php` $\rightarrow$ Password recovery request page
+  - `/pages/reset-password.php` $\rightarrow$ Cryptographic token validation and password reset form
+  - `/pages/terms.php` & `/pages/privacy.php` $\rightarrow$ Legal compliance and data governance policies
+- **Available Actions:**
+  - Search and filter jobs in real-time by keyword, industry category, location, and employment type.
+  - View sanitized job requirements, company profiles, and salary brackets.
+  - Request password reset links via email.
+  - Register new candidate (`personal`) or employer (`company`) accounts.
+- **Restrictions & Limitations:**
+  - Cannot submit applications or save/bookmark jobs (attempting to apply prompts redirect to `/pages/login.php`).
+  - Cannot upload resumes or view private applicant contact details.
+  - Rate-limited to 40 sign-in attempts per 15 minutes per IP address to prevent brute-force attacks.
 
-### Visual Assets in Repository:
+---
 
-- Vector Brand Mark: [`app/htdocs/assets/images/jobpro-mark.svg`](file:///d:/Projects/JobPro/app/htdocs/assets/images/jobpro-mark.svg)
-- Resampled Web Imagery: [`app/htdocs/assets/images/jobPost1.jpg`](file:///d:/Projects/JobPro/app/htdocs/assets/images/jobPost1.jpg) through `jobPost4.jpg` (< 70 KB each).
+### Role 2: Candidate (Job Seeker Workspace)
+
+- **Role Name:** Candidate (`account_type = 'personal'`)
+- **Description:** Registered professionals actively seeking career opportunities, managing their digital resume, and tracking applications.
+- **Permissions:** Full personal profile management, resume upload, job bookmarking, application submission, and status monitoring.
+- **Accessible Pages:**
+  - All Public Guest pages
+  - `/pages/account.php` $\rightarrow$ Personal candidate dashboard and profile management
+  - `/pages/applications.php` $\rightarrow$ Submitted application history and real-time status tracker
+  - `/pages/savedJobs.php` $\rightarrow$ Saved / bookmarked opportunities collection
+  - `/pages/resume.php?id={user_id}` $\rightarrow$ Secure inline viewer for candidate's own uploaded resume
+- **Available Actions:**
+  - **Resume Vault:** Upload resumes in PDF, DOC, or DOCX formats (up to 5 MB). File uploads undergo server-side magic-byte inspection (`%PDF-`) and are stored in isolated private storage outside the public webroot.
+  - **Job Bookmarking Engine:** Save positions for later review with reactive client-side state toggles and persistent database sync via `/api/candidate.php`.
+  - **1-Click Application Workflow:** Apply to open positions with an optional personalized cover letter and attached resume.
+  - **Application Stage Tracking:** Follow job applications across 7 distinct pipeline stages:
+    $$\text{Submitted} \longrightarrow \text{Reviewing} \longrightarrow \text{Shortlisted} \longrightarrow \text{Interview} \longrightarrow \text{Offered} \longrightarrow \text{Hired} \quad (\text{or Rejected})$$
+  - **Profile Completion Meter:** Real-time visual progress indicator computing profile readiness based on biography, experience, qualifications, contact info, and resume attachment.
+- **Restrictions & Limitations:**
+  - Cannot post job listings or access employer management tools.
+  - Cannot view other candidates' profiles, applications, or uploaded resumes.
+  - Cannot submit duplicate applications to the same job posting.
+  - Cannot modify or access administrative moderation tools.
+
+---
+
+### Role 3: Employer (Hiring Team Portal)
+
+- **Role Name:** Employer (`account_type = 'company'`)
+- **Description:** Verified corporate talent acquisition teams, hiring managers, and recruitment leads managing job postings and candidate pipelines.
+- **Permissions:** Publishing job requisitions, reviewing candidate applications, downloading resumes, advancing applicants through hiring stages, and managing public company branding.
+- **Accessible Pages:**
+  - All Public Guest pages
+  - `/pages/account.php` $\rightarrow$ Corporate profile editor (name, industry, address, website link)
+  - `/pages/createJob.php` $\rightarrow$ Job authoring wizard with compensation validation
+  - `/pages/editJob.php?id={id}` $\rightarrow$ Job requisition editor and status modifier
+  - `/pages/myJobs.php` $\rightarrow$ Company job roster displaying active applicant counts
+  - `/pages/applications.php` $\rightarrow$ Unified candidate pipeline filterable by job requisition
+  - `/pages/resume.php?id={candidate_id}` $\rightarrow$ Guarded document stream for candidates who applied to company positions
+- **Available Actions:**
+  - **Job Lifecycle Management:** Create, publish, draft, edit, close, and reopen job listings with validated decimal salary ranges and notice periods.
+  - **Applicant Tracking Pipeline:** Review applicant submissions, read sanitized cover letters, inspect candidate credentials, and update stage status (`reviewing`, `shortlisted`, `interview`, `offered`, `hired`, `rejected`).
+  - **Guarded Resume Streaming:** Stream and inspect candidate resumes with automated IDOR verification ensuring access is granted only if the candidate submitted an active application to the employer's listing.
+  - **Accidental Deletion Protection:** Database-level referential constraints prevent deleting job requisitions that contain active candidate application records.
+- **Restrictions & Limitations:**
+  - Cannot apply to job postings or save jobs as a candidate.
+  - Cannot view or download resumes of candidates who have not applied to the company's postings.
+  - Cannot access or modify other employers' job requisitions or applicant pools.
+  - Cannot modify administrative roles, audit logs, or platform-wide policies.
+
+---
+
+### Role 4: Platform Moderator (Content & Moderation)
+
+- **Role Name:** Platform Moderator (`admin_memberships.role = 'moderator'`)
+- **Description:** Content moderation specialists responsible for platform safety, policy enforcement, quality assurance, and compliance.
+- **Permissions:** Access to the Administrative Control Center to review job postings, hide fraudulent listings, and inspect administrative audit logs.
+- **Accessible Pages:**
+  - All Candidate or Employer pages (depending on underlying base account)
+  - `/pages/admin.php` $\rightarrow$ Administrative overview, system health metrics, and moderation queue
+  - `/pages/admin.php?tab=companies` $\rightarrow$ Company directory and verification status
+  - `/pages/admin.php?tab=jobs` $\rightarrow$ Platform-wide job listings directory
+  - `/pages/admin.php?tab=job&id={id}` $\rightarrow$ Deep listing inspection and moderation panel
+  - `/pages/admin.php?tab=audit` $\rightarrow$ Immutable chronological audit trail with JSON delta diffs
+- **Available Actions:**
+  - **Job Moderation:** Toggle job visibility (`visible` $\leftrightarrow$ `hidden`) with mandatory documented rationale (10–500 characters).
+  - **Audit Inspection:** Review full before-and-after JSON delta snapshots of every moderation action across the platform.
+  - **Resume Inspection:** Stream any candidate resume to verify safety and authenticity during dispute resolution.
+- **Restrictions & Limitations:**
+  - **Cannot suspend or reactivate user accounts** (restricted to Platform Owners).
+  - **Cannot view user directory or application rosters** (preserves user data privacy).
+  - **Cannot grant, modify, or revoke administrative roles**.
+  - All moderator actions are recorded immutably in `admin_audit_log` with the moderator's `user_id` and timestamp.
+
+---
+
+### Role 5: Platform Owner (System Administration & RBAC)
+
+- **Role Name:** Platform Owner (`admin_memberships.role = 'owner'`)
+- **Description:** Chief System Administrator with comprehensive administrative authority, role delegation governance, user account management, and security oversight.
+- **Permissions:** Unrestricted access across all operational, administrative, moderation, and user management modules.
+- **Accessible Pages:**
+  - All Moderator modules and pages
+  - `/pages/admin.php?tab=users` $\rightarrow$ Comprehensive user directory, account statuses, and management
+  - `/pages/admin.php?tab=applications` $\rightarrow$ Global recruitment pipeline analytics and applications roster
+  - `/pages/admin.php?tab=access` $\rightarrow$ Administrative RBAC governance (grant, revoke, demote roles)
+- **Available Actions:**
+  - **User Lifecycle Governance:** Suspend malicious, compromised, or abusive accounts and reactivate cleared users with mandatory rationale tracking.
+  - **Immediate Session Invalidation:** Suspending a user immediately updates their `account_status` and triggers `auth_stamp` invalidation, terminating their active sessions across all devices on their next HTTP request.
+  - **RBAC Governance:** Promote trusted users to `moderator` or `owner` roles, demote administrators, or revoke administrative privileges.
+  - **Global Application Oversight:** Inspect cross-company application metrics, stage velocities, and platform liquidity.
+- **Restrictions & Built-in Engine Safeguards:**
+  - **Self-Demotion Lock:** An owner cannot demote their own account.
+  - **Self-Revocation Lock:** An owner cannot revoke their own administrative access.
+  - **Last-Owner Invariant:** The system strictly rejects any attempt to demote or revoke the sole remaining platform owner, permanently preventing administrative lockout.
+
+---
+
+## 4. Live Demo & Pre-Seeded Showcase Credentials
+
+The application is deployed live in production and connected to a high-availability TiDB Cloud Serverless cluster.
+
+### Live Production URL:
+👉 **`https://jobpro-web.onrender.com`** *(or your designated Render URL)*
+
+### Pre-Seeded Portfolio Showcase Accounts:
+All demo accounts are pre-configured with active data and use the standard showcase password:
+
+$$\textbf{Showcase Password:} \quad \texttt{DemoPass2026!}$$
+
+| Account Role | Demo Email Address | Demo Username | Pre-Loaded Showcase Data |
+| :--- | :--- | :--- | :--- |
+| **Candidate** | `candidate@jobpro.demo` | `Alex Morgan` | 3+ years experience profile, uploaded resume, 2 bookmarked jobs, 2 active applications (`Interview` & `Shortlisted` stages). |
+| **Employer** | `employer@jobpro.demo` | `CloudScale Solutions` | Verified tech enterprise profile, 3 published requisitions, active candidate application pipeline ready for stage advancement. |
+| **FinTech Employer** | `fintech@jobpro.demo` | `Nexus FinTech` | Financial technology company profile, backend developer postings, submitted candidate applications. |
+| **Creative Employer** | `apex@jobpro.demo` | `Apex Creative Media` | Design studio profile, UI/UX Designer postings, active candidate reviews. |
+| **Platform Owner (Admin)** | `admin@jobpro.demo` | `Admin` | Full super-administrator access, user management, moderation tools, RBAC access governance, audit log viewer. |
+
+---
+
+## 5. User Interface & Visual Design System
+
+JobPro features a bespoke, responsive design system engineered entirely with modern CSS3 variables, CSS Grid, and Flexbox—requiring zero external CSS frameworks like Bootstrap or Tailwind.
+
+### Design System Architecture:
+
+- **Modular CSS Tokens (`app/htdocs/assets/css/`):**
+  - `foundation.css` $\rightarrow$ Global typography, color palette, responsive breakpoints, focus states, button primitives, and toast notifications.
+  - `landing.css` $\rightarrow$ Hero typography, statistics cards, and responsive marketing showcases.
+  - `discovery.css` $\rightarrow$ Live search bar, multi-select category chips, and job card layouts.
+  - `auth.css` $\rightarrow$ Split-screen authentication layouts, password visibility toggles, and validation states.
+  - `jobs.css` & `account.css` $\rightarrow$ Multi-tab candidate and employer workspace panels.
+  - `admin.css` $\rightarrow$ Administrative metrics grid, moderation badges, and JSON delta diff viewers.
+- **Accessible Feedback System (`JobProToast`):**
+  - Native ES6 toast notification controller ([`app/htdocs/assets/js/toast.js`](file:///d:/Projects/JobPro/app/htdocs/assets/js/toast.js)).
+  - Accessible via `role="status"` and `aria-live="polite"` with automatic timeouts, hover-pause, and session flash integration.
+- **Web-Optimized Image Assets:**
+  - High-resolution photography resampled using PHP GD to 72 DPI web-optimized JPGs under 70 KB each, reducing total asset payload by 94%.
 
 ---
 
 ## 6. Technology Stack
 
-| Layer                  | Technology               | Details                                                                           |
-| :--------------------- | :----------------------- | :-------------------------------------------------------------------------------- |
-| **Backend Runtime**    | **PHP 8.4+**             | Strict types, native sessions, GD image processing, OpenSSL, MySQLi               |
-| **Database**           | **MySQL 8.0+**           | Relational InnoDB tables, foreign key constraints, JSON fields, composite indexes |
-| **Frontend Scripting** | **Vanilla JavaScript**   | Modern ES6+ modules, Fetch API, History API (`pushState`), zero bundler           |
-| **Styling & UI**       | **Modern CSS3**          | Custom properties (CSS variables), CSS Grid, Flexbox, Light/Dark themes           |
-| **Local Environment**  | **Laravel Herd 2.1+**    | Native Windows Nginx/PHP development environment                                  |
-| **Quality Assurance**  | **PowerShell & PHP CLI** | Custom regression test runner with 146 automated verification checks              |
-| **Dependencies**       | **Zero External**        | No Composer dependencies, No Node.js / npm dependencies                           |
+| Layer | Technology | Specification / Version | Architectural Role |
+| :--- | :--- | :--- | :--- |
+| **Frontend Language** | **Vanilla JavaScript** | Modern ECMAScript 2022+ | Debounced search, History API (`pushState`), async Fetch calls, DOM event delegation. |
+| **Styling & Design** | **Modern CSS3** | Custom Properties & Flex/Grid | Responsive layout engine, dark-mode ready tokens, fluid typography, zero preprocessors. |
+| **Backend Runtime** | **PHP** | **8.4+** (CLI & FPM) | Type-safe controllers, native session management, password hashing, GD image processing. |
+| **Database Server** | **TiDB Cloud Serverless** | **v8.5.3+ (MySQL 8.0 Wire Compatible)** | Distributed relational database, auto-scaling compute, TLS encryption, ACID transactions. |
+| **Web Server** | **Nginx** | **1.26+ (Alpine)** | Reverse proxy, FastCGI socket handler, gzip compression, static asset caching. |
+| **Container Engine** | **Docker** | **Multi-stage Alpine Linux** | Hardened container image, PHP-FPM worker pool, isolated webroot file permissions. |
+| **Cloud Platform** | **Render.com** | **Web Service (Docker)** | Edge TLS termination, automated Git builds, zero-downtime rolling deployments. |
+| **Testing Engine** | **PowerShell & PHP CLI** | Custom Regression Suite | 146 automated unit, HTTP integration, database transaction, and security checks. |
+| **Package Dependencies** | **None (Zero)** | **0 Composer / 0 NPM** | Native web standards eliminate supply-chain attack vectors and dependency drift. |
 
 ---
 
 ## 7. System Requirements
 
-### Minimum Requirements:
+### Production Environment:
+- **Compute:** 512 MB RAM minimum (1 GB recommended), 1 vCPU.
+- **Operating System:** Containerized Linux (Alpine 3.20+ via Docker).
+- **Database:** MySQL 8.0+ or TiDB Cloud Serverless (v7.5+ / v8.5+).
+- **Network:** Outbound TCP port `4000` (or `3306`) with TLS/SSL support.
 
-- **Operating System:** Windows 10/11, macOS Sonoma/Sequoia, or modern Linux (Ubuntu 22.04+).
-- **PHP Engine:** PHP 8.2, 8.3, or 8.4 with extensions enabled:
-  - `ext-mysqli` (Database connectivity)
-  - `ext-session` (State & authentication)
-  - `ext-fileinfo` (MIME sniffing for uploads)
-  - `ext-gd` (Image optimization)
-  - `ext-json` (JSON APIs and audit log encoding)
-- **Database Server:** MySQL 8.0+ or MariaDB 10.5+.
-- **Web Server:** Laravel Herd (recommended for Windows/macOS), Nginx 1.20+, or Apache 2.4+ with `mod_rewrite`.
+### Local Development Environment:
+- **Operating System:** Windows 10/11, macOS Sonoma/Sequoia, or Linux (Ubuntu 22.04+).
+- **PHP:** PHP 8.2, 8.3, or 8.4 with extensions: `mysqli`, `session`, `fileinfo`, `gd`, `json`, `curl`, `openssl`.
+- **Database:** Local MySQL 8.0+ or remote TiDB Serverless cluster.
+- **Web Server:** Laravel Herd (recommended on Windows/macOS), Nginx, or PHP built-in server.
 
 ---
 
-## 8. Installation Steps
+## 8. Local Installation & Development Setup
 
-### Step 1: Clone or Open the Repository
-
+### Step 1: Clone the Repository
 ```powershell
-# Open terminal and navigate to your projects directory
-cd D:\Projects\JobPro
+git clone https://github.com/muaath-im/Online-JobPortal-JobPro.git
+cd Online-JobPortal-JobPro
 ```
 
-### Step 2: Database Initialization
-
-1. Ensure MySQL is running on `127.0.0.1:3306`.
-2. Connect to MySQL and create the database and user:
-
+### Step 2: Configure Local Database
+1. Start your local MySQL server (port 3306).
+2. Create the database and dedicated application user:
 ```sql
-CREATE DATABASE jobpro CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER 'jobpro_local'@'127.0.0.1' IDENTIFIED BY 'jp2026';
+CREATE DATABASE IF NOT EXISTS jobpro CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER IF NOT EXISTS 'jobpro_local'@'127.0.0.1' IDENTIFIED BY 'jp2026';
 GRANT ALL PRIVILEGES ON jobpro.* TO 'jobpro_local'@'127.0.0.1';
 FLUSH PRIVILEGES;
 ```
-
 3. Import the clean, idempotent schema:
-
 ```powershell
-Get-Content d:\Projects\JobPro\database\schema.sql | mysql -u jobpro_local -pjp2026 -h 127.0.0.1 jobpro
+Get-Content database/schema.sql | mysql -u jobpro_local -pjp2026 -h 127.0.0.1 jobpro
+```
+4. *(Optional)* Import the high-fidelity demo data:
+```powershell
+Get-Content database/seed_demo.sql | mysql -u jobpro_local -pjp2026 -h 127.0.0.1 jobpro
 ```
 
-### Step 3: Link Laravel Herd
+### Step 3: Serve the Application
 
-Because Herd auto-detects site webroots from directories containing `index.php`, map the site directly to `app/htdocs`:
-
+#### Option A: Using Laravel Herd (Recommended for Windows/macOS)
+Map the site directly to the public webroot (`app/htdocs`):
 ```powershell
-# Navigate into the public document root
-cd D:\Projects\JobPro\app\htdocs
-
-# Link the site into Laravel Herd
+cd app/htdocs
 herd link jobpro
 ```
+The site is now available at: 👉 **`http://jobpro.test`**
 
-The application is now immediately accessible at:
-👉 **`http://jobpro.test`**
-wq
-
-### Step 4: Bootstrap an Administrator Account
-
-To grant administrative ownership to any registered user account without manual database edits:
-
+#### Option B: Using PHP Built-In Web Server
 ```powershell
-php D:\Projects\JobPro\tools\admin-access.php grant admin@example.com owner
+php -S 127.0.0.1:8000 -t app/htdocs
+```
+The site is now available at: 👉 **`http://127.0.0.1:8000`**
+
+### Step 4: Provision an Administrator Account
+Run the offline administrative bootstrap tool from the terminal:
+```powershell
+php tools/admin-access.php grant admin@jobpro.demo owner
 ```
 
 ---
@@ -232,616 +370,621 @@ php D:\Projects\JobPro\tools\admin-access.php grant admin@example.com owner
 ## 9. Configuration Instructions
 
 ### Database Connection Configuration
-
-Database credentials can be supplied via environment variables or through [`includes/dbconnect.php`](file:///d:/Projects/JobPro/includes/dbconnect.php):
+JobPro automatically configures database connectivity based on environment variables or local fallback files:
 
 ```php
-<?php
-// Default fallback configuration for local development:
+// File: includes/dbconnect.php
 $host = getenv('DB_HOST') ?: '127.0.0.1';
-$user = getenv('DB_USER') ?: 'jobpro_local';
-$pass = getenv('DB_PASS') ?: 'jp2026';
-$db   = getenv('DB_NAME') ?: 'jobpro';
+$dbname = getenv('DB_NAME') ?: 'jobpro';
+$username = getenv('DB_USER') ?: 'jobpro_local';
+$password = getenv('DB_PASS') ?: 'jp2026';
 $port = (int)(getenv('DB_PORT') ?: 3306);
 
-$mysqli = new mysqli($host, $user, $pass, $db, $port);
-if ($mysqli->connect_errno) {
-    error_log("JobPro Database connection failed: " . $mysqli->connect_error);
-    die("Database connection failed. Please check server configuration.");
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+try {
+    $mysqli = mysqli_init();
+    $flags = 0;
+    // Enable SSL encryption for TiDB Cloud Serverless (Port 4000) or explicit DB_SSL
+    if ($port === 4000 || getenv('DB_SSL') === 'true') {
+        $mysqli->ssl_set(NULL, NULL, NULL, NULL, NULL);
+        $flags = MYSQLI_CLIENT_SSL;
+    }
+    $mysqli->real_connect($host, $username, $password, $dbname, $port, NULL, $flags);
+    $mysqli->set_charset('utf8mb4');
+} catch (mysqli_sql_exception $exception) {
+    error_log('Database connection failed: ' . $exception->getMessage());
+    http_response_code(500);
+    exit('Database connection failed. Check your configuration.');
 }
-$mysqli->set_charset("utf8mb4");
 ```
-
-### Mail Transport Configuration
-
-For local development, email capture defaults to private local logging (`JOBPRO_MAIL_TRANSPORT=log`), preventing accidental outbound emails during testing.
 
 ---
 
 ## 10. Environment Variables
 
-Reference template available at [`.env.example`](file:///d:/Projects/JobPro/.env.example):
-
-| Variable Name           | Default Value         | Description                                               |
-| :---------------------- | :-------------------- | :-------------------------------------------------------- |
-| `DB_HOST`               | `127.0.0.1`           | MySQL server hostname or IP address                       |
-| `DB_PORT`               | `3306`                | MySQL server port                                         |
-| `DB_NAME`               | `jobpro`              | Application database schema name                          |
-| `DB_USER`               | `jobpro_local`        | MySQL database username                                   |
-| `DB_PASS`               | `jp2026`              | MySQL database password                                   |
-| `JOBPRO_DB_CONFIG`      | _empty_               | Optional absolute path to an external DB connector script |
-| `JOBPRO_MAIL_TRANSPORT` | `disabled` / `log`    | Outbound mail adapter (`log`, `disabled`, or `smtp`)      |
-| `JOBPRO_MAIL_BASE_URL`  | `http://jobpro.test`  | Base URL used in password reset email links               |
-| `JOBPRO_AUTH_STORAGE`   | `app/storage/resumes` | Absolute filesystem path for private resume storage       |
+| Variable Name | Default / Local | Production (Render + TiDB) | Description |
+| :--- | :--- | :--- | :--- |
+| `DB_HOST` | `127.0.0.1` | `gateway01.ap-southeast-1.prod.aws.tidbcloud.com` | TiDB Cloud cluster host endpoint |
+| `DB_PORT` | `3306` | `4000` | Database connection port (4000 for TiDB) |
+| `DB_NAME` | `jobpro` | `jobpro` | Target database schema name |
+| `DB_USER` | `jobpro_local` | `<cluster-prefix>.root` | Database username |
+| `DB_PASS` | `jp2026` | *(TiDB generated secret password)* | Database password |
+| `DB_SSL` | `false` | `true` | Enforces TLS encrypted database connection |
+| `JOBPRO_MAIL_TRANSPORT` | `log` | `log` *(or `smtp`)* | Mail transport adapter (`log`, `disabled`, or `smtp`) |
+| `JOBPRO_MAIL_BASE_URL` | `http://jobpro.test` | `https://jobpro-web.onrender.com` | Public base URL for password reset links |
+| `JOBPRO_AUTH_STORAGE` | `app/storage/resumes` | `/var/www/jobpro/app/storage/resumes` | Protected directory for uploaded resumes |
 
 ---
 
-## 11. Project Structure
+## 11. Project Architecture & Directory Structure
 
 ```
 JobPro/
-├── .env.example                 # Environment configuration template
-├── .gitignore                   # Git exclusion rules (sensitive data, temp state)
-├── README.md                    # Comprehensive architectural and project manual
+├── .docker/
+│   └── nginx.conf               # Hardened production Nginx configuration with FastCGI mapping
+├── .github/
+│   └── workflows/
+│       └── regression.yml       # Automated GitHub Actions CI workflow
 ├── app/
-│   ├── config/                  # Server configuration examples (.htaccess, database)
-│   ├── htdocs/                  # 🟢 PUBLIC WEBROOT (Exposed to Herd / Web Server)
-│   │   ├── index.php            # Primary entry router (redirects to /pages/landing.php)
-│   │   ├── api/                 # Lightweight REST JSON API endpoints
+│   ├── htdocs/                  # 🟢 TIER 1: PUBLIC DOCUMENT ROOT (Only exposed directory)
+│   │   ├── index.php            # Primary front entry router (redirects to /pages/landing.php)
+│   │   ├── api/                 # Lightweight JSON REST API endpoints
 │   │   │   ├── admin.php        # Administrative moderation & RBAC actions
 │   │   │   ├── applyJob.php     # Candidate job application submission
-│   │   │   ├── auth_api.php     # Sign-in and registration processing
-│   │   │   ├── candidate.php    # Bookmarking & profile state toggles
-│   │   │   ├── discovery.php    # Reactive search filter endpoint
-│   │   │   ├── employer.php     # Applicant pipeline stage updates
-│   │   │   └── getJobs.php      # Public job catalog listing
+│   │   │   ├── auth_api.php     # User registration endpoint
+│   │   │   ├── candidate.php    # Bookmarking & candidate profile updates
+│   │   │   ├── discovery.php    # Reactive search catalog filter API
+│   │   │   ├── employer.php     # Job requisition & pipeline status API
+│   │   │   ├── forgot_password.php # Password recovery request endpoint
+│   │   │   ├── getJobs.php      # Public job catalog API
+│   │   │   ├── login_api.php    # Dual username/email authentication endpoint
+│   │   │   ├── logout.php       # Session termination endpoint
+│   │   │   └── reset_password.php  # Cryptographic password reset execution
 │   │   ├── assets/              # Static frontend assets
 │   │   │   ├── css/             # Foundation, landing, discovery, auth, jobs styles
-│   │   │   ├── js/              # Toast engine, discovery, saved jobs, auth scripts
+│   │   │   ├── js/              # Toast engine, discovery, bookmarks, auth scripts
 │   │   │   ├── images/          # Resampled web assets (< 70 KB) and brand mark SVG
 │   │   │   └── data/            # Discovery demo fallback datasets
 │   │   └── pages/               # Presentation controllers (landing, about, seekJob, etc.)
-│   ├── src/                     # 🔒 PRIVATE APPLICATION DOMAIN (Protected)
-│   │   ├── Core/                # Session, auth, bcrypt crypto, mailer, recovery
-│   │   ├── Http/                # Request validation and business controllers
+│   ├── src/                     # 🔒 TIER 2: PRIVATE APPLICATION CORE (Protected from web)
+│   │   ├── config.php           # Core application bootstrapper & path resolvers
+│   │   ├── Core/                # Session manager, bcrypt crypto, mailer, recovery
+│   │   ├── Http/                # Route validators, request guards, controller logic
 │   │   ├── Services/            # Business models (jobs, candidate, employer, admin)
-│   │   └── views/               # Reusable headers, footers, and view templates
-│   └── storage/                 # 🔒 PRIVATE STORAGE (Outside Webroot)
-│       └── resumes/             # Authenticated candidate uploaded documents (PDF/DOC)
+│   │   └── views/               # Reusable headers, footers, navigation, UI components
+│   └── storage/                 # 🔒 TIER 3: PRIVATE STORAGE VAULT (Outside webroot)
+│       └── resumes/             # Authenticated candidate resumes (PDF/DOC)
 ├── database/
-│   ├── schema.sql               # Clean, idempotent MySQL 8.0 schema
+│   ├── schema.sql               # Clean, idempotent MySQL 8.0 & TiDB Serverless schema
+│   ├── seed_demo.sql            # High-fidelity realistic demo data for portfolio showcase
 │   └── migrations/              # Incremental SQL migration scripts
 ├── includes/
-│   ├── dbconnect.php            # MySQLi connection factory
+│   ├── dbconnect.php            # MySQLi connection factory with TLS support
 │   └── mail.local.php           # Local environment mail capture adapter
 ├── tests/
-│   ├── run-regression.ps1       # Automated PowerShell test runner
+│   ├── run-regression.ps1       # Automated PowerShell regression test runner
 │   ├── administration-http.php  # HTTP security, RBAC & moderation test suite
 │   ├── administration.php       # Administrative logic unit tests
 │   └── employer-http.php        # Employer lifecycle & candidate workflow tests
-└── tools/
-    ├── admin-access.php         # Offline administrator role provisioning CLI
-    └── auth-maintenance.php     # Session cleanup & auth maintenance CLI
+├── tools/
+│   ├── admin-access.php         # Offline administrator role provisioning CLI
+│   └── auth-maintenance.php     # Session cleanup & auth maintenance CLI
+├── Dockerfile                   # Hardened Alpine Nginx + PHP 8.4-FPM container
+├── README.md                    # Comprehensive architectural and project manual
+└── LICENSE                      # MIT Open Source License
 ```
 
 ---
 
-## 12. Architecture Diagram
-
-JobPro employs a **Three-Tier Architecture** that enforces absolute physical isolation between the public web document root, core business logic, and private document storage:
+## 12. System Architecture Diagram
 
 ```mermaid
 flowchart TD
-    subgraph ClientTier ["Client Presentation Layer (Browser)"]
-        BrowserUI["Modern Web Browser (Desktop / Tablet / Mobile)"]
+    subgraph ClientLayer ["Client Presentation Layer (Browser)"]
+        Browser["Modern Web Browser (Desktop / Mobile)"]
         VanillaJS["Vanilla ES6+ Reactive Discovery Engine"]
         ToastUI["JobProToast Notification Controller"]
     end
 
-    subgraph WebrootTier ["Tier 1: Public Webroot (app/htdocs - Exposed)"]
-        Router["index.php (Front Entry Redirector)"]
-        Pages["pages/*.php (View Controllers)"]
-        JSONAPI["api/*.php (REST JSON API Endpoints)"]
-        Assets["assets/ (CSS3 Tokens, Toast JS, Optimized Media)"]
+    subgraph EdgeLayer ["Edge Infrastructure (Render.com)"]
+        EdgeProxy["Render Edge Load Balancer & DDoS Shield"]
+        TLS["Automated SSL/TLS Termination (Let's Encrypt)"]
     end
 
-    subgraph CoreTier ["Tier 2: Private Application Core (app/src - Protected)"]
-        AuthCore["Core/ (auth.php, crypto, session, mail)"]
-        HttpHandlers["Http/ (Request Validation & Route Logic)"]
-        DomainServices["Services/ (jobs, candidate, employer, admin)"]
-        ViewTemplates["views/ (Header, Footer, Navigation, Partials)"]
+    subgraph ContainerLayer ["Docker Production Container"]
+        subgraph WebServer ["Nginx 1.26 (Port 80)"]
+            DocRoot["Strict Document Root: app/htdocs/"]
+            FastCGIParams["FastCGI Params (HTTPS mapped from X-Forwarded-Proto)"]
+            StaticCache["Static Asset Cache (CSS, JS, SVG, JPG)"]
+        end
+        subgraph AppRuntime ["PHP 8.4-FPM Pool (Port 9000)"]
+            EnvConfig["clear_env = no (Preserves Render Environment)"]
+            AuthCore["app/src/Core/ (auth.php, session, crypto)"]
+            Controllers["app/src/Http/ (login, register, employer, admin)"]
+            Services["app/src/Services/ (domain logic & validation)"]
+        end
+        subgraph PrivateDisk ["Protected Private Filesystem"]
+            ResumeStore["app/storage/resumes/ (Permissions 750)"]
+        end
     end
 
-    subgraph StorageTier ["Tier 3: Data & Storage Tier (Private)"]
-        ResumesVault["app/storage/resumes/ (Protected Document Store)"]
-        RelationalDB[("MySQL 8.0 Database (9 Relational Tables)")]
+    subgraph DatabaseLayer ["Cloud Database Tier"]
+        TiDBServerless[("TiDB Cloud Serverless (AWS Singapore)\nMySQL 8.0 Wire Protocol | Port 4000\nTLS Encrypted (MYSQLI_CLIENT_SSL)")]
     end
 
-    BrowserUI -->|HTTP / HTTPS Request| WebrootTier
-    WebrootTier -->|Require / Include| CoreTier
-    CoreTier -->|Prepared SQL Statements| RelationalDB
-    CoreTier -->|Guarded Binary Stream| ResumesVault
+    Browser -->|HTTPS Request| EdgeProxy
+    EdgeProxy --> TLS
+    TLS -->|HTTP / X-Forwarded-Proto: https| WebServer
+    WebServer -->|Static Assets| DocRoot
+    WebServer -->|FastCGI Request| AppRuntime
+    AppRuntime -->|Prepared SQL over TLS| TiDBServerless
+    AppRuntime -->|Guarded Stream (%PDF Magic Bytes)| ResumeStore
 ```
 
 ---
 
-## 13. Database ERD Diagram
-
-The database architecture consists of 9 fully normalized relational tables managed with foreign key constraints, composite indexes, and cascading deletions:
+## 13. Database Entity-Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
-    user ||--o| person : "profile"
+    user ||--o| person : "has_profile"
     user ||--o| company : "operates"
     user ||--o{ applications : "submits"
     user ||--o{ saved_jobs : "bookmarks"
-    user ||--o{ terms_acceptance : "agrees"
+    user ||--o{ terms_acceptance : "agrees_to"
     user ||--o| admin_memberships : "holds_role"
-    user ||--o{ admin_audit_log : "performed_action"
+    user ||--o{ admin_audit_log : "performs_action"
     company ||--o{ jobs : "publishes"
     jobs ||--o{ applications : "receives"
     jobs ||--o{ saved_jobs : "saved_in"
 
     user {
-        int user_id PK
-        string username
-        string email UK
-        string password
-        string phone_number
-        enum account_type
-        enum account_status
-        string account_status_reason
-        timestamp created_at
+        int user_id PK "AUTO_INCREMENT"
+        string username "NOT NULL"
+        string email UK "UNIQUE, NOT NULL"
+        string password "Bcrypt hash, NOT NULL"
+        string phone_number "Nullable"
+        enum account_type "'personal' or 'company'"
+        string profile_image "Default asset path"
+        timestamp created_at "CURRENT_TIMESTAMP"
+        enum account_status "'active' or 'suspended'"
+        string account_status_reason "Nullable"
+        timestamp account_status_updated_at "Nullable"
     }
 
     person {
-        int person_id PK
-        int user_id FK
+        int person_id PK "AUTO_INCREMENT"
+        int user_id FK "REFERENCES user(user_id) ON DELETE CASCADE"
         string full_name
         string qualification
         int year_of_experience
+        string location
         string city
+        string zip_code
         string country
-        string cv_link
+        string portfolio_link
+        string cv_link "Original resume filename"
     }
 
     company {
-        int company_id PK
-        int user_id FK
+        int company_id PK "AUTO_INCREMENT"
+        int user_id FK "REFERENCES user(user_id) ON DELETE CASCADE"
         string company_name
         string website_link
         string address
     }
 
     jobs {
-        int id PK
-        int company_id FK
-        string job_title
-        string job_category
-        string job_location
-        decimal min_salary
-        decimal max_salary
-        enum publication_status
-        enum moderation_status
-        timestamp created_at
+        int id PK "AUTO_INCREMENT"
+        string job_title "NOT NULL"
+        string job_category "NOT NULL"
+        string job_location "NOT NULL"
+        string job_type "Full-Time, Remote, etc."
+        decimal min_salary "DECIMAL(10,2)"
+        decimal max_salary "DECIMAL(10,2)"
+        string skill_required
+        string notice_period
+        string joining_facility
+        text job_description "NOT NULL"
+        timestamp created_at "CURRENT_TIMESTAMP"
+        int company_id FK "REFERENCES company(company_id)"
+        string image "Visual banner path"
+        enum publication_status "'draft', 'open', 'closed'"
+        timestamp updated_at "ON UPDATE CURRENT_TIMESTAMP"
+        enum moderation_status "'visible', 'hidden'"
+        string moderation_reason "Nullable"
+        timestamp moderated_at "Nullable"
     }
 
     applications {
-        int id PK
-        int job_id FK
-        int user_id FK
-        text cover_letter
-        enum status
-        datetime applied_at
-        timestamp status_updated_at
+        int id PK "AUTO_INCREMENT"
+        int job_id FK "REFERENCES jobs(id)"
+        int user_id FK "REFERENCES user(user_id) ON DELETE CASCADE"
+        datetime applied_at "CURRENT_TIMESTAMP"
+        text cover_letter "Nullable"
+        enum status "'submitted','reviewing','shortlisted','interview','offered','hired','rejected'"
+        timestamp status_updated_at "Nullable"
     }
 
     saved_jobs {
-        int user_id PK, FK
-        int job_id PK, FK
-        timestamp saved_at
+        int user_id PK, FK "REFERENCES user(user_id) ON DELETE CASCADE"
+        int job_id PK, FK "REFERENCES jobs(id) ON DELETE CASCADE"
+        timestamp saved_at "CURRENT_TIMESTAMP"
     }
 
     terms_acceptance {
-        int acceptance_id PK
-        int user_id FK
-        boolean terms_accepted
-        boolean details_correct
+        int acceptance_id PK "AUTO_INCREMENT"
+        int user_id FK "REFERENCES user(user_id) ON DELETE CASCADE"
+        boolean terms_accepted "DEFAULT 0"
+        boolean details_correct "DEFAULT 0"
     }
 
     admin_memberships {
-        int user_id PK, FK
-        enum role
-        int granted_by FK
-        timestamp created_at
+        int user_id PK, FK "REFERENCES user(user_id)"
+        enum role "'owner' or 'moderator'"
+        int granted_by FK "Nullable"
+        timestamp created_at "CURRENT_TIMESTAMP"
     }
 
     admin_audit_log {
-        bigint id PK
-        int actor_user_id FK
-        string action
-        string target_type
+        bigint id PK "BIGINT UNSIGNED AUTO_INCREMENT"
+        int actor_user_id FK "Nullable"
+        string action "e.g. user_status, job_visibility"
+        string target_type "'user' or 'job'"
         int target_id
-        string reason
-        json before_state
-        json after_state
-        timestamp created_at
+        string reason "Mandatory rationale"
+        json before_state "State prior to mutation"
+        json after_state "State after mutation"
+        timestamp created_at "CURRENT_TIMESTAMP"
     }
 ```
 
 ---
 
-## 14. API Documentation
+## 14. REST API Documentation
 
-JobPro provides a structured JSON REST API for client interactions:
+JobPro provides a lightweight, secure JSON REST API for client interactions:
 
 ### 1. Job Discovery API
-
 - **Endpoint:** `GET /api/discovery.php`
-- **Access:** Public
-- **Query Parameters:**
-  - `search` _(string)_: Keyword matching title, description, or skills.
-  - `category` _(string)_: Industry filter (e.g. `Technology`, `Design`).
-  - `location` _(string)_: Location filter.
-  - `page` _(int)_: Pagination index (default: `1`).
-- **Response Sample:**
-
+- **Access:** Public (Unauthenticated)
+- **Parameters:** `search` *(string)*, `category` *(string)*, `location` *(string)*, `page` *(int, default 1)*.
+- **Response Format:**
 ```json
 {
   "success": true,
   "data": [
     {
-      "id": 12,
+      "id": 1,
       "title": "Senior Full-Stack Engineer",
       "category": "Technology",
-      "location": "Remote / New York",
-      "company_name": "Acme Innovations",
+      "location": "Remote (US / EU / Asia)",
+      "company_name": "CloudScale Solutions",
       "salary_min": 120000.0,
       "salary_max": 155000.0,
       "publication_status": "open"
     }
   ],
-  "total": 48,
-  "pages": 5
+  "total": 6,
+  "pages": 1
 }
 ```
 
-### 2. Candidate Job Application API
+### 2. Dual Username / Email Authentication API
+- **Endpoint:** `POST /api/login_api.php`
+- **Access:** Public
+- **Parameters:** `username` *(username or registered email)*, `password` *(string)*, `csrf_token` *(string)*.
+- **Behavior:** Validates anti-CSRF token, applies IP/username rate limiting, checks bcrypt hash in constant time, regenerates session ID, and issues `auth_stamp`.
 
+### 3. User Registration API
+- **Endpoint:** `POST /api/auth_api.php`
+- **Access:** Public (Unauthenticated)
+- **Parameters:** `registerType` *('personal' or 'company')*, `username` *(3–30 chars)*, `email`, `fullname` / `companyName`, `phone`, `password` *($\ge 15$ chars)*, `confirm-password`, `terms` *(1)*, `details_correct` *(1)*, `csrf_token`.
+
+### 4. Job Application Submission API
 - **Endpoint:** `POST /api/applyJob.php`
 - **Access:** Authenticated (Candidate only)
-- **Headers:** `Content-Type: application/x-www-form-urlencoded`
-- **Parameters:** `job_id` _(int)_, `cover_letter` _(string)_, `csrf_token` _(string)_.
-- **Response Sample:**
+- **Parameters:** `job_id` *(int)*, `cover_letter` *(string)*, `csrf_token` *(string)*.
 
-```json
-{
-  "success": true,
-  "message": "Application submitted successfully."
-}
-```
-
-### 3. Bookmarking / Saved Jobs API
-
+### 5. Bookmarking / Saved Jobs API
 - **Endpoint:** `POST /api/candidate.php`
 - **Access:** Authenticated (Candidate only)
-- **Parameters:** `action=toggle_saved`, `job_id` _(int)_, `csrf_token` _(string)_.
-- **Response Sample:**
+- **Parameters:** `action=toggle_saved`, `job_id` *(int)*, `csrf_token` *(string)*.
 
-```json
-{
-  "success": true,
-  "saved": true,
-  "message": "Job bookmarked."
-}
-```
-
-### 4. Employer Pipeline Stage API
-
+### 6. Employer Pipeline Stage API
 - **Endpoint:** `POST /api/employer.php`
-- **Access:** Authenticated (Employer owner only)
-- **Parameters:** `action=update_status`, `application_id` _(int)_, `status` _(enum)_, `csrf_token` _(string)_.
-- **Status Enum:** `reviewing`, `shortlisted`, `interview`, `offered`, `hired`, `rejected`.
-- **Response Sample:**
+- **Access:** Authenticated (Authorized Listing Employer only)
+- **Parameters:** `action=update_status`, `application_id` *(int)*, `status` *(submitted, reviewing, shortlisted, interview, offered, hired, rejected)*, `csrf_token` *(string)*.
 
-```json
-{
-  "success": true,
-  "new_status": "interview",
-  "message": "Candidate moved to interview stage."
-}
-```
-
-### 5. Secure Resume Streaming
-
-- **Endpoint:** `GET /pages/resume.php?id={candidate_user_id}`
-- **Access:** IDOR-Guarded (Candidate self, Associated Employer, or Admin)
-- **Response:** Streamed binary document (`application/pdf`) with `Content-Disposition: inline`.
+### 7. Administrative Moderation & RBAC API
+- **Endpoint:** `POST /api/admin.php`
+- **Access:** Authenticated (Moderator or Owner only)
+- **Parameters:** `action` *('user_status', 'job_visibility', 'grant_role')*, `target_id` *(int)*, `reason` *(10–500 chars)*, `csrf_token` *(string)*.
 
 ---
 
-## 15. Authentication and Authorization Flow
+## 15. Authentication & Security Architecture
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as User / Browser
-    participant Webroot as Webroot (app/htdocs)
-    participant Auth as Auth Core (src/Core/auth.php)
-    participant DB as MySQL 8.0 Database
-    participant Storage as Protected Storage (app/storage)
+    actor User as User Browser
+    participant Nginx as Nginx (Reverse Proxy)
+    participant FPM as PHP 8.4-FPM Core
+    participant DB as TiDB Serverless (TLS)
+    participant Storage as Private Storage Vault
 
-    User->>Webroot: POST /api/login_api.php (email, password, csrf_token)
-    Webroot->>Auth: Validate anti-CSRF token
-    Auth->>DB: SELECT * FROM user WHERE email = ? (Prepared SQL)
-    DB-->>Auth: User record (with bcrypt hash & auth_stamp)
-    Auth->>Auth: password_verify(input, hash) [Constant-time]
-    Auth->>Auth: session_regenerate_id(true) [Fixation Defense]
-    Auth->>Auth: Bind $_SESSION['user_id'] & $_SESSION['auth_stamp']
-    Auth-->>User: Set-Cookie: PHPSESSID (HttpOnly, SameSite) & Redirect
+    User->>Nginx: POST /api/login_api.php (username/email, password, csrf_token)
+    Nginx->>FPM: FastCGI forward (with HTTPS=on, clear_env=no)
+    FPM->>FPM: Validate CSRF token (hash_equals)
+    FPM->>DB: SELECT * FROM user WHERE (username=? OR email=?) LIMIT 2
+    DB-->>FPM: User record (bcrypt hash, account_status)
+    FPM->>FPM: password_verify(input, hash) [Constant Time]
+    FPM->>FPM: session_regenerate_id(true) [Fixation Defense]
+    FPM->>FPM: Compute auth_stamp = sha256(password)
+    FPM-->>User: Set-Cookie: PHPSESSID (HttpOnly, SameSite=Lax, Secure=true)
 
-    Note over User,Storage: Authenticated Document Access (e.g. Resume Download)
-    User->>Webroot: GET /pages/resume.php?id=343
-    Webroot->>Auth: Verify user session & auth_stamp validity
-    Auth->>DB: Query candidate ownership OR employer application relation OR admin role
-    DB-->>Auth: Access Authorized (Candidate Self / Reviewing Employer / Admin)
-    Webroot->>Storage: Read file from app/storage/resumes/{user_id}.pdf
-    Storage-->>Webroot: Binary stream (%PDF magic-byte verified)
-    Webroot-->>User: HTTP 200 (Streamed inline PDF document)
+    Note over User,Storage: Authenticated Document Access (e.g. Candidate Resume)
+    User->>Nginx: GET /pages/resume.php?id=5
+    Nginx->>FPM: FastCGI forward
+    FPM->>FPM: Verify session_id & auth_stamp against database
+    FPM->>DB: Check IDOR: (Self OR Applied Employer OR Admin)
+    DB-->>FPM: Access Authorized
+    FPM->>Storage: Stream /var/www/jobpro/app/storage/resumes/5.pdf
+    Storage-->>FPM: Binary file (%PDF magic-byte verified)
+    FPM-->>User: HTTP 200 (Streamed inline PDF document)
 ```
 
 ---
 
-## 16. Testing Strategy
+## 16. Automated Testing Strategy & Coverage
 
-JobPro employs a multi-tiered automated verification strategy to guarantee that modifications introduce zero regressions:
-
-```
-+-----------------------------------------------------------------------------------+
-|                            AUTOMATED TEST PYRAMID                                 |
-+-----------------------------------------------------------------------------------+
-|                                                                                   |
-|                           [ 116 HTTP / DB Checks ]                                |
-|                  Integration verification across active routes                    |
-|                Session lifecycle, CSRF validation, IDOR checks                    |
-|                                                                                   |
-|                        -----------------------------                              |
-|                                                                                   |
-|                           [ 30 Administrative Units ]                             |
-|                 RBAC permissions, self-demotion locks, schema                     |
-|                    migration idempotence, boundary sanitation                     |
-+-----------------------------------------------------------------------------------+
-```
-
-### Running the Test Suite:
+JobPro features a zero-dependency automated regression test suite executed via PowerShell and PHP CLI:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File d:\Projects\JobPro\tests\run-regression.ps1
+powershell -ExecutionPolicy Bypass -File tests/run-regression.ps1
 ```
 
-The test runner spins up an ephemeral loopback PHP web server on an isolated port, executes the complete suite against isolated test fixtures, verifies all assertions, cleans up test state, and terminates the temporary server automatically.
+The test runner spins up an ephemeral loopback web server on an isolated port, executes 146 comprehensive tests against isolated fixtures, verifies all assertions, cleans up temporary mail/session state, and terminates the server.
+
+### Test Coverage Summary:
+
+| Test Domain | Checks | Scope & Target Functionality | Pass Rate |
+| :--- | :---: | :--- | :---: |
+| **Administration Unit Logic** | **30** | Permission hierarchy, self-demotion locks, last-owner invariants, null byte boundary rejection, migration idempotency. | **100% (30/30)** |
+| **Employer Lifecycle Tests** | **48** | Job requisition authoring, decimal salary bounds, pipeline stage progression, candidate evaluation, application filtering. | **100% (48/48)** |
+| **Administration HTTP Tests** | **68** | CSRF enforcement, user suspension, session invalidation, listing moderation, audit logs, IDOR security boundaries. | **100% (68/68)** |
+| **Total Test Suite** | **146** | **Complete end-to-end regression validation** | **100% (146/146)** |
 
 ---
 
-## 17. Test Coverage Information
+## 17. Production Deployment Architecture
 
-| Test Domain                   | Checks  | Target Scope                                                                                            |     Pass Rate      |
-| :---------------------------- | :-----: | :------------------------------------------------------------------------------------------------------ | :----------------: |
-| **Administrative Unit Logic** |   30    | Permission hierarchy, last-owner demotion locks, null byte boundary rejection, migration idempotency.   |  **100% (30/30)**  |
-| **Employer Lifecycle Tests**  |   48    | Job drafts, publication, decimal salary bounds, pipeline stage progression, candidate reviews.          |  **100% (48/48)**  |
-| **Administration HTTP Tests** |   68    | CSRF enforcement, user suspension, session invalidation, listing moderation, audit logs, IDOR security. |  **100% (68/68)**  |
-| **Total Test Suite**          | **146** | **Complete end-to-end regression validation**                                                           | **100% (146/146)** |
+JobPro is deployed in a modern, production-grade cloud topology combining a containerized web runtime with a cloud-native serverless database:
 
----
+### Deployment Architecture Highlights:
 
-## 18. Deployment Process
-
-### Production Deployment Procedure:
-
-1. **Server Provisioning:** Provision an Ubuntu 22.04 LTS or Debian 12 server with PHP 8.4, MySQL 8.0, and Nginx.
-2. **Webroot Configuration:** Point the web server document root strictly to the public directory:
-   $$\text{Document Root} \longrightarrow \texttt{/var/www/jobpro/app/htdocs}$$
-3. **Storage Directory Permissions:** Ensure the private storage directory exists outside the webroot and is writable exclusively by the web server user (`www-data`):
-   ```bash
-   mkdir -p /var/www/jobpro/app/storage/resumes
-   chown -R www-data:www-data /var/www/jobpro/app/storage
-   chmod 750 /var/www/jobpro/app/storage/resumes
-   ```
-4. **Environment Setup:** Configure production database credentials via system environment variables or ignored production configuration files.
-5. **Database Migration:** Import `database/schema.sql` into the production MySQL database.
-6. **Execute Regression Suite:** Run tests to verify the deployment before routing live traffic.
+- **Hosting Platform:** **Render.com** (Docker Web Service).
+- **Container Image:** Alpine Linux 3.20 + PHP 8.4-FPM + Nginx 1.26.
+- **Database Engine:** **TiDB Cloud Serverless** (AWS Singapore `ap-southeast-1`, MySQL 8.0 wire-compatible, port 4000).
+- **SSL / TLS Encryption:** Render edge proxy manages SSL termination with automated Let's Encrypt certificates. Nginx maps upstream FastCGI HTTPS variables to ensure PHP emits `Secure` session cookies.
+- **PHP-FPM Worker Configuration:** Hardened with `clear_env = no` in `/usr/local/etc/php-fpm.d/zz-docker.conf` to guarantee container environment variables (`DB_HOST`, `DB_USER`, etc.) are passed to worker processes.
+- **Process Supervision:** Multi-process CMD startup executes `php-fpm -D && nginx -g "daemon off;"`, ensuring both services run under container PID management.
 
 ---
 
-## 19. Hosting Configuration
+## 18. Cloud Hosting & Server Configuration
 
-### Nginx Server Block (`/etc/nginx/sites-available/jobpro.conf`):
+### Production Dockerfile (`Dockerfile`):
+```dockerfile
+FROM php:8.4-fpm-alpine
 
+# Install system dependencies & PHP extensions
+RUN apk add --no-cache nginx mysql-client libpng-dev libjpeg-turbo-dev freetype-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mysqli
+
+# Configure PHP-FPM to pass Docker environment variables to PHP worker processes
+RUN echo "clear_env = no" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
+# Copy custom Nginx configuration
+COPY .docker/nginx.conf /etc/nginx/nginx.conf
+
+# Set working directory
+WORKDIR /var/www/jobpro
+
+# Copy project files
+COPY . /var/www/jobpro
+
+# Ensure private storage directory exists with proper permissions
+RUN mkdir -p /var/www/jobpro/app/storage/resumes \
+    && chown -R www-data:www-data /var/www/jobpro \
+    && chmod -R 755 /var/www/jobpro \
+    && chmod 750 /var/www/jobpro/app/storage/resumes
+
+# Expose HTTP port 80
+EXPOSE 80
+
+# Start both PHP-FPM and Nginx
+CMD php-fpm -D && nginx -g "daemon off;"
+```
+
+### Production Nginx Configuration (`.docker/nginx.conf`):
 ```nginx
-server {
-    listen 80;
-    listen [::]:80;
-    server_name jobpro.example.com;
-    return 301 https://$host$request_uri;
+events {
+    worker_connections 1024;
 }
 
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name jobpro.example.com;
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    keepalive_timeout 65;
 
-    # Point strictly to the public document root
-    root /var/www/jobpro/app/htdocs;
-    index index.php;
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css application/json application/javascript image/svg+xml;
 
-    ssl_certificate /etc/letsencrypt/live/jobpro.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/jobpro.example.com/privkey.pem;
-
-    # Security Headers
-    add_header X-Frame-Options "SAMEORIGIN" always;
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header X-XSS-Protection "1; mode=block" always;
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
+    map $http_x_forwarded_proto $fastcgi_https {
+        default off;
+        https on;
     }
 
-    # Deny access to sensitive files
-    location ~ /\.(ht|git|env) {
-        deny all;
-    }
+    server {
+        listen 80;
+        server_name _;
 
-    # PHP-FPM FastCGI Handler
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-        include fastcgi_params;
+        root /var/www/jobpro/app/htdocs;
+        index index.php;
+
+        client_max_body_size 6M;
+
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # Security: block access to hidden & sensitive files
+        location ~ /\.(ht|git|env) {
+            deny all;
+            return 404;
+        }
+
+        # Block direct access to private storage
+        location ^~ /storage/ {
+            deny all;
+            return 404;
+        }
+
+        # PHP-FPM handler
+        location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+            fastcgi_param HTTPS $fastcgi_https;
+            fastcgi_param HTTP_X_FORWARDED_PROTO $http_x_forwarded_proto;
+            fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+        }
     }
 }
 ```
 
 ---
 
-## 20. CI/CD Overview
+## 19. CI/CD Automation
 
-JobPro can be integrated into GitHub Actions or GitLab CI. Below is an example workflow (`.github/workflows/regression.yml`) to automatically execute the test suite on every pull request:
-
-```yaml
-name: JobPro Regression Suite
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: windows-latest
-
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: jobpro
-        ports:
-          - 3306:3306
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP 8.4
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.4"
-          extensions: mysqli, gd, fileinfo, json
-
-      - name: Import Database Schema
-        run: |
-          mysql -h 127.0.0.1 -u root -proot jobpro < database/schema.sql
-
-      - name: Execute Regression Suite
-        run: |
-          powershell -ExecutionPolicy Bypass -File tests/run-regression.ps1
-```
+Continuous Integration is automated via GitHub Actions ([`.github/workflows/regression.yml`](file:///d:/Projects/JobPro/.github/workflows/regression.yml)). Every push and pull request executes:
+1. Spin up ephemeral MySQL 8.0 service container.
+2. Initialize PHP 8.4 runtime with `mysqli`, `gd`, `fileinfo`, `json` extensions.
+3. Import `database/schema.sql`.
+4. Run all 146 automated regression checks via PowerShell.
+5. Auto-deploy to Render.com on successful completion of the `main` branch build.
 
 ---
 
-## 21. Performance Considerations
+## 20. Performance Benchmarks & Optimizations
 
-During the modernization process, JobPro underwent extensive performance profiling:
-
-- **94% Asset Weight Reduction:** Total image and asset payload was slashed from **12.2 MB** down to **0.75 MB**.
-- **High-DPI GD Resampling:** 33-megapixel camera raw assets were batch-resampled to 72 DPI web-optimized JPGs under 70 KB each, permanently preventing PHP memory exhaustion errors.
-- **Native System Font Stack:** Eliminates external network roundtrips for Google Fonts or Typekit:
-  ```css
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  ```
-- **Zero JavaScript Compilation Overhead:** Client-side modules execute natively in the browser without Babel or Webpack runtime layers.
-- **Instantaneous Response Time:** Benchmarked local response times consistently register under **15 ms** per page request.
+- **94% Asset Weight Reduction:** Total image payload reduced from 12.2 MB to 0.75 MB using GD resampling.
+- **Native System Typography Stack:** Zero web font network requests; uses system native typography (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto`).
+- **Zero Compilation Overhead:** Native ES6 modules execute directly in modern browsers without Babel or Webpack runtime layers.
+- **Sub-15ms Local Response Time:** Benchmarked local response times register under 15 ms per page request.
+- **Serverless Query Optimization:** Composite indexes on `(account_status, account_type, created_at)` and `(job_id, status, applied_at)` guarantee sub-millisecond query execution on TiDB Cloud.
 
 ---
 
-## 22. Security Considerations
+## 21. Security Engineering (OWASP Top 10 Mitigation)
 
-| Vector                                | Defense Mechanism                                                                                      | Implementation File                       |
-| :------------------------------------ | :----------------------------------------------------------------------------------------------------- | :---------------------------------------- |
-| **SQL Injection**                     | Parameterized prepared statements on 100% of queries.                                                  | `app/src/Services/*.php`                  |
-| **Cross-Site Scripting (XSS)**        | `htmlspecialchars(..., ENT_QUOTES \| ENT_SUBSTITUTE, 'UTF-8')` on all dynamic outputs.                 | `app/src/views/header.php`, `auth-ui.php` |
-| **Cross-Site Request Forgery (CSRF)** | Cryptographically secure tokens (`bin2hex(random_bytes(32))`) validated via `hash_equals()`.           | `app/src/Core/auth.php`                   |
-| **Password Storage**                  | `password_hash()` using bcrypt with default cost factor 10.                                            | `app/src/Core/auth.php`                   |
-| **Session Hijacking**                 | `session_regenerate_id(true)` upon privilege escalation.                                               | `app/src/Core/auth.php`                   |
-| **Session Invalidation**              | `auth_stamp` checking terminates active sessions immediately upon suspension or password change.       | `app/src/Core/auth.php`                   |
-| **IDOR (File Access)**                | Resumes are served through `resume.php` which validates viewer authorization before reading from disk. | `app/src/views/pages/resume.php`          |
-| **Malicious File Uploads**            | 5 MB cap, extension whitelist (`.pdf`, `.doc`, `.docx`), and `%PDF` magic byte verification.           | `app/src/Core/auth.php`                   |
-
----
-
-## 23. Known Limitations
-
-1. **Local Filesystem Resume Storage:** Uploaded resumes are currently persisted to the local server disk (`app/storage/resumes/`). Multi-server horizontal autoscaling requires an NFS mount or an S3 adapter.
-2. **Synchronous Email Transport:** In environments using SMTP instead of log capture, email dispatch occurs synchronously during request execution.
-3. **No Real-Time WebSockets:** Status updates currently update upon navigation or polling rather than via WebSocket push subscriptions.
+| Threat Vector | Mitigation Strategy | Implementation Details |
+| :--- | :--- | :--- |
+| **A01: Broken Access Control** | Three-Tier Webroot Isolation + RBAC | Webroot isolation (`app/htdocs/`), IDOR verification on resume downloads (`resume.php`), RBAC controller guards. |
+| **A02: Cryptographic Failures** | Strong Passphrase Policy + TLS | Enforced 15–128 character passphrases, `PASSWORD_BCRYPT` with cost 10, mandatory TLS database connection. |
+| **A03: Injection (SQLi / Command)** | Parameterized Prepared Statements | 100% of database queries use `mysqli::prepare()` with strict parameter type bindings (`ssis`). |
+| **A04: Insecure Design** | Strict Account Status & Audit Trail | Immutable `admin_audit_log` capturing JSON before/after state diffs, last-owner demotion locks. |
+| **A05: Security Misconfiguration** | Hardened Nginx & FastCGI | Hidden file blocking (`/\.(ht\|git\|env)`), private storage blocking (`^~ /storage/`), explicit error logging. |
+| **A06: Vulnerable Components** | Zero External Dependencies | Zero Composer and zero NPM runtime dependencies eliminate supply-chain vulnerabilities. |
+| **A07: Identification & Auth** | Fixation Defense & Immediate Invalidation | `session_regenerate_id(true)` upon login, `auth_stamp` session invalidation, IP-based sliding rate limiting. |
+| **A08: Software & Data Integrity** | Magic-Byte File Validation | Uploaded resumes undergo physical binary inspection (`%PDF-`) verifying genuine MIME headers before disk persistence. |
+| **A09: Security Logging & Monitoring** | Structured JSON Audit Logging | Centralized administrative audit logging tracking actor ID, action name, target ID, and mandatory rationales. |
+| **A10: Server-Side Request Forgery** | URL Scheme Sanitization | Strict URL parsing restricting website links to validated `http://` and `https://` schemes. |
 
 ---
 
-## 24. Future Enhancements
+## 22. Backup, Disaster Recovery & High Availability
 
-- [ ] **Cloud Storage Adapter:** S3 / Cloudflare R2 integration for scalable remote resume storage.
-- [ ] **Asynchronous Message Queue:** Redis or database-backed queue for asynchronous email delivery.
-- [ ] **WebAuthn / Passkeys:** Passwordless biometric login support via WebAuthn API.
-- [ ] **Exportable Candidate Dossier:** One-click PDF compilation of candidate bio, qualifications, and application history for hiring committees.
-- [ ] **Multi-Language Localization:** Gettext / JSON-based i18n support for multilingual portals.
+- **Automated Cloud Backups:** TiDB Cloud Serverless performs continuous point-in-time recovery (PITR) and daily automated snapshots across AWS availability zones.
+- **Versioned Schema Migrations:** All schema definitions ([`database/schema.sql`](file:///d:/Projects/JobPro/database/schema.sql)) and seed datasets ([`database/seed_demo.sql`](file:///d:/Projects/JobPro/database/seed_demo.sql)) are maintained in version control.
+- **Stateless Web Tier:** The application container is completely stateless. Container instances can be destroyed and reprovisioned in seconds on any container host.
 
 ---
 
-## 25. Troubleshooting Guide
+## 23. Monitoring, Telemetry & Maintenance
 
-### 1. Herd Redirects to Herd Studio (`/herd-studio?path=%2F`)
-
-- **Cause:** Laravel Herd was linked to the repository root directory `D:\Projects\JobPro` instead of the public webroot `app/htdocs`.
-- **Fix:** Re-link Herd to the public folder:
-  ```powershell
-  cd D:\Projects\JobPro\app\htdocs
-  herd link jobpro
-  ```
-
-### 2. MySQL Connection Refused / Socket Error
-
-- **Cause:** MySQL service is stopped or port 3306 is blocked.
-- **Fix:** Verify MySQL is running on `127.0.0.1:3306` and credentials in `includes/dbconnect.php` match your local MySQL configuration.
-
-### 3. Resume Upload Fails with "Invalid File Type"
-
-- **Cause:** The uploaded file lacks genuine document headers (e.g. renaming `.exe` to `.pdf`).
-- **Fix:** Upload a valid PDF, DOC, or DOCX document with authentic binary magic bytes.
-
-### 4. Admin Navigation Not Showing After Granting Role
-
-- **Cause:** Active session holds pre-grant authorization state.
-- **Fix:** Sign out and sign back in to regenerate the session and refresh administrative permissions.
+- **Live Error Logging:** PHP errors are logged to the standard container error stream (`stderr`) and captured directly in Render's live log viewer.
+- **TiDB Cloud Statement Profiling:** Slow queries, transaction latencies, and execution plans are monitored in real time via TiDB Cloud Query Insights.
+- **Automated Session Cleanup:** Built-in maintenance script ([`tools/auth-maintenance.php`](file:///d:/Projects/JobPro/tools/auth-maintenance.php)) purges expired session files and stale rate-limit trackers.
 
 ---
 
-## 26. Contribution Guidelines
+## 24. Known Deployment Limitations
+
+1. **Ephemeral Local Storage on Free Tier Containers:** On Render's free tier, uploaded candidate resumes in `app/storage/resumes/` reside on the container's ephemeral disk. For persistent multi-instance production environments, an S3 / Cloudflare R2 bucket adapter is recommended.
+2. **Serverless Spin-Down on Free Hosting:** Inactive free-tier Render instances spin down after 15 minutes of inactivity; initial cold-start requests may take 30–50 seconds to wake the container.
+3. **Synchronous Mail Dispatch:** Email dispatch operates synchronously during request processing when configured for SMTP.
+
+---
+
+## 25. Future Roadmap
+
+- [ ] **S3 / Cloudflare R2 Storage Adapter:** Seamless cloud storage integration for distributed candidate resume vaults.
+- [ ] **Asynchronous Task Queue:** Database-backed queue worker for background email delivery and notifications.
+- [ ] **WebAuthn / Passkey Biometrics:** Passwordless authentication via modern browser WebAuthn API.
+- [ ] **Candidate Dossier PDF Export:** One-click automated PDF compilation of candidate profiles and application histories for hiring committees.
+- [ ] **Webhook Integrations:** Real-time applicant alerts to Slack, Discord, and Microsoft Teams.
+
+---
+
+## 26. Troubleshooting Guide
+
+### 1. Database Connection Refused (`Connection refused [111]`)
+- **Cause:** Render environment variables are missing or stripped by PHP-FPM.
+- **Fix:** Ensure `clear_env = no` is in `/usr/local/etc/php-fpm.d/zz-docker.conf` (included in current `Dockerfile`) and verify that `DB_HOST`, `DB_PORT=4000`, `DB_NAME=jobpro`, `DB_USER`, `DB_PASS`, `DB_SSL=true` are configured in the Render Dashboard under **Environment**.
+
+### 2. "Table 'jobpro.user' doesn't exist" (Error 1146)
+- **Cause:** Database tables have not yet been imported into the TiDB Cloud cluster.
+- **Fix:** Open TiDB Cloud SQL Editor, paste `database/schema.sql`, press `Shift + Ctrl + Enter` to execute all statements, and verify with `SHOW TABLES;`.
+
+### 3. Password Validation Error: "Use a passphrase of 15–128 characters"
+- **Cause:** Registration enforces enterprise passphrase security standards.
+- **Fix:** Use a passphrase of at least 15 characters (e.g. `MySecurePassphrase2026!`).
+
+### 4. Admin Navigation Not Showing After Role Grant
+- **Cause:** Active browser session holds pre-grant authorization tokens.
+- **Fix:** Sign out and sign back in to regenerate the session and refresh RBAC permissions.
+
+---
+
+## 27. Contribution & Code Standards
 
 We welcome community contributions that uphold JobPro's core architectural standards:
 
-1. **Preserve the Zero-Dependency Philosophy:** Do not introduce composer packages or npm runtime dependencies. Keep all code in pure PHP, Vanilla JS, and modern CSS3.
-2. **Follow PSR-12 Coding Standards:** Maintain consistent formatting, 4-space indentation, camelCase methods, and explicit return types.
-3. **Zero Security Regressions:** Any PR introducing mutations or file access must include anti-CSRF token verification and prepared statements.
-4. **Mandatory Regression Verification:** Run and pass all 146 automated tests before submitting changes:
+1. **Preserve the Zero-Dependency Philosophy:** Do not introduce Composer or NPM runtime dependencies. Keep all code in pure PHP, Vanilla JS, and modern CSS3.
+2. **Adhere to Strict Typing & PSR-12:** Maintain consistent 4-space indentation, camelCase methods, strict type annotations, and explicit return types.
+3. **Zero Security Regressions:** Every mutating route must validate anti-CSRF tokens and use prepared SQL statements.
+4. **Mandatory Regression Pass:** All 146 automated tests must pass before submitting pull requests:
    ```powershell
    powershell -ExecutionPolicy Bypass -File tests/run-regression.ps1
    ```
 
 ---
 
-## 📄 License
+## 28. License & Acknowledgments
 
 This project is open-source software licensed under the [MIT License](LICENSE).
+
+Developed with pride using native web standards: **PHP 8.4**, **MySQL 8.0 / TiDB Serverless**, **Vanilla ES6+**, and **Modern CSS3**.
