@@ -10,8 +10,8 @@ $old = ['username' => mb_substr($submittedUsername,0,255), 'next' => $next];
 if ($submittedUsername === '' || $submittedPassword === '') jobproFormFailure('login', ['form' => 'Enter your username and JobPro password.'], $old, '/pages/login.php');
 try {
     if (!jobproRate('login-ip:' . jobproClientKey(), 40, 900) || !jobproRate('login:' . jobproClientKey() . ':' . mb_strtolower($submittedUsername), 8, 900)) jobproFormFailure('login', ['form' => 'Too many sign-in attempts. Wait 15 minutes before trying again.'], $old, '/pages/login.php');
-    $stmt = jobproDatabase()->prepare('SELECT u.*,p.person_id,c.company_id FROM user u LEFT JOIN person p ON p.user_id=u.user_id LEFT JOIN company c ON c.user_id=u.user_id WHERE u.username=? LIMIT 2');
-    $stmt->bind_param('s',$submittedUsername); $stmt->execute(); $result=$stmt->get_result();
+    $stmt = jobproDatabase()->prepare('SELECT u.*,p.person_id,c.company_id FROM user u LEFT JOIN person p ON p.user_id=u.user_id LEFT JOIN company c ON c.user_id=u.user_id WHERE (u.username=? OR u.email=?) LIMIT 2');
+    $stmt->bind_param('ss',$submittedUsername,$submittedUsername); $stmt->execute(); $result=$stmt->get_result();
     $user=$result->num_rows === 1 ? $result->fetch_assoc() : null; $stmt->close();
     if ($user && jobproSignIn($user,$submittedPassword)) {
         jobproState('rate', 'login:' . jobproClientKey() . ':' . mb_strtolower($submittedUsername), static function (&$state) { $state['count'] = 0; });

@@ -5,6 +5,9 @@ RUN apk add --no-cache nginx mysql-client libpng-dev libjpeg-turbo-dev freetype-
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mysqli
 
+# Configure PHP-FPM to pass Docker environment variables to PHP worker processes
+RUN echo "clear_env = no" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
 # Copy custom Nginx configuration
 COPY .docker/nginx.conf /etc/nginx/nginx.conf
 
