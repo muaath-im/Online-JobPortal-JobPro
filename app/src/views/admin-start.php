@@ -1,0 +1,14 @@
+<?php
+require_once jobproPath('src/views/admin-ui.php');
+jobproStartSession();$adminUser=jobproRequireUser();
+header('Cache-Control: private, no-store');header('X-Robots-Tag: noindex, nofollow');
+$adminBufferLevel=ob_get_level();ob_start();$adminMember=null;$adminError=false;
+try{$adminMember=jobproAdminMembership((int)$adminUser['user_id']);}catch(Throwable$error){error_log('JobPro administration authorization unavailable.');$adminError=true;}
+$adminAllowed=$adminMember&&jobproAdminCan($adminMember['role'],$adminActive);
+$pageTitle=$adminTitle.' — JobPro Administration';
+if(!$adminAllowed)http_response_code($adminError?503:403);
+include jobproPath('src/views/header.php');
+if(!$adminAllowed){?><div class="jp-container jp-admin-denied"><p class="jp-eyebrow">ADMINISTRATION</p><h1><?= $adminError?'Administration is temporarily unavailable.':'Administrator access is required.' ?></h1><p><?= $adminError?'Please try again later.':'Your current account does not have permission to open this area.' ?></p><a class="jp-button" href="/pages/account.php">Return to your account</a></div><?php include jobproPath('src/views/footer.php');ob_end_flush();exit;}
+$adminRole=$adminMember['role'];
+?>
+<div class="jp-container jp-admin-layout"><aside class="jp-admin-sidebar" aria-label="Administration workspace"><a class="jp-admin-identity" href="/pages/admin.php"><span aria-hidden="true">JP</span><div><strong>JobPro</strong><small><?= $adminRole==='owner'?'Owner administration':'Content moderation' ?></small></div></a><nav class="jp-admin-nav" aria-label="Administration navigation"><?php foreach(['overview'=>['Overview','admin.php'],'users'=>['Users','admin-users.php'],'companies'=>['Employers','admin-companies.php'],'jobs'=>['Job moderation','admin-jobs.php'],'applications'=>['Applications','admin-applications.php'],'access'=>['Admin access','admin-access.php'],'audit'=>['Audit log','admin-audit.php']]as$key=>$item): if(!jobproAdminCan($adminRole,$key))continue; ?><a href="/pages/<?= $item[1] ?>"<?= $adminActive===$key?' aria-current="page"':'' ?>><span><?= $item[0] ?></span><span aria-hidden="true">↗</span></a><?php endforeach; ?></nav><div class="jp-admin-sidebar-note"><p class="jp-eyebrow">MANAGE WITH CARE</p><p>Clear decisions. Protected records. Every change leaves a trace.</p></div><a class="jp-admin-account" href="/pages/account.php?section=security">Account &amp; security</a></aside><section class="jp-admin-content" aria-labelledby="admin-title"><header class="jp-admin-heading"><div><p class="jp-eyebrow">JOBPRO / ADMINISTRATION</p><h1 id="admin-title"><?= jobproEscape($adminHeading??$adminTitle) ?></h1><p><?= jobproEscape($adminLead??'Keep the platform clear, useful, and trustworthy.') ?></p></div><?php jobproAdminBadge($adminRole); ?></header><?php jobproRenderFlash(jobproTakeFlash()); ?>
