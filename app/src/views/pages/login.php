@@ -14,8 +14,8 @@ $pageTitle='Welcome back — JobPro';include jobproPath('src/views/header.php');
         <?php jobproRenderFlash($flash);jobproErrors($state['errors']); ?>
         <form action="/api/login_api.php" method="post" data-auth-form>
             <?= jobproCsrfField() ?><input type="hidden" name="next" value="<?= jobproEscape($next) ?>">
-            <?php jobproField('username','Username',$state,['required'=>true,'autocomplete'=>'username','maxlength'=>255,'aria-describedby'=>'username-help']); ?>
-            <p class="jp-auth-hint" id="username-help">Use the username you chose when registering, rather than your email address.</p>
+            <?php jobproField('username','Username or email address',$state,['required'=>true,'autocomplete'=>'username','maxlength'=>255,'aria-describedby'=>'username-help']); ?>
+            <p class="jp-auth-hint" id="username-help">Use the username or email address associated with your account.</p>
             <?php jobproField('password','Password',$state,['type'=>'password','required'=>true,'autocomplete'=>'current-password']); ?>
             <div class="jp-auth-form-links"><span>Personal &amp; company accounts</span><a href="/pages/forgot-password.php">Forgot password?</a></div>
             <button class="jp-button jp-auth-submit" type="submit" data-pending-label="Signing in…">Sign in <span aria-hidden="true">→</span></button>
