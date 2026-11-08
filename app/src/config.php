@@ -79,7 +79,13 @@ function jobproOpenDatabase(): mysqli
     if (!$host || !$name || !$user || $pass === false || $port === false) throw new RuntimeException('Database configuration is unavailable.');
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     try {
-        $connection = new mysqli($host, $user, $pass, $name, $port);
+        $connection = mysqli_init();
+        $flags = 0;
+        if ($port === 4000 || getenv('DB_SSL') === 'true') {
+            $connection->ssl_set(NULL, NULL, NULL, NULL, NULL);
+            $flags = MYSQLI_CLIENT_SSL;
+        }
+        $connection->real_connect($host, $user, $pass, $name, $port, NULL, $flags);
         $connection->set_charset('utf8mb4');
         return $connection;
     } catch (mysqli_sql_exception $error) {
